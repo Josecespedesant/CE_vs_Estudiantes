@@ -20,6 +20,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Estudiante.h \
     mainwindow.h
 
 FORMS += \
