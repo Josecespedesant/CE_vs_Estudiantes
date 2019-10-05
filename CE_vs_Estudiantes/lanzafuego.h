@@ -1,8 +1,8 @@
 #ifndef LANZAFUEGO_H
 #define LANZAFUEGO_H
 
-
-class LanzaFuego
+#include <Curso.h>
+class LanzaFuego : public Curso
 {
 public:
     LanzaFuego();

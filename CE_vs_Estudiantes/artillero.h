@@ -1,11 +1,12 @@
 #ifndef ARTILLERO_H
 #define ARTILLERO_H
 
-
-class Artillero
+#include <Curso.h>
+class Artillero : public Curso
 {
 public:
     Artillero();
+    ~Artillero();
 };
 
 #endif // ARTILLERO_H

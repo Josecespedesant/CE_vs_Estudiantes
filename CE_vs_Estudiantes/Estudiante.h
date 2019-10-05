@@ -3,22 +3,45 @@
 
 class Estudiante{
 
-private:
+protected:
     int health;
     double speed;
     int archerResistance;
     int artilleryResistance;
+    int mageResistance;
     int fireResistance;
 
 public:
-    virtual int getHealth() = 0;
-    virtual void setHealth(int health) = 0;
-    virtual double getSpeed() = 0;
-    virtual void setSpeed(double) = 0;
-    virtual int getArcherResistance() = 0;
-    virtual void setArcherResistance(int archerResistance) = 0;
-    virtual int getFireResistance() = 0;
-    virtual void setFireResistance(int fireResistance) = 0;
+    int getHealth(){
+        return health;
+    }
+    void setHealth(int health){
+        this->health = health;
+    }
+    double getSpeed(){
+        return speed;
+    }
+    void setSpeed(double speed){
+        this->speed = speed;
+    }
+    int getArcherResistance(){
+        return archerResistance;
+    }
+    void setArcherResistance(int archerResistance){
+        this->archerResistance = archerResistance;
+    }
+    int getFireResistance(){
+        return fireResistance;
+    }
+    void setFireResistance(int fireResistance){
+        this->fireResistance = fireResistance;
+    }
+    int getMageResistance(){
+        return mageResistance;
+    }
+    void setMageResistance(int mageResistance){
+        this->mageResistance = mageResistance;
+    }
 
 };
 

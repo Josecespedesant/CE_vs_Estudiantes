@@ -16,14 +16,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    arquero.cpp \
+    artillero.cpp \
+    grid.cpp \
+    lanzafuego.cpp \
+    mago.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    Curso.h \
     Estudiante.h \
+    arquero.h \
+    artillero.h \
+    grid.h \
+    lanzafuego.h \
+    mago.h \
     mainwindow.h
 
 FORMS += \
+    grid.ui \
     mainwindow.ui
 
 # Default rules for deployment.

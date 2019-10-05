@@ -13,7 +13,10 @@ class Grid : public QDialog
 
 public:
     explicit Grid(QWidget *parent = nullptr);
+
     ~Grid();
+private slots:
+    void handleButton(QPushButton*);
 
 private:
     Ui::Grid *ui;
