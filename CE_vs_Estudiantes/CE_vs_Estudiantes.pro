@@ -24,7 +24,9 @@ SOURCES += \
     lanzafuego.cpp \
     mago.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    player.cpp \
+    parcela.cpp
 
 HEADERS += \
     Curso.h \
@@ -36,7 +38,9 @@ HEADERS += \
     grid.h \
     lanzafuego.h \
     mago.h \
-    mainwindow.h
+    mainwindow.h \
+    player.h \
+    parcela.h
 
 FORMS += \
     choosetower.ui \

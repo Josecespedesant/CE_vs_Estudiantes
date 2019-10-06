@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "grid.h"
+#include "player.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -16,7 +17,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    Grid *g = new Grid();
+    Player *player = new Player(10);
+    Grid *g = new Grid(nullptr,player);
     g->show();
     hide();
 }
