@@ -20,7 +20,7 @@ ChooseTower::ChooseTower(QWidget *parent, QPushButton* button, Player* player, Q
     int w = ui->pushButton->width();
 
     if(player->getCreditosTotales() <= 0){
-        QPixmap pixmap("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/questionmark.png");
+        QPixmap pixmap(":/images/questionmark.png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
@@ -50,13 +50,13 @@ ChooseTower::ChooseTower(QWidget *parent, QPushButton* button, Player* player, Q
     }
 
     if(player->getCreditosTotales() <= 2 && player->getCreditosTotales() > 0){
-        QPixmap pixmap("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/tower1.png");
+        QPixmap pixmap(":/images/tower1.png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
         ui->pushButton->setIconSize(pixmap.rect().size());
 
-        QPixmap pixmap2("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/questionmark.png");
+        QPixmap pixmap2(":/images/questionmark.png");
         QIcon ButtonIcon2(pixmap2.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_2->setIcon(ButtonIcon2);
         ui->pushButton_2->setText("");
@@ -77,25 +77,25 @@ ChooseTower::ChooseTower(QWidget *parent, QPushButton* button, Player* player, Q
     }
 
     if(player->getCreditosTotales() >2  && player->getCreditosTotales()<6){
-        QPixmap pixmap("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/tower1.png");
+        QPixmap pixmap(":/images/tower1.png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
         ui->pushButton->setIconSize(pixmap.rect().size());
 
-        QPixmap pixmap2("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/tower2.png");
+        QPixmap pixmap2(":/images/tower2.png");
         QIcon ButtonIcon2(pixmap2.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_2->setIcon(ButtonIcon2);
         ui->pushButton_2->setText("");
         ui->pushButton_2->setIconSize(pixmap2.rect().size());
 
-        QPixmap pixmap3("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/tower3.png");
+        QPixmap pixmap3(":/images/tower3.png");
         QIcon ButtonIcon3(pixmap3.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_3->setIcon(ButtonIcon3);
         ui->pushButton_3->setText("");
         ui->pushButton_3->setIconSize(pixmap3.rect().size());
 
-        QPixmap pixmap4("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/questionmark.png");
+        QPixmap pixmap4(":/images/questionmark.png");
         QIcon ButtonIcon4(pixmap4.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_4->setIcon(ButtonIcon4);
         ui->pushButton_4->setText("");
@@ -105,25 +105,25 @@ ChooseTower::ChooseTower(QWidget *parent, QPushButton* button, Player* player, Q
     }
 
     if(player->getCreditosTotales()>=6){
-        QPixmap pixmap("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/tower1.png");
+        QPixmap pixmap(":/images/tower1.png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
         ui->pushButton->setIconSize(pixmap.rect().size());
 
-        QPixmap pixmap2("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/tower2.png");
+        QPixmap pixmap2(":/images/tower2.png");
         QIcon ButtonIcon2(pixmap2.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_2->setIcon(ButtonIcon2);
         ui->pushButton_2->setText("");
         ui->pushButton_2->setIconSize(pixmap2.rect().size());
 
-        QPixmap pixmap3("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/tower3.png");
+        QPixmap pixmap3(":images/tower3.png");
         QIcon ButtonIcon3(pixmap3.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_3->setIcon(ButtonIcon3);
         ui->pushButton_3->setText("");
         ui->pushButton_3->setIconSize(pixmap3.rect().size());
 
-        QPixmap pixmap4("/home/josecespedes/CE_vs_Estudiantes/CE_vs_Estudiantes/images/tower4.png");
+        QPixmap pixmap4(":/images/tower4.png");
         QIcon ButtonIcon4(pixmap4.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_4->setIcon(ButtonIcon4);
         ui->pushButton_4->setText("");

@@ -52,10 +52,15 @@ DISTFILES += \
     images/tower1.png \
     images/tower2.png \
     images/tower3.png \
-    images/tower4.png
+    images/tower4.png \
+    images/questionmark.png
 
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    qtresource.qrc \
+    qtresource.qrc

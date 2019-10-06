@@ -17,8 +17,17 @@ Grid::Grid(QWidget *parent, Player* player) :
 
     QPushButton* grid[12][10];
 
+
+
     ui->label_2->setText(QString::number(this->player->getCreditosTotales()));
 
+/*
+    for(int i=0; i<10;i++){
+        Parcela *parcela2 = new Parcela();
+        parcela2->setFixedSize(50,50);
+        parcela2->setCheckable(false);
+
+    }*/
 
     QLabel *zonadeaprobacion = new QLabel();
     zonadeaprobacion->setFixedSize(600,50);
