@@ -2,6 +2,8 @@
 #include "ui_grid.h"
 #include "QLabel"
 #include "iostream"
+#include "choosetower.h"
+#include "destroytower.h"
 Grid::Grid(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Grid)
@@ -23,7 +25,8 @@ Grid::Grid(QWidget *parent) :
         for(int j=0; j<10;j++){
             QPushButton *push = new QPushButton();
             push->setFixedSize(50,50);
-            connect(push,SIGNAL (released()),this,SLOT (handleButton(QPushButton*)));
+            push->setCheckable(false);
+            connect(push,SIGNAL(clicked()),this,SLOT(handleButton()));
 
             if((i+j)%2==0){
                 QPalette pal;
@@ -52,10 +55,19 @@ Grid::Grid(QWidget *parent) :
 
 }
 
-void Grid::handleButton(QPushButton* push){
+void Grid::handleButton(){
+    QPushButton* pButton = qobject_cast<QPushButton*>(sender());
+    if (pButton)
+         {
+            if(pButton->isChecked()){
+                DestroyTower *dr = new DestroyTower(nullptr, pButton);
+                dr->show();
 
-    push->setText("Clickeao");
-
+            }else{
+                ChooseTower *ch = new ChooseTower(nullptr, pButton);
+                ch->show();
+            }
+         }
 }
 
 Grid::~Grid()

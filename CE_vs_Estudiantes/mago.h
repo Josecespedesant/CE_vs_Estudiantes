@@ -2,7 +2,7 @@
 #define MAGO_H
 
 #include <Curso.h>
-class Mago : public Curso
+class Mago : public Curso, public QIcon
 {
 public:
     Mago();

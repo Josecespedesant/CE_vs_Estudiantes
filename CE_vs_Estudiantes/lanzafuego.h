@@ -2,7 +2,7 @@
 #define LANZAFUEGO_H
 
 #include <Curso.h>
-class LanzaFuego : public Curso
+class LanzaFuego : public Curso, public QIcon
 {
 public:
     LanzaFuego();

@@ -1,6 +1,6 @@
 #ifndef CURSO_H
 #define CURSO_H
-
+#include <QIcon>
 class Curso{
 
 protected:

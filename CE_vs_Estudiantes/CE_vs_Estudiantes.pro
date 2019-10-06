@@ -18,6 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     arquero.cpp \
     artillero.cpp \
+    choosetower.cpp \
+    destroytower.cpp \
     grid.cpp \
     lanzafuego.cpp \
     mago.cpp \
@@ -29,14 +31,25 @@ HEADERS += \
     Estudiante.h \
     arquero.h \
     artillero.h \
+    choosetower.h \
+    destroytower.h \
     grid.h \
     lanzafuego.h \
     mago.h \
     mainwindow.h
 
 FORMS += \
+    choosetower.ui \
+    destroytower.ui \
     grid.ui \
     mainwindow.ui
+
+DISTFILES += \
+    images/tower1.png \
+    images/tower2.png \
+    images/tower3.png \
+    images/tower4.png
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
