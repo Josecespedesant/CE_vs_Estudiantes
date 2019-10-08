@@ -10,6 +10,7 @@ protected:
     double velocidadEvaluacion;
     int alcance;
     double cooldown;
+    int nivelActual;
 
 public:
     void setCantCreditos(int cantCredi){
@@ -48,6 +49,15 @@ public:
     void setCooldown(int cooldown){
         this->cooldown = cooldown;
     }
+
+    void setNivelActual(int nivel){
+        this->nivelActual = nivel;
+    }
+
+    int getNivelActual(){
+        return nivelActual;
+    }
+
     void upgrade(int *creditos){
         if(*creditos >= getCantCreditos()){
             *creditos -= getCantCreditos();
@@ -58,6 +68,7 @@ public:
             setVelocidadEvaluacion(getVelocidadEvaluacion()+0.5);
         }
     }
+
 };
 
 #endif // CURSO_H

@@ -17,7 +17,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    Player *player = new Player(10);
+    Player *player = new Player(1000);
     Grid *g = new Grid(nullptr,player);
     g->show();
     hide();

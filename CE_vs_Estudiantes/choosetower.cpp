@@ -6,7 +6,7 @@
 #include "lanzafuego.h"
 #include "mago.h"
 
-ChooseTower::ChooseTower(QWidget *parent, QPushButton* button, Player* player, QLabel* creditos) :
+ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabel* creditos) :
     QDialog(parent),
     ui(new Ui::ChooseTower)
 {
@@ -147,6 +147,7 @@ void ChooseTower::on_pushButton_clicked()
     this->button->setIcon(*arch);
     this->button->setIconSize(pixm.rect().size());
     this->button->setObjectName("Arch");
+    this->button->setType("Archer");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
     hide();
 }
@@ -161,6 +162,7 @@ void ChooseTower::on_pushButton_2_clicked()
     this->button->setIcon(*arty);
     this->button->setIconSize(pixm.rect().size());
     this->button->setObjectName("Arty");
+    this->button->setType("Gunner");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
     hide();
 }
@@ -175,6 +177,7 @@ void ChooseTower::on_pushButton_3_clicked()
     this->button->setIcon(*mag);
     this->button->setIconSize(pixm.rect().size());
     this->button->setObjectName("Mago");
+    this->button->setType("Mage");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
     hide();
 }
@@ -189,6 +192,7 @@ void ChooseTower::on_pushButton_4_clicked()
     this->button->setIcon(*fire);
     this->button->setIconSize(pixm.rect().size());
     this->button->setObjectName("Fire");
+    this->button->setType("Fire");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
     hide();
 }

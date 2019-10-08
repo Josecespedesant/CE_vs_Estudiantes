@@ -7,8 +7,15 @@
 #define Y_STEP 10
 
 #include <QPushButton>
+#include "Curso.h"
+#include "arquero.h"
+#include "lanzafuego.h"
+#include "artillero.h"
+#include "mago.h"
+
 class Parcela : public QPushButton
 {
+    Q_OBJECT
 private:
     bool ocupada;
     int y;
@@ -19,8 +26,22 @@ private:
     float hCost;
     float fCost;
 
+    Arquero *arch;
+    Artillero *gunner;
+    Mago *mago;
+    LanzaFuego *fire;
+
+
 public:
-    Parcela();
+    void setType(QString);
+
+
+    Arquero* getArquero();
+    Artillero* getArtillero();
+    Mago* getMago();
+    LanzaFuego* getLanzaFuego();
+
+
     bool isOcupada();
     void setOcupada(bool isocupada);
 };

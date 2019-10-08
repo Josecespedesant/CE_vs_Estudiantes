@@ -6,7 +6,6 @@ class Mago : public Curso, public QIcon
 {
 public:
     Mago();
-    ~Mago();
 };
 
 #endif // MAGO_H

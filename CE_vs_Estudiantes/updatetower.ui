@@ -1,88 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Grid</class>
- <widget class="QDialog" name="Grid">
+ <class>UpdateTower</class>
+ <widget class="QDialog" name="UpdateTower">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1037</width>
-    <height>660</height>
+    <width>447</width>
+    <height>258</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="gridLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>561</width>
-     <height>661</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout"/>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>20</y>
-     <width>61</width>
-     <height>17</height>
+     <x>20</x>
+     <y>30</y>
+     <width>321</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Credits:</string>
+    <string>Are you sure you want to update your tower of</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>640</x>
-     <y>20</y>
-     <width>67</width>
-     <height>17</height>
+     <x>350</x>
+     <y>30</y>
+     <width>81</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
     <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>580</x>
+     <x>160</x>
      <y>60</y>
-     <width>91</width>
+     <width>21</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Generations:</string>
+    <string>for</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>100</y>
-     <width>111</width>
+     <x>190</x>
+     <y>60</y>
+     <width>31</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Failed students:</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>670</x>
+     <x>230</x>
      <y>60</y>
      <width>67</width>
      <height>17</height>
@@ -91,37 +77,31 @@
    <property name="text">
     <string/>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>690</x>
-     <y>100</y>
-     <width>67</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>690</x>
-     <y>620</y>
+     <x>80</x>
+     <y>200</y>
      <width>89</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>Reset</string>
+    <string>Accept</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>200</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
    </property>
   </widget>
  </widget>

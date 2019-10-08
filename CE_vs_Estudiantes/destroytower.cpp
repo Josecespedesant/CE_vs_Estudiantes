@@ -2,7 +2,7 @@
 #include "ui_destroytower.h"
 #include "iostream"
 
-DestroyTower::DestroyTower(QWidget *parent, QPushButton *button, Player* player, QLabel* creditos) :
+DestroyTower::DestroyTower(QWidget *parent, Parcela *button, Player* player, QLabel* creditos) :
     QDialog(parent),
     ui(new Ui::DestroyTower)
 {
@@ -26,6 +26,9 @@ void DestroyTower::on_pushButton_2_clicked()
 void DestroyTower::on_pushButton_clicked()
 {
 
+    this->button->setCheckable(false);
+    this->button->setIcon(QIcon());
+
     if(button->objectName().toStdString().compare("Arch") == 0){
         player->setCreditosTotales(player->getCreditosTotales()+1);
         creditos->setText(QString::number(this->player->getCreditosTotales()));
@@ -43,7 +46,5 @@ void DestroyTower::on_pushButton_clicked()
         creditos->setText(QString::number(this->player->getCreditosTotales()));
     }
 
-    this->button->setCheckable(false);
-    this->button->setIcon(QIcon());
     hide();
 }

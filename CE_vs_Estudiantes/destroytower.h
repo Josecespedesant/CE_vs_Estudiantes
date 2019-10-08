@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "player.h"
 #include "QLabel"
+#include "parcela.h"
 namespace Ui {
 class DestroyTower;
 }
@@ -13,7 +14,7 @@ class DestroyTower : public QDialog
     Q_OBJECT
 
 public:
-    explicit DestroyTower(QWidget *parent = nullptr, QPushButton *button = NULL, Player *player = 0, QLabel* creditos = NULL);
+    explicit DestroyTower(QWidget *parent = nullptr, Parcela *button = NULL, Player *player = 0, QLabel* creditos = NULL);
     ~DestroyTower();
 
 private slots:
@@ -23,7 +24,7 @@ private slots:
 
 private:
     Ui::DestroyTower *ui;
-    QPushButton *button;
+    Parcela *button;
     Player *player;
     QLabel* creditos;
 };

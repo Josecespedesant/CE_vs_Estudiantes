@@ -26,7 +26,11 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     player.cpp \
-    parcela.cpp
+    parcela.cpp \
+    updateordestroy.cpp \
+    updatetower.cpp \
+    warningmaxlvl.cpp \
+    evaluation.cpp
 
 HEADERS += \
     Curso.h \
@@ -40,13 +44,20 @@ HEADERS += \
     mago.h \
     mainwindow.h \
     player.h \
-    parcela.h
+    parcela.h \
+    updateordestroy.h \
+    updatetower.h \
+    warningmaxlvl.h \
+    evaluation.h
 
 FORMS += \
     choosetower.ui \
     destroytower.ui \
     grid.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    updateordestroy.ui \
+    updatetower.ui \
+    warningmaxlvl.ui
 
 DISTFILES += \
     images/tower1.png \

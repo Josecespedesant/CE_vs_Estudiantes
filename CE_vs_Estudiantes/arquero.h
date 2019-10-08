@@ -8,7 +8,6 @@ class Arquero : public Curso, public QIcon
 {
 public:
     Arquero();
-    ~Arquero();
 };
 
 #endif // ARQUERO_H

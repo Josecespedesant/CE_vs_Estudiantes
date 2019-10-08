@@ -6,40 +6,40 @@
 #include "destroytower.h"
 #include "player.h"
 #include <QPushButton>
-#include "parcela.h"
+#include "updateordestroy.h"
+#include "evaluation.h"
+#include <QWidget>
+
 Grid::Grid(QWidget *parent, Player* player) :
     QDialog(parent),
     ui(new Ui::Grid)
 {
     ui->setupUi(this);
 
+
+    gr = new QGraphicsScene(this);
+    gr->setSceneRect(700,200,1000,1000);
     this->player = player;
-
-    QPushButton* grid[12][10];
-
-
 
     ui->label_2->setText(QString::number(this->player->getCreditosTotales()));
 
-/*
+
     for(int i=0; i<10;i++){
-        Parcela *parcela2 = new Parcela();
-        parcela2->setFixedSize(50,50);
-        parcela2->setCheckable(false);
+        Parcela *zonaDeAprobacion = new Parcela;
+        zonaDeAprobacion->setFixedSize(50,50);
+        zonaDeAprobacion->setCheckable(false);
 
-    }*/
+        QPalette pal;
+        pal.setColor(QPalette::Button, QColor(Qt::blue));
+        zonaDeAprobacion->setPalette(pal);
+        ui->gridLayout->addWidget(zonaDeAprobacion,0,i);
 
-    QLabel *zonadeaprobacion = new QLabel();
-    zonadeaprobacion->setFixedSize(600,50);
-    zonadeaprobacion->setStyleSheet("QLabel { background-color : blue; color : blue; }");
-    zonadeaprobacion->setText("Zona de aprobación");
-    zonadeaprobacion->setAlignment(Qt::AlignCenter);
-    ui->gridLayout->addWidget(zonadeaprobacion,0,0);
-
+        grid[0][i] = zonaDeAprobacion;
+    }
 
     for(int i=1; i<11; i++){
         for(int j=0; j<10;j++){
-            Parcela *parcela = new Parcela();
+            Parcela *parcela = new Parcela;
             parcela->setFixedSize(50,50);
             parcela->setCheckable(false);
 
@@ -58,14 +58,21 @@ Grid::Grid(QWidget *parent, Player* player) :
                 ui->gridLayout->addWidget(parcela, i, j);
 
           }
+            grid[i][j] = parcela;
 
     }
 
-        QLabel *zonadeaprobacion = new QLabel();
-        zonadeaprobacion->setFixedSize(600,50);
-        zonadeaprobacion->setStyleSheet("QLabel { background-color : red; color : red; }");
-        zonadeaprobacion->setAlignment(Qt::AlignCenter);
-        ui->gridLayout->addWidget(zonadeaprobacion,12,0);
+        for(int i=0; i<10;i++){
+            Parcela *zonaDeSalida = new Parcela;
+            zonaDeSalida->setFixedSize(50,50);
+            zonaDeSalida->setCheckable(false);
+
+            QPalette pal;
+            pal.setColor(QPalette::Button, QColor(Qt::red));
+            zonaDeSalida->setPalette(pal);
+            ui->gridLayout->addWidget(zonaDeSalida,12,i);
+            grid[11][i] = zonaDeSalida;
+        }
 
 
    }
@@ -73,13 +80,12 @@ Grid::Grid(QWidget *parent, Player* player) :
 }
 
 void Grid::handleButton(){
-    QPushButton* pButton = qobject_cast<QPushButton*>(sender());
+    Parcela* pButton = qobject_cast<Parcela*>(sender());
     if (pButton)
          {
             if(pButton->isCheckable()){
-                DestroyTower *dr = new DestroyTower(nullptr, pButton, player, ui->label_2);
-                dr->show();
-
+                UpdateOrDestroy *upord = new UpdateOrDestroy(NULL, pButton, player, ui->label_2);
+                upord->show();
             }
             if(!pButton->isCheckable()){
                 ChooseTower *ch = new ChooseTower(nullptr, pButton, player, ui->label_2);
@@ -92,4 +98,18 @@ void Grid::handleButton(){
 Grid::~Grid()
 {
     delete ui;
+}
+
+void Grid::mousePressEvent(QMouseEvent *event){
+    Evaluation *ev = new Evaluation();
+    ev->setPos(event->pos());
+    gr->addItem(ev);
+    std::cout<<event->pos().x()<<std::endl;
+}
+
+//Debugear la app
+void Grid::on_pushButton_clicked()
+{
+    this->player->setCreditosTotales(1000);
+    ui->label_2->setText(QString::number(this->player->getCreditosTotales()));
 }

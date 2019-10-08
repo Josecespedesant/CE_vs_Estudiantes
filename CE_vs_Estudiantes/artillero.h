@@ -6,7 +6,6 @@ class Artillero : public Curso, public QIcon
 {
 public:
     Artillero();
-    ~Artillero();
 };
 
 #endif // ARTILLERO_H
