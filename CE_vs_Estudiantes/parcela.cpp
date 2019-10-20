@@ -1,6 +1,27 @@
 #include "parcela.h"
 #include "iostream"
 #include <typeinfo>
+#include "evaluation.h"
+#include <QTimer>
+
+
+extern Grid *grid;
+
+Parcela::Parcela(QGraphicsItem *parent):QPushButton(), QGraphicsPixmapItem(parent)
+{
+    fire = nullptr;
+    gunner = nullptr;
+    arch = nullptr;
+    mago = nullptr;
+    setPixmap(QPixmap());
+
+    if(!this->pixmap().isNull()){
+    QTimer * timer = new QTimer();
+    connect(timer, SIGNAL(timeout()),this,SLOT(attack_target()));
+    timer->start(1000);
+    }
+
+}
 
 bool Parcela::isOcupada(){
     return this->ocupada;
@@ -49,6 +70,18 @@ void Parcela::setType(QString tipo){
 
 }
 
+void Parcela::attack_target()
+{
+
+    Evaluation *evaluation = new Evaluation();
+    evaluation->setPos(this->x,this->y);
+    QLineF line(QPointF(this->x,this->y),attack_dest);
+    int angle = -1 * line.angle();
+    evaluation->setRotation(angle);
+
+    grid->scene->addItem(evaluation);
+
+}
 
 Arquero* Parcela::getArquero(){
     return this->arch;

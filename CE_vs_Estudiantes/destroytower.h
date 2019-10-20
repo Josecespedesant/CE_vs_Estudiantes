@@ -18,8 +18,13 @@ public:
     ~DestroyTower();
 
 private slots:
+    /**
+     * @brief Se presiona en caso de no querer destruir la torre.
+     */
     void on_pushButton_2_clicked();
-
+    /**
+     * @brief Se presioan si se quiere destruir la torre y se devuelve la mitad del coste en créditos de la torre.
+     */
     void on_pushButton_clicked();
 
 private:

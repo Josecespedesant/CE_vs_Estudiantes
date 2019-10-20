@@ -6,14 +6,18 @@
 #define Y_MAX 660
 #define Y_STEP 10
 
+#include "grid.h"
 #include <QPushButton>
 #include "Curso.h"
 #include "arquero.h"
 #include "lanzafuego.h"
 #include "artillero.h"
 #include "mago.h"
+#include <QGraphicsPixmapItem>
 
-class Parcela : public QPushButton
+#include <QPointF>
+
+class Parcela : public QPushButton, public QGraphicsPixmapItem
 {
     Q_OBJECT
 private:
@@ -31,10 +35,17 @@ private:
     Mago *mago;
     LanzaFuego *fire;
 
+    QPointF attack_dest;
+
+public slots:
+    void attack_target();
+
 
 public:
-    void setType(QString);
 
+    Parcela(QGraphicsItem * parent = 0);
+
+    void setType(QString);
 
     Arquero* getArquero();
     Artillero* getArtillero();

@@ -1,13 +1,14 @@
 #ifndef GRID_H
 #define GRID_H
+#include "parcela.h"
 
 #include <QDialog>
 #include <iostream>
 #include "player.h"
 #include <QMouseEvent>
-#include "parcela.h"
 #include <QGraphicsScene>
 namespace Ui {
+
 class Grid;
 }
 
@@ -18,17 +19,18 @@ class Grid : public QDialog
 public:
     explicit Grid(QWidget *parent = nullptr, Player* player = NULL);
     void mousePressEvent(QMouseEvent *event);
+    QGraphicsScene *scene;
     ~Grid();
 
 
 private slots:
     void handleButton();
-
     void on_pushButton_clicked();
 
 private:
-    Parcela* grid[12][10];
-    QGraphicsScene *gr;
+    int tablero[12][10];
+
+
     Ui::Grid *ui;
     Player* player;
 };

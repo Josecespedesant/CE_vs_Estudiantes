@@ -3,10 +3,16 @@
 #include <QApplication>
 #include "arquero.h"
 #include <iostream>
+#include "grid.h"
+
+Grid * grid;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    Player *player = new Player(1000);
+    //MainWindow w;
+    //w.show();
+    grid = new Grid(nullptr, player);
+    grid->show();
     return a.exec();
 }

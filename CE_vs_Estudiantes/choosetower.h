@@ -18,12 +18,21 @@ public:
     ~ChooseTower();
 
 private slots:
+    /**
+     * @brief Selecciona la torre relacionada al tipo de curso "Arquero".
+     */
     void on_pushButton_clicked();
-
+    /**
+     * @brief Selecciona la torre relacionada al tipo de curso "Artillero".
+     */
     void on_pushButton_2_clicked();
-
+    /**
+     * @brief Selecciona la torre relacionada al tipo de curso "Mago".
+     */
     void on_pushButton_3_clicked();
-
+    /**
+     * @brief Selecciona la torre relacioanda al tipo de curso "Lanza fuego"
+     */
     void on_pushButton_4_clicked();
 
 private:

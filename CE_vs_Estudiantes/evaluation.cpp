@@ -3,7 +3,9 @@
 #include <qmath.h>
 Evaluation::Evaluation(QGraphicsItem *parent)
 {
-    setPixmap(QPixmap(":/images/tower1.png"));
+    QPixmap *pix = new QPixmap(":/images/questionmark.png");
+
+    setPixmap(pix->scaled(15,15,Qt::KeepAspectRatio));
 
     QTimer *move_timer = new QTimer(this);
     connect(move_timer, SIGNAL(timeout()), this, SLOT(move()));
