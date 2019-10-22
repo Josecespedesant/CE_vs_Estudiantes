@@ -3,13 +3,13 @@
 
 #include "Estudiante.h"
 
-
-class Ogro: public Estudiante, public QObject
+class Ogro: public Estudiante
 {
-Q_OBJECT
 public:
+    Ogro(QGraphicsItem * parent = 0);
 
-    Ogro(QGraphicsPixmapItem *parent = 0);
+public slots:
+    void move();
 };
 
 #endif // OGRO_H

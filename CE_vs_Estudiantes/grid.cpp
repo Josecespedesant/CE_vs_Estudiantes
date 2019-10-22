@@ -19,6 +19,7 @@ Grid::Grid(QWidget *parent, Player* player) :
     ui->setupUi(this);
     setFixedSize(829,660);
     scene = new QGraphicsScene();
+
     Ogro *ogrocheche = new Ogro();
     ogrocheche->setZValue(1);
     ogrocheche->setY(150);

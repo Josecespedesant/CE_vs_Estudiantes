@@ -1,6 +1,7 @@
 #include "evaluation.h"
 #include <QTimer>
 #include <qmath.h>
+
 Evaluation::Evaluation(QGraphicsItem *parent)
 {
     QPixmap *pix = new QPixmap(":/images/questionmark.png");

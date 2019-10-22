@@ -112,7 +112,7 @@ void Parcela::adquire_target()
     for(size_t i=0, n = collidin_items.size(); i<n; i++){
         Estudiante * estudiante = dynamic_cast<Estudiante *>(collidin_items[i]);
         if(estudiante){
-            double this_dist=distanceTo(estudiante);
+            /*double this_dist=distanceTo(estudiante);
             if(this_dist<closest_dist){
                 closest_dist = this_dist;
                 closest_pt = collidin_items[i]->pos();
@@ -120,7 +120,7 @@ void Parcela::adquire_target()
                 //Testear esto con Victoria
                 attack_dest = closest_pt;
                 attack_target();
-            }
+            }*/
         }
     }
 
