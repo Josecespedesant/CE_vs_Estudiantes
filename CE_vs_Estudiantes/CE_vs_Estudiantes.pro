@@ -20,13 +20,18 @@ SOURCES += \
     artillero.cpp \
     choosetower.cpp \
     destroytower.cpp \
+    elfo_oscuro.cpp \
     grid.cpp \
+    harpia.cpp \
     lanzafuego.cpp \
     mago.cpp \
     main.cpp \
     mainwindow.cpp \
+    mercenario.cpp \
+    ogro.cpp \
     player.cpp \
     parcela.cpp \
+    sprite.cpp \
     updateordestroy.cpp \
     updatetower.cpp \
     warningmaxlvl.cpp \
@@ -39,12 +44,17 @@ HEADERS += \
     artillero.h \
     choosetower.h \
     destroytower.h \
+    elfo_oscuro.h \
     grid.h \
+    harpia.h \
     lanzafuego.h \
     mago.h \
     mainwindow.h \
+    mercenario.h \
+    ogro.h \
     player.h \
     parcela.h \
+    sprite.h \
     updateordestroy.h \
     updatetower.h \
     warningmaxlvl.h \
@@ -74,4 +84,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     qtresource.qrc \
-    qtresource.qrc
+    qtresource.qrc \
+    qtresource.qrc \
+    sprites.qrc
