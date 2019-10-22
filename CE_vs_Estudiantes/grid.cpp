@@ -10,6 +10,7 @@
 #include "evaluation.h"
 #include <QWidget>
 #include "QGraphicsView"
+#include "ogro.h"
 
 Grid::Grid(QWidget *parent, Player* player) :
     QDialog(parent),
@@ -18,6 +19,12 @@ Grid::Grid(QWidget *parent, Player* player) :
     ui->setupUi(this);
     setFixedSize(829,660);
     scene = new QGraphicsScene();
+    Ogro *ogrocheche = new Ogro();
+    ogrocheche->setZValue(1);
+    ogrocheche->setY(150);
+    ogrocheche->setX(150);
+    scene->addItem(ogrocheche);
+
 
     this->player = player;
 
@@ -60,7 +67,7 @@ Grid::Grid(QWidget *parent, Player* player) :
                 pal.setColor(QPalette::Button, QColor(Qt::darkGreen));
                 parcela->setPalette(pal);
             }
-            QGraphicsProxyWidget *proxy = scene->addWidget(parcela);
+           QGraphicsProxyWidget *proxy = scene->addWidget(parcela);
             tablero[i][j] = 0;
             K+=54;
         }

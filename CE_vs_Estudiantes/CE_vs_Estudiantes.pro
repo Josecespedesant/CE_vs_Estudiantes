@@ -25,8 +25,11 @@ SOURCES += \
     mago.cpp \
     main.cpp \
     mainwindow.cpp \
+    mercenario.cpp \
+    ogro.cpp \
     player.cpp \
     parcela.cpp \
+    sprite.cpp \
     updateordestroy.cpp \
     updatetower.cpp \
     warningmaxlvl.cpp \
@@ -43,8 +46,11 @@ HEADERS += \
     lanzafuego.h \
     mago.h \
     mainwindow.h \
+    mercenario.h \
+    ogro.h \
     player.h \
     parcela.h \
+    sprite.h \
     updateordestroy.h \
     updatetower.h \
     warningmaxlvl.h \

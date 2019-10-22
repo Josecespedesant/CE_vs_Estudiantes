@@ -1,8 +1,11 @@
 #ifndef ESTUDIANTE_H
 #define ESTUDIANTE_H
-
+#include <QPixmap>
+#include <QLabel>
 #include "QGraphicsItem"
-class Estudiante : public QGraphicsItem{
+#include <QPushButton>
+
+class Estudiante : public QGraphicsPixmapItem {
 
 protected:
     int health;
