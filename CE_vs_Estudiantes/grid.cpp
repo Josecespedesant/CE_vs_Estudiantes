@@ -112,6 +112,7 @@ void Grid::mousePressEvent(QMouseEvent *event){
     evaluation->setZValue(1);
     evaluation->setPos(event->pos());
     scene->addItem(evaluation);
+
     std::cout<<event->x()<<std::endl;
 }
 

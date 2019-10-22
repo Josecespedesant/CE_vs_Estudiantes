@@ -35,16 +35,18 @@ private:
     Mago *mago;
     LanzaFuego *fire;
 
+    bool has_target;
     QPointF attack_dest;
 
 public slots:
-    void attack_target();
+    void adquire_target();
 
 
 public:
-
+    void attack_target();
     Parcela(QGraphicsItem * parent = 0);
 
+    double distanceTo(QGraphicsItem *item);
     void setType(QString);
 
     Arquero* getArquero();

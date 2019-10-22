@@ -1,7 +1,8 @@
 #ifndef ESTUDIANTE_H
 #define ESTUDIANTE_H
 
-class Estudiante{
+#include "QGraphicsItem"
+class Estudiante : public QGraphicsItem{
 
 protected:
     int health;

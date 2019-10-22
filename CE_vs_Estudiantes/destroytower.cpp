@@ -28,6 +28,7 @@ void DestroyTower::on_pushButton_clicked()
 
     this->button->setCheckable(false);
     this->button->setIcon(QIcon());
+    this->button->setType("");
 
     if(button->objectName().toStdString().compare("Arch") == 0){
         player->setCreditosTotales(player->getCreditosTotales()+1);
