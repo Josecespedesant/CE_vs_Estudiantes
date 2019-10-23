@@ -14,6 +14,7 @@
 #include "artillero.h"
 #include "mago.h"
 #include <QGraphicsPixmapItem>
+#include "Estudiante.h"
 
 #include <QPointF>
 
@@ -37,13 +38,14 @@ private:
 
     bool has_target;
     QPointF attack_dest;
+    QGraphicsPolygonItem *truesquare;
 
 public slots:
     void adquire_target();
 
 
 public:
-    void attack_target();
+    void attack_target(Estudiante* estudiante);
     Parcela(QGraphicsItem * parent = 0);
 
     double distanceTo(QGraphicsItem *item);

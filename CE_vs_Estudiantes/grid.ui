@@ -105,12 +105,12 @@
     <rect>
      <x>690</x>
      <y>620</y>
-     <width>89</width>
+     <width>121</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>Reset</string>
+    <string>Generate Wave</string>
    </property>
   </widget>
   <widget class="QGraphicsView" name="graphicsView">

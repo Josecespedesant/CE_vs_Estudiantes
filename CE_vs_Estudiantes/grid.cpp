@@ -11,7 +11,8 @@
 #include <QWidget>
 #include "QGraphicsView"
 #include "ogro.h"
-
+#include "unistd.h"
+#include <thread>
 Grid::Grid(QWidget *parent, Player* player) :
     QDialog(parent),
     ui(new Ui::Grid)
@@ -20,14 +21,9 @@ Grid::Grid(QWidget *parent, Player* player) :
     setFixedSize(829,660);
     scene = new QGraphicsScene();
 
-    Ogro *ogrocheche = new Ogro();
-    ogrocheche->setZValue(1);
-    ogrocheche->setY(150);
-    ogrocheche->setX(150);
-    scene->addItem(ogrocheche);
-
-
     this->player = player;
+
+    spawnTimer = new QTimer(this);
 
     ui->label_2->setText(QString::number(this->player->getCreditosTotales()));
 
@@ -68,7 +64,7 @@ Grid::Grid(QWidget *parent, Player* player) :
                 pal.setColor(QPalette::Button, QColor(Qt::darkGreen));
                 parcela->setPalette(pal);
             }
-           QGraphicsProxyWidget *proxy = scene->addWidget(parcela);
+            QGraphicsProxyWidget *proxy = scene->addWidget(parcela);
             tablero[i][j] = 0;
             K+=54;
         }
@@ -92,7 +88,11 @@ Grid::Grid(QWidget *parent, Player* player) :
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+
 }
+
+
 
 void Grid::handleButton(){
     Parcela* pButton = qobject_cast<Parcela*>(sender());
@@ -116,17 +116,50 @@ Grid::~Grid()
 }
 
 void Grid::mousePressEvent(QMouseEvent *event){
-    Evaluation *evaluation = new Evaluation();
-    evaluation->setZValue(1);
-    evaluation->setPos(event->pos());
-    scene->addItem(evaluation);
-
     std::cout<<event->x()<<std::endl;
+    std::cout<<event->y()<<std::endl;
 }
 
-//Debugear la app
+void Grid::generateWave(QList<Estudiante *> oleada)
+{
+    for(int i=0; i<oleada.size();i++){
+        Ogro * ogro = dynamic_cast<Ogro *>(oleada[i]);
+        std::cout << i <<std::endl;
+        if(ogro){
+            ogro->setZValue(1);
+            scene->addItem(ogro);
+            usleep(1000000);
+        }
+    }
+}
+
+//Genera oleada
 void Grid::on_pushButton_clicked()
 {
-    this->player->setCreditosTotales(1000);
-    ui->label_2->setText(QString::number(this->player->getCreditosTotales()));
+    Ogro *ogro1 = new Ogro();
+    Ogro *ogro2 = new Ogro();
+    Ogro *ogro3 = new Ogro();
+    Ogro *ogro4 = new Ogro();
+    Ogro *ogro5 = new Ogro();
+    oleada.append(ogro1);
+   // oleada.append(ogro2);
+    //oleada.append(ogro3);
+    //oleada.append(ogro4);
+    //oleada.append(ogro5);
+
+    enemiesSpawned = 0;
+    maxNumberOfEnemies = oleada.size();
+    connect(spawnTimer, SIGNAL(timeout()),this, SLOT(spawnEnemy()));
+    spawnTimer->start(3000);
+
+}
+
+void Grid::spawnEnemy()
+{
+    scene->addItem(oleada[enemiesSpawned]);
+    enemiesSpawned+=1;
+
+    if(enemiesSpawned>=maxNumberOfEnemies){
+        spawnTimer->disconnect();
+    }
 }
