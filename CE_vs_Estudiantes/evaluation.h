@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QLabel>
 #include "Estudiante.h"
+#include "grid.h"
 class Evaluation : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -18,10 +19,12 @@ public:
 public slots:
     void move();
     void setEstudianteObjetivo(Estudiante* estudiante);
+    void setGrid(Grid *grid);
 
 private:
     double maxRange;
     double distaneTravelled;
+    Grid* grid;
 
     Estudiante* estudianteObjetivo;
 };

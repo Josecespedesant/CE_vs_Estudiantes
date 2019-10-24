@@ -39,7 +39,15 @@ void Evaluation::setDistanceTravelled(double dist)
 
 void Evaluation::move(){
 
-    if(this->collidesWithItem(estudianteObjetivo)){
+    if(this->collidesWithItem(estudianteObjetivo)&&estudianteObjetivo->scene()!=NULL){
+        if(this->objectName().toStdString().compare("Arch")==0){
+            std::cout<<"Entró"<<std::endl;
+            estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-1);
+            if(estudianteObjetivo->getHealth()<=0){
+                grid->scene->removeItem(estudianteObjetivo);
+
+            }
+        }
         this->setVisible(false);
         return;
     }
@@ -57,4 +65,9 @@ void Evaluation::move(){
 void Evaluation::setEstudianteObjetivo(Estudiante *estudiante)
 {
     this->estudianteObjetivo = estudiante;
+}
+
+void Evaluation::setGrid(Grid *grid)
+{
+    this->grid = grid;
 }
