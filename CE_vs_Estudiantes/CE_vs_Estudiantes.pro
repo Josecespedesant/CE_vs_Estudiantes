@@ -18,7 +18,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     arquero.cpp \
     artillero.cpp \
-    backtracking.cpp \
     choosetower.cpp \
     destroytower.cpp \
     elfo_oscuro.cpp \
@@ -39,13 +38,14 @@ SOURCES += \
     evaluation.cpp
 
 HEADERS += \
+    Astar.h \
+    BackTracking.h \
     Curso.h \
     Estudiante.h \
     Lista.h \
     Nodo.h \
     arquero.h \
     artillero.h \
-    backtracking.h \
     choosetower.h \
     destroytower.h \
     elfo_oscuro.h \
