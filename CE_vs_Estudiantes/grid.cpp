@@ -22,7 +22,6 @@ Grid::Grid(QWidget *parent, Player* player) :
     ui->setupUi(this);
     setFixedSize(829,660);
     scene = new QGraphicsScene();
-
     this->player = player;
 
     spawnTimer = new QTimer(this);
@@ -43,6 +42,7 @@ Grid::Grid(QWidget *parent, Player* player) :
         I+=54;
         zonaDeAprobacion->setCheckable(false);
 
+        zonaDeAprobacion->setPos(zonaDeAprobacion->geometry().x(),zonaDeAprobacion->geometry().y());
         QPalette pal;
         pal.setColor(QPalette::Button, QColor(Qt::blue));
         zonaDeAprobacion->setPalette(pal);
@@ -71,15 +71,17 @@ Grid::Grid(QWidget *parent, Player* player) :
             parcela->setGeometry(K,S,54,54);
             parcela->setCheckable(false);
 
+            parcela->setPos(parcela->geometry().x(),parcela->geometry().y());
+
             connect(parcela,SIGNAL(clicked()),this,SLOT(handleButton()));
 
             if((i+j)%2==0){
                 QPalette pal;
-                pal.setColor(QPalette::Button, QColor(Qt::green));
+                pal.setColor(QPalette::Button, QColor(Qt::magenta));
                 parcela->setPalette(pal);
             }else{
                 QPalette pal;
-                pal.setColor(QPalette::Button, QColor(Qt::darkGreen));
+                pal.setColor(QPalette::Button, QColor(Qt::darkMagenta));
                 parcela->setPalette(pal);
             }
 
@@ -101,6 +103,9 @@ Grid::Grid(QWidget *parent, Player* player) :
         zonaDeSalida->setZValue(-1);
         zonaDeSalida->setGeometry(B,542,54,54);
         zonaDeSalida->setCheckable(false);
+
+        zonaDeSalida->setPos(zonaDeSalida->geometry().x(),zonaDeSalida->geometry().y());
+
         B+=54;
         QPalette pal;
         pal.setColor(QPalette::Button, QColor(Qt::red));
@@ -173,23 +178,33 @@ void Grid::on_pushButton_clicked()
 {
 std::cout<<std::endl;
 
-    for(int x=0; x<12 ;x++)  // loop 3 times for three lines
-        {
-            for(int y=0;y<10;y++)  // loop for the three elements on the line
-            {
+for(int x=0; x<12 ;x++)  // loop 3 times for three lines
+{
+    for(int y=0;y<10;y++)  // loop for the three elements on the line
+    {
 
-                std::cout<< QVariant(tablero[x][y]->data(0)).toString().toStdString();  // display the current element out of the array
-            }
-        std::cout<<std::endl;  // when the inner loop is done, go to a new line
-        }
+        std::cout<< QVariant(tablero[x][y]->data(0)).toString().toStdString();  // display the current element out of the array
+    }
+    std::cout<<std::endl;  // when the inner loop is done, go to a new line
+}
+
+    QList<QPointF> path;
+
+    //path.append(tablero[11][0]->pos());
+    //path.append(tablero[10][1]->pos());
+    //path.append(tablero[9][2]->pos());
+    path.append(tablero[8][3]->pos());
+    path.append(tablero[7][4]->pos());
 
     Ogro *ogro1 = new Ogro();
-    Ogro *ogro2 = new Ogro();
-    Ogro *ogro3 = new Ogro();
-    Ogro *ogro4 = new Ogro();
-    Ogro *ogro5 = new Ogro();
+    ogro1->setPath(path);
+    ogro1->start();
+    //Ogro *ogro2 = new Ogro();
+   // Ogro *ogro3 = new Ogro();
+   // Ogro *ogro4 = new Ogro();
+   // Ogro *ogro5 = new Ogro();
     oleada.append(ogro1);
-   // oleada.append(ogro2);
+    //oleada.append(ogro2);
     //oleada.append(ogro3);
     //oleada.append(ogro4);
     //oleada.append(ogro5);

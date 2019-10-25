@@ -5,6 +5,13 @@
         <file>images/tower3.png</file>
         <file>images/tower4.png</file>
         <file>images/questionmark.png</file>
+        <file>images/blacksquare.png</file>
         <file>images/ogro1.png</file>
+        <file>images/ogro2.png</file>
+        <file>images/ogrebits.png</file>
+        <file>images/archertower.png</file>
+        <file>images/towerbomboclat.png</file>
+        <file>images/tower4(1).png</file>
+        <file>images/gunner.png</file>
     </qresource>
 </RCC>

@@ -5,6 +5,7 @@
 #include <QObject>
 #include <qmath.h>
 #include "iostream"
+#include <QTimer>
 class Estudiante : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 protected:
@@ -42,6 +43,25 @@ public slots:
     }
 
 public:
+    void setPath(QList<QPointF> path){
+        this->points = path;
+    }
+
+    void start(){
+        if(!points.isEmpty()){
+            setPos(points[0]);
+            dest = points[1];
+            rotateToPoint(dest);
+
+            QTimer *timer = new QTimer(this);
+            connect(timer, SIGNAL(timeout()),this,SLOT(move_forward()));
+            timer->start(150);
+        }
+        else{
+            return;
+        }
+    }
+
     void rotateToPoint(QPointF p){
         QLineF line(pos(),p);
         setRotation(-1*line.angle());

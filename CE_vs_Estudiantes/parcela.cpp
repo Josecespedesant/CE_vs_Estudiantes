@@ -128,20 +128,16 @@ void Parcela::setType(QString tipo){
         timer->stop();
         if(this->objectName().toStdString().compare("Arch") == 0){
             arch->setNivelActual(0);
-            delete(truesquare);
         }
         else if(this->objectName().toStdString().compare("Arty") == 0){
 
             gunner->setNivelActual(0);
-            delete(truesquare);
          }
         else if(this->objectName().toStdString().compare("Mago") == 0){
             mago->setNivelActual(0);
-            delete(truesquare);
         }
         else if(this->objectName().toStdString().compare("Fire") == 0){
             fire->setNivelActual(0);
-            delete(truesquare);
         }
     }
 
@@ -151,19 +147,26 @@ void Parcela::attack_target(Estudiante * estudiante)
 {
     std::cout<<estudiante->getHealth()<<std::endl;
 
-
     Evaluation *evaluation = new Evaluation();
     evaluation->setGrid(grid);
+
     if(this->objectName().toStdString().compare("Arch")==0){
         evaluation->setObjectName("Arch");
     }
-    evaluation->setPos(this->geometry().x()+27,this->geometry().y()+27);
+    if(this->objectName().toStdString().compare("Arty") == 0){
+        evaluation->setObjectName("Arty");
+    }
 
-    QPointF *positionOfEnemy = new QPointF(attack_dest.rx()+3,attack_dest.ry()-3);
+    evaluation->setPos(this->geometry().x()+34,this->geometry().y()+27);
+
+    QPointF *positionOfEnemy = new QPointF(attack_dest.rx()+25,attack_dest.ry());
+
     QLineF line(QPointF(this->geometry().x()+27,this->geometry().y()+27), *positionOfEnemy);
     //grid->scene->addLine(line);
     evaluation->setEstudianteObjetivo(estudiante);
+
     int angle = -1 * line.angle();
+
     //std::cout<<-1*line.angle()<<std::endl;
     evaluation->setRotation(angle);
 
@@ -195,19 +198,27 @@ void Parcela::adquire_target()
     }
 
     double closest_dist = 1000;
-    //QPointF closest_pt;
+    QPointF closest_pt(0,0);
 
     for(size_t i=0, n = collidin_items.size(); i<n; i++){
+
         Estudiante * estudiante = dynamic_cast<Estudiante *>(collidin_items[i]);
+
         if(estudiante){
+
             double this_dist = distanceTo(estudiante);
+
             if(this_dist<closest_dist){
                 closest_dist = this_dist;
                 //closest_pt = estudiante->pos();
                 has_target = true;
                 //Testear esto con Victoria
-                QPointF posic(estudiante->pos().x(),estudiante->pos().y());
 
+
+
+            }
+            if(has_target){
+                QPointF posic(estudiante->pos().rx(),estudiante->pos().ry());
                 attack_dest = posic;
                 attack_target(estudiante);
             }

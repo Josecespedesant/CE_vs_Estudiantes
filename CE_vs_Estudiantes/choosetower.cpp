@@ -53,7 +53,7 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
     }
 
     if(player->getCreditosTotales() <= 2 && player->getCreditosTotales() > 0){
-        QPixmap pixmap(":/images/tower1.png");
+        QPixmap pixmap(":/images/tower4(1).png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
@@ -80,13 +80,13 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
     }
 
     if(player->getCreditosTotales() >2  && player->getCreditosTotales()<6){
-        QPixmap pixmap(":/images/tower1.png");
+        QPixmap pixmap(":/images/tower4(1).png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
         ui->pushButton->setIconSize(pixmap.rect().size());
 
-        QPixmap pixmap2(":/images/tower2.png");
+        QPixmap pixmap2(":/images/gunner.png");
         QIcon ButtonIcon2(pixmap2.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_2->setIcon(ButtonIcon2);
         ui->pushButton_2->setText("");
@@ -108,13 +108,13 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
     }
 
     if(player->getCreditosTotales()>=6){
-        QPixmap pixmap(":/images/tower1.png");
+        QPixmap pixmap(":/images/tower4(1).png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
         ui->pushButton->setIconSize(pixmap.rect().size());
 
-        QPixmap pixmap2(":/images/tower2.png");
+        QPixmap pixmap2(":/images/gunner.png");
         QIcon ButtonIcon2(pixmap2.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_2->setIcon(ButtonIcon2);
         ui->pushButton_2->setText("");
