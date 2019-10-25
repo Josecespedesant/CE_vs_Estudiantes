@@ -38,7 +38,7 @@ SOURCES += \
     evaluation.cpp
 
 HEADERS += \
-    Astar.h \
+    AStar.h \
     BackTracking.h \
     Curso.h \
     Estudiante.h \
