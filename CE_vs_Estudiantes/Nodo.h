@@ -9,7 +9,6 @@ class Nodo {
 public: Nodo* siguiente;
 public: int Dato;
 
-
     Nodo (int dato){
         Dato = dato;
         siguiente = NULL;

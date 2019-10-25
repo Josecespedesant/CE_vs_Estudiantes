@@ -38,6 +38,8 @@ SOURCES += \
     evaluation.cpp
 
 HEADERS += \
+    AStar.h \
+    BackTracking.h \
     Curso.h \
     Estudiante.h \
     Lista.h \
