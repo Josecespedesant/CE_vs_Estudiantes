@@ -35,12 +35,13 @@ SOURCES += \
     updateordestroy.cpp \
     updatetower.cpp \
     warningmaxlvl.cpp \
-    evaluation.cpp \
-    backtracking.cpp
+    evaluation.cpp
 
 HEADERS += \
     Curso.h \
     Estudiante.h \
+    Lista.h \
+    Nodo.h \
     arquero.h \
     artillero.h \
     choosetower.h \
@@ -60,7 +61,6 @@ HEADERS += \
     updatetower.h \
     warningmaxlvl.h \
     evaluation.h \
-    backtracking.h \
     lista.h \
     nodo.h
 

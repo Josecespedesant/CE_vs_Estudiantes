@@ -39,11 +39,6 @@ void Evaluation::setDistanceTravelled(double dist)
 
 void Evaluation::move(){
 
-    if(this->collidesWithItem(estudianteObjetivo)){
-        this->setVisible(false);
-        return;
-    }
-
     int STEP_SIZE = 15;
     double theta = rotation(); //degrees
 
@@ -52,9 +47,26 @@ void Evaluation::move(){
 
     setPos(x()+dx,y()+dy);
 
+
+    if(this->collidesWithItem(estudianteObjetivo) && this->objectName().toStdString().compare("Arch")==0){
+        estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-0.5);
+        if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
+            grid->scene->removeItem(estudianteObjetivo);
+            this->setVisible(false);
+            return;
+        }
+        this->setVisible(false);
+        return;
+    }
+
 }
 
 void Evaluation::setEstudianteObjetivo(Estudiante *estudiante)
 {
     this->estudianteObjetivo = estudiante;
+}
+
+void Evaluation::setGrid(Grid *grid)
+{
+    this->grid = grid;
 }

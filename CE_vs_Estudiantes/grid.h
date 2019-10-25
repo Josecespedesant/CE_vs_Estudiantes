@@ -1,7 +1,7 @@
 #ifndef GRID_H
 #define GRID_H
-#include "parcela.h"
 
+#include "parcela.h"
 #include <QDialog>
 #include <iostream>
 #include "player.h"
@@ -34,7 +34,7 @@ private slots:
     void spawnEnemy();
 
 private:
-    int tablero[12][10];
+    Parcela* tablero[12][10];
 
 
     QList<Estudiante*> oleada;

@@ -5,6 +5,7 @@
 #include <QTimer>
 #include "Estudiante.h"
 #include <QLineF>
+#include "QLine"
 extern Grid *grid;
 
 Parcela::Parcela(QGraphicsItem *parent):QPushButton(), QGraphicsPixmapItem(parent)
@@ -99,15 +100,22 @@ void Parcela::setType(QString tipo){
 
 void Parcela::attack_target(Estudiante * estudiante)
 {
+    std::cout<<estudiante->getHealth()<<std::endl;
+
+
     Evaluation *evaluation = new Evaluation();
+    evaluation->setGrid(grid);
+    if(this->objectName().toStdString().compare("Arch")==0){
+        evaluation->setObjectName("Arch");
+    }
     evaluation->setPos(this->geometry().x()+27,this->geometry().y()+27);
 
-    //QPointF *positionOfEnemy = new QPointF(attack_dest.x()+27,attack_dest.y()+27);
-    QLineF line(QPointF(this->geometry().x()+27,this->geometry().y()+27),attack_dest);
-    grid->scene->addLine(line);
+    QPointF *positionOfEnemy = new QPointF(attack_dest.rx()+3,attack_dest.ry()-3);
+    QLineF line(QPointF(this->geometry().x()+27,this->geometry().y()+27), *positionOfEnemy);
+    //grid->scene->addLine(line);
     evaluation->setEstudianteObjetivo(estudiante);
     int angle = -1 * line.angle();
-    std::cout<<-1*line.angle()<<std::endl;
+    //std::cout<<-1*line.angle()<<std::endl;
     evaluation->setRotation(angle);
 
     grid->scene->addItem(evaluation);
@@ -117,7 +125,6 @@ void Parcela::attack_target(Estudiante * estudiante)
 void Parcela::adquire_target()
 {
     QList<QGraphicsItem *> collidin_items = truesquare->collidingItems();
-
 
     int numOfParcelas = 0;
     int numOfCuadrados = 0;
@@ -150,7 +157,8 @@ void Parcela::adquire_target()
                 //closest_pt = estudiante->pos();
                 has_target = true;
                 //Testear esto con Victoria
-                QPointF posic(estudiante->pos().x(),estudiante->pos().y()+27);
+                QPointF posic(estudiante->pos().x(),estudiante->pos().y());
+
                 attack_dest = posic;
                 attack_target(estudiante);
             }

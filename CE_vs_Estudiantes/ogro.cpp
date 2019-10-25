@@ -3,7 +3,11 @@
 
 Ogro::Ogro(QGraphicsItem * parent)
 {
-    QPixmap *ogr = new QPixmap(":/images/ogro1.png");
+    setHealth(70);
+
+    //QPixmap *ogr = new QPixmap(":/images/ogro1.png");
+
+
     STEP_SIZE = 1.5;
     setPixmap(ogr->scaled(54,54,Qt::KeepAspectRatio));
     points.append(QPointF(469,570));
@@ -16,7 +20,8 @@ Ogro::Ogro(QGraphicsItem * parent)
     points.append(QPointF(416,82));
     points.append(QPointF(350,33));
     point_index = 0;
-    dest = points[0];
+    setPos(points[0]);
+    dest = points[1];
     rotateToPoint(dest);
 
     QTimer *timer = new QTimer(this);

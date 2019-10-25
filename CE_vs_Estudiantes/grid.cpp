@@ -39,7 +39,7 @@ Grid::Grid(QWidget *parent, Player* player) :
         pal.setColor(QPalette::Button, QColor(Qt::blue));
         zonaDeAprobacion->setPalette(pal);
 
-        tablero[0][i] = 5;
+        tablero[0][i] = zonaDeAprobacion;
 
         QGraphicsProxyWidget *proxy = scene->addWidget(zonaDeAprobacion);
 
@@ -65,7 +65,7 @@ Grid::Grid(QWidget *parent, Player* player) :
                 parcela->setPalette(pal);
             }
             QGraphicsProxyWidget *proxy = scene->addWidget(parcela);
-            tablero[i][j] = 0;
+            tablero[i][j] = parcela;
             K+=54;
         }
         S+=54;
@@ -80,7 +80,7 @@ Grid::Grid(QWidget *parent, Player* player) :
         QPalette pal;
         pal.setColor(QPalette::Button, QColor(Qt::red));
         zonaDeSalida->setPalette(pal);
-        tablero[11][i] = 6;
+        tablero[11][i] = zonaDeSalida;
 
         QGraphicsProxyWidget *proxy = scene->addWidget(zonaDeSalida);
     }
