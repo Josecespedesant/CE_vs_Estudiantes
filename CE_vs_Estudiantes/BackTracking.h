@@ -1,8 +1,6 @@
 #ifndef BACKTRACKING_H
 #define BACKTRACKING_H
 
-
-
 /* C/C++ program to solve Rat in a Maze problem using
    backtracking */
 #include <stdio.h>
@@ -58,7 +56,7 @@ public:
     bool solveMazeUtil(int maze[N][N], int x, int y, int sol[N][N])
     {
         // if (x, y is goal) return true
-        if (x == N - 1 && y == N - 1) {
+        if (x == 5 && y == N - 1) {
             sol[x][y] = 1;
             return true;
         }
@@ -87,9 +85,5 @@ public:
     }
 
 };
-
-
-
-
 
 #endif // BACKTRACKING_H
