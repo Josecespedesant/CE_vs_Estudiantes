@@ -48,7 +48,6 @@ public:
     }
 
     void start(){
-        if(!points.isEmpty()){
             setPos(points[0]);
             dest = points[1];
             rotateToPoint(dest);
@@ -56,10 +55,6 @@ public:
             QTimer *timer = new QTimer(this);
             connect(timer, SIGNAL(timeout()),this,SLOT(move_forward()));
             timer->start(150);
-        }
-        else{
-            return;
-        }
     }
 
     void rotateToPoint(QPointF p){

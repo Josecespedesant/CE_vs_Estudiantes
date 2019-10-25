@@ -10,7 +10,12 @@
 #include "evaluation.h"
 #include <QWidget>
 #include "QGraphicsView"
+
 #include "ogro.h"
+#include "elfo_oscuro.h"
+#include "harpia.h"
+#include "mercenario.h"
+
 #include "unistd.h"
 #include <thread>
 #include <iostream>
@@ -104,7 +109,7 @@ Grid::Grid(QWidget *parent, Player* player) :
         zonaDeSalida->setGeometry(B,542,54,54);
         zonaDeSalida->setCheckable(false);
 
-        zonaDeSalida->setPos(zonaDeSalida->geometry().x(),zonaDeSalida->geometry().y());
+        zonaDeSalida->setPos(zonaDeSalida->geometry().x(),zonaDeSalida->geometry().y()+54);
 
         B+=54;
         QPalette pal;
@@ -160,19 +165,6 @@ void Grid::mousePressEvent(QMouseEvent *event){
     std::cout<<event->y()<<std::endl;
 }
 
-void Grid::generateWave(QList<Estudiante *> oleada)
-{
-    for(int i=0; i<oleada.size();i++){
-        Ogro * ogro = dynamic_cast<Ogro *>(oleada[i]);
-        std::cout << i <<std::endl;
-        if(ogro){
-            ogro->setZValue(1);
-            scene->addItem(ogro);
-            usleep(1000000);
-        }
-    }
-}
-
 //Genera oleada
 void Grid::on_pushButton_clicked()
 {
@@ -188,26 +180,48 @@ for(int x=0; x<12 ;x++)  // loop 3 times for three lines
     std::cout<<std::endl;  // when the inner loop is done, go to a new line
 }
 
-    QList<QPointF> path;
+    QList<QPointF> pathforogro;
+    QList<QPointF> pathforelfo;
+    QList<QPointF> pathforharpy;
 
-    //path.append(tablero[11][0]->pos());
-    //path.append(tablero[10][1]->pos());
-    //path.append(tablero[9][2]->pos());
-    path.append(tablero[8][3]->pos());
-    path.append(tablero[7][4]->pos());
+    pathforogro.append(tablero[11][0]->pos());
+    pathforogro.append(tablero[10][0]->pos());
+    pathforogro.append(tablero[9][0]->pos());
+    pathforogro.append(tablero[8][0]->pos());
+    pathforogro.append(tablero[7][0]->pos());
+    pathforogro.append(tablero[6][0]->pos());
+    pathforogro.append(tablero[5][0]->pos());
+    pathforogro.append(tablero[4][0]->pos());
+
+    pathforelfo.append(tablero[11][4]->pos());
+    pathforelfo.append(tablero[10][4]->pos());
+    pathforelfo.append(tablero[9][4]->pos());
+    pathforelfo.append(tablero[8][4]->pos());
+    pathforelfo.append(tablero[7][4]->pos());
+    pathforelfo.append(tablero[6][4]->pos());
+    pathforelfo.append(tablero[5][4]->pos());
+
+    pathforharpy.append(tablero[11][6]->pos());
+    pathforharpy.append(tablero[10][6]->pos());
+    pathforharpy.append(tablero[9][6]->pos());
+    pathforharpy.append(tablero[8][6]->pos());
+
+
 
     Ogro *ogro1 = new Ogro();
-    ogro1->setPath(path);
-    ogro1->start();
-    //Ogro *ogro2 = new Ogro();
-   // Ogro *ogro3 = new Ogro();
-   // Ogro *ogro4 = new Ogro();
-   // Ogro *ogro5 = new Ogro();
+    ogro1->setPath(pathforogro);
+
+    Elfo_oscuro *elfo = new Elfo_oscuro();
+    elfo->setPath(pathforelfo);
+
+
+    Harpia *harpia = new Harpia();
+    harpia->setPath(pathforharpy);
+
+
     oleada.append(ogro1);
-    //oleada.append(ogro2);
-    //oleada.append(ogro3);
-    //oleada.append(ogro4);
-    //oleada.append(ogro5);
+    oleada.append(elfo);
+    oleada.append(harpia);
 
     enemiesSpawned = 0;
     maxNumberOfEnemies = oleada.size();
@@ -215,12 +229,12 @@ for(int x=0; x<12 ;x++)  // loop 3 times for three lines
     spawnTimer->start(3000);
 
 
-
 }
 
 void Grid::spawnEnemy()
 {
     scene->addItem(oleada[enemiesSpawned]);
+    oleada[enemiesSpawned]->start();
     enemiesSpawned+=1;
 
     if(enemiesSpawned>=maxNumberOfEnemies){

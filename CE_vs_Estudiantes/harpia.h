@@ -1,11 +1,11 @@
 #ifndef HARPIA_H
 #define HARPIA_H
 
-
-class Harpia
+#include "Estudiante.h"
+class Harpia : public Estudiante
 {
 public:
-    Harpia();
+    Harpia(QGraphicsItem * parent = 0);
 };
 
 #endif // HARPIA_H

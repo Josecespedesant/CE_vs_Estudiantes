@@ -53,7 +53,7 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
     }
 
     if(player->getCreditosTotales() <= 2 && player->getCreditosTotales() > 0){
-        QPixmap pixmap(":/images/tower4(1).png");
+        QPixmap pixmap(":/images/archer.png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
@@ -80,7 +80,7 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
     }
 
     if(player->getCreditosTotales() >2  && player->getCreditosTotales()<6){
-        QPixmap pixmap(":/images/tower4(1).png");
+        QPixmap pixmap(":/images/archer.png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
@@ -92,7 +92,7 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
         ui->pushButton_2->setText("");
         ui->pushButton_2->setIconSize(pixmap2.rect().size());
 
-        QPixmap pixmap3(":/images/tower3.png");
+        QPixmap pixmap3(":/images/mage.png");
         QIcon ButtonIcon3(pixmap3.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_3->setIcon(ButtonIcon3);
         ui->pushButton_3->setText("");
@@ -108,7 +108,7 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
     }
 
     if(player->getCreditosTotales()>=6){
-        QPixmap pixmap(":/images/tower4(1).png");
+        QPixmap pixmap(":/images/archer.png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
@@ -120,13 +120,13 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
         ui->pushButton_2->setText("");
         ui->pushButton_2->setIconSize(pixmap2.rect().size());
 
-        QPixmap pixmap3(":images/tower3.png");
+        QPixmap pixmap3(":images/mage.png");
         QIcon ButtonIcon3(pixmap3.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_3->setIcon(ButtonIcon3);
         ui->pushButton_3->setText("");
         ui->pushButton_3->setIconSize(pixmap3.rect().size());
 
-        QPixmap pixmap4(":/images/tower4.png");
+        QPixmap pixmap4(":/images/fire.png");
         QIcon ButtonIcon4(pixmap4.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_4->setIcon(ButtonIcon4);
         ui->pushButton_4->setText("");

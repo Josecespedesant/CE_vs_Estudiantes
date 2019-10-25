@@ -1,11 +1,11 @@
 #ifndef ELFO_OSCURO_H
 #define ELFO_OSCURO_H
 
-
-class Elfo_oscuro
+#include "Estudiante.h"
+class Elfo_oscuro : public Estudiante
 {
 public:
-    Elfo_oscuro();
+    Elfo_oscuro(QGraphicsItem * parent = 0);
 };
 
 #endif // ELFO_OSCURO_H

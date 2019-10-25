@@ -1,17 +1,14 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/tower1.png</file>
-        <file>images/tower2.png</file>
-        <file>images/tower3.png</file>
-        <file>images/tower4.png</file>
         <file>images/questionmark.png</file>
-        <file>images/blacksquare.png</file>
-        <file>images/ogro1.png</file>
-        <file>images/ogro2.png</file>
         <file>images/ogrebits.png</file>
         <file>images/archertower.png</file>
-        <file>images/towerbomboclat.png</file>
-        <file>images/tower4(1).png</file>
         <file>images/gunner.png</file>
+        <file>images/mage.png</file>
+        <file>images/archer.png</file>
+        <file>images/fire.png</file>
+        <file>images/arpy.png</file>
+        <file>images/darkelve.png</file>
+        <file>images/mercenary.png</file>
     </qresource>
 </RCC>

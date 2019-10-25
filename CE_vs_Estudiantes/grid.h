@@ -25,8 +25,6 @@ public:
 
     QGraphicsPixmapItem* tablero[12][10] {};
 
-    void generateWave(QList<Estudiante*> oleada);
-
     ~Grid();
 
 
