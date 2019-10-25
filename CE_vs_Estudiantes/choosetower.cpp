@@ -5,8 +5,7 @@
 #include "artillero.h"
 #include "lanzafuego.h"
 #include "mago.h"
-
-ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabel* creditos) :
+ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabel* creditos, Grid *grid, int i, int j) :
     QDialog(parent),
     ui(new Ui::ChooseTower)
 {
@@ -15,6 +14,10 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
     this->button = button;
     this->player = player;
     this->creditos = creditos;
+    this->grid = grid;
+
+    this->i = i;
+    this->j = j;
 
     int h = ui->pushButton->height();
     int w = ui->pushButton->width();
@@ -149,6 +152,9 @@ void ChooseTower::on_pushButton_clicked()
     this->button->setObjectName("Arch");
     this->button->setType("Archer");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
+
+    grid->tablero[i][j]->setData(0,1);
+
     hide();
 }
 
@@ -164,6 +170,8 @@ void ChooseTower::on_pushButton_2_clicked()
     this->button->setObjectName("Arty");
     this->button->setType("Gunner");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
+
+
     hide();
 }
 
@@ -179,6 +187,8 @@ void ChooseTower::on_pushButton_3_clicked()
     this->button->setObjectName("Mago");
     this->button->setType("Mage");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
+
+
     hide();
 }
 
@@ -194,5 +204,7 @@ void ChooseTower::on_pushButton_4_clicked()
     this->button->setObjectName("Fire");
     this->button->setType("Fire");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
+
+
     hide();
 }

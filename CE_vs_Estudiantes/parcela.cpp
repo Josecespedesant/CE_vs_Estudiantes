@@ -40,6 +40,7 @@ void Parcela::setType(QString tipo){
 
         QVector<QPointF> points;
 
+        //Crear el cuadrado donde disparará.
         points.append(QPointF(this->geometry().x()-54,this->geometry().y()-54));
         points.append(QPointF(this->geometry().x()+108,this->geometry().y()-54));
         points.append(QPointF(this->geometry().x()+108,this->geometry().y()+108));
@@ -47,6 +48,7 @@ void Parcela::setType(QString tipo){
 
         truesquare = new QGraphicsPolygonItem(QPolygonF(points),this);
         truesquare->setZValue(1);
+
         //truesquare->setVisible(false);
         grid->scene->addItem(truesquare);
 
@@ -59,12 +61,41 @@ void Parcela::setType(QString tipo){
     }
     else if(tipo.toStdString().compare("Gunner") == 0){
 
+        QVector<QPointF> points;
+
+        //Crear el cuadrado donde disparará.
+        points.append(QPointF(this->geometry().x()-54*2,this->geometry().y()-54*2));
+        points.append(QPointF(this->geometry().x()+162,this->geometry().y()-54*2));
+        points.append(QPointF(this->geometry().x()+162,this->geometry().y()+162));
+        points.append(QPointF(this->geometry().x()-54*2,this->geometry().y()+162));
+
+        truesquare = new QGraphicsPolygonItem(QPolygonF(points),this);
+        truesquare->setZValue(1);
+
+        //truesquare->setVisible(false);
+        grid->scene->addItem(truesquare);
+
+
         connect(timer, SIGNAL(timeout()),this,SLOT(adquire_target()));
         gunner = new Artillero();
         gunner->setNivelActual(1);
         timer->start(1000);
     }
     else if(tipo.toStdString().compare("Mage") == 0){
+
+        QVector<QPointF> points;
+
+        //Crear el cuadrado donde disparará.
+        points.append(QPointF(this->geometry().x()-54*2,this->geometry().y()-54*2));
+        points.append(QPointF(this->geometry().x()+162,this->geometry().y()-54*2));
+        points.append(QPointF(this->geometry().x()+162,this->geometry().y()+162));
+        points.append(QPointF(this->geometry().x()-54*2,this->geometry().y()+162));
+
+        truesquare = new QGraphicsPolygonItem(QPolygonF(points),this);
+        truesquare->setZValue(1);
+
+        //truesquare->setVisible(false);
+        grid->scene->addItem(truesquare);
 
         connect(timer, SIGNAL(timeout()),this,SLOT(adquire_target()));
         mago = new Mago();

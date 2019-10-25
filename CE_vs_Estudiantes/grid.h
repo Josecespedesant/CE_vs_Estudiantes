@@ -1,7 +1,6 @@
 #ifndef GRID_H
 #define GRID_H
 
-#include "parcela.h"
 #include <QDialog>
 #include <iostream>
 #include "player.h"
@@ -9,8 +8,9 @@
 #include <QGraphicsScene>
 #include "Estudiante.h"
 #include <QTimer>
+#include "parcela.h"
+#include <QGraphicsPixmapItem>
 namespace Ui {
-
 class Grid;
 }
 
@@ -23,6 +23,8 @@ public:
     void mousePressEvent(QMouseEvent *event);
     QGraphicsScene *scene;
 
+    QGraphicsPixmapItem* tablero[12][10] {};
+
     void generateWave(QList<Estudiante*> oleada);
 
     ~Grid();
@@ -34,7 +36,7 @@ private slots:
     void spawnEnemy();
 
 private:
-    Parcela* tablero[12][10];
+
 
 
     QList<Estudiante*> oleada;
