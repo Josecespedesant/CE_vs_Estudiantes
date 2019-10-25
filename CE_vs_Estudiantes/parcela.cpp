@@ -49,7 +49,7 @@ void Parcela::setType(QString tipo){
         truesquare = new QGraphicsPolygonItem(QPolygonF(points),this);
         truesquare->setZValue(1);
 
-        //truesquare->setVisible(false);
+        truesquare->setVisible(false);
         grid->scene->addItem(truesquare);
 
         connect(timer, SIGNAL(timeout()),this,SLOT(adquire_target()));
@@ -72,7 +72,7 @@ void Parcela::setType(QString tipo){
         truesquare = new QGraphicsPolygonItem(QPolygonF(points),this);
         truesquare->setZValue(1);
 
-        //truesquare->setVisible(false);
+        truesquare->setVisible(false);
         grid->scene->addItem(truesquare);
 
 
@@ -94,7 +94,7 @@ void Parcela::setType(QString tipo){
         truesquare = new QGraphicsPolygonItem(QPolygonF(points),this);
         truesquare->setZValue(1);
 
-        //truesquare->setVisible(false);
+        truesquare->setVisible(false);
         grid->scene->addItem(truesquare);
 
         connect(timer, SIGNAL(timeout()),this,SLOT(adquire_target()));
@@ -103,6 +103,20 @@ void Parcela::setType(QString tipo){
         timer->start(1000);
     }
     else if(tipo.toStdString().compare("Fire") == 0){
+
+        QVector<QPointF> points;
+
+        //Crear el cuadrado donde disparará.
+        points.append(QPointF(this->geometry().x()-54*3,this->geometry().y()-54*3));
+        points.append(QPointF(this->geometry().x()+216,this->geometry().y()-54*3));
+        points.append(QPointF(this->geometry().x()+216,this->geometry().y()+216));
+        points.append(QPointF(this->geometry().x()-54*3,this->geometry().y()+216));
+
+        truesquare = new QGraphicsPolygonItem(QPolygonF(points),this);
+        truesquare->setZValue(1);
+
+        truesquare->setVisible(false);
+        grid->scene->addItem(truesquare);
 
         connect(timer, SIGNAL(timeout()),this,SLOT(adquire_target()));
         fire = new LanzaFuego();
@@ -114,16 +128,20 @@ void Parcela::setType(QString tipo){
         timer->stop();
         if(this->objectName().toStdString().compare("Arch") == 0){
             arch->setNivelActual(0);
+            delete(truesquare);
         }
         else if(this->objectName().toStdString().compare("Arty") == 0){
 
             gunner->setNivelActual(0);
+            delete(truesquare);
          }
         else if(this->objectName().toStdString().compare("Mago") == 0){
             mago->setNivelActual(0);
+            delete(truesquare);
         }
         else if(this->objectName().toStdString().compare("Fire") == 0){
             fire->setNivelActual(0);
+            delete(truesquare);
         }
     }
 

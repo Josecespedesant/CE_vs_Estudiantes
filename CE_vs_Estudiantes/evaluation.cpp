@@ -6,6 +6,8 @@ Evaluation::Evaluation(QGraphicsItem *parent)
 {
     QPixmap *pix = new QPixmap(":/images/questionmark.png");
 
+    setMaxRange(400);
+
     setPixmap(pix->scaled(21,21,Qt::KeepAspectRatio));
 
     QTimer *move_timer = new QTimer(this);
@@ -50,6 +52,16 @@ void Evaluation::move(){
 
     if(this->collidesWithItem(estudianteObjetivo) && this->objectName().toStdString().compare("Arch")==0){
         estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-0.5);
+        if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
+            grid->scene->removeItem(estudianteObjetivo);
+            this->setVisible(false);
+            return;
+        }
+        this->setVisible(false);
+        return;
+    }
+    else if(this->collidesWithItem(estudianteObjetivo) && this->objectName().toStdString().compare("Arty")==0){
+        estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-1.5);
         if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
             grid->scene->removeItem(estudianteObjetivo);
             this->setVisible(false);
