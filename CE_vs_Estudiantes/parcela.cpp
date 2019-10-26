@@ -156,6 +156,9 @@ void Parcela::attack_target(Estudiante * estudiante)
     if(this->objectName().toStdString().compare("Arty") == 0){
         evaluation->setObjectName("Arty");
     }
+    if(this->objectName().toStdString().compare("Mago")==0){
+        evaluation->setObjectName("Mago");
+    }
 
     evaluation->setPos(this->geometry().x()+34,this->geometry().y()+27);
 

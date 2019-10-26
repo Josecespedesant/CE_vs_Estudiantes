@@ -210,6 +210,7 @@ for(int x=0; x<12 ;x++)  // loop 3 times for three lines
 
     Ogro *ogro1 = new Ogro();
     ogro1->setPath(pathforogro);
+    connect(ogro1,SIGNAL(clicked()),this,SLOT(infoZombie()));
 
     Elfo_oscuro *elfo = new Elfo_oscuro();
     elfo->setPath(pathforelfo);
@@ -239,5 +240,18 @@ void Grid::spawnEnemy()
 
     if(enemiesSpawned>=maxNumberOfEnemies){
         spawnTimer->disconnect();
+
+        oleada.clear();
+
     }
+}
+
+void Grid::infoZombie()
+{
+    Estudiante* estudiante = qobject_cast<Estudiante*>(sender());
+    std::cout<<estudiante->getHealth()<<std::endl;
+    std::cout<<estudiante->getSpeed()<<std::endl;
+    std::cout<<estudiante->getFireResistance()<<std::endl;
+    std::cout<<estudiante->getMageResistance()<<std::endl;
+    std::cout<<estudiante->getArcherResistance()<<std::endl;
 }

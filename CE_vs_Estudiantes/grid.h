@@ -32,6 +32,7 @@ private slots:
     void handleButton();
     void on_pushButton_clicked();
     void spawnEnemy();
+    void infoZombie();
 
 private:
 

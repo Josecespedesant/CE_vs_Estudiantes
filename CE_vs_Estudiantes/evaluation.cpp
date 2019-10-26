@@ -4,7 +4,7 @@
 
 Evaluation::Evaluation(QGraphicsItem *parent)
 {
-    QPixmap *pix = new QPixmap(":/images/questionmark.png");
+    QPixmap *pix = new QPixmap(":/images/qu.png");
 
     setMaxRange(400);
 
@@ -50,6 +50,10 @@ void Evaluation::move(){
         STEP_SIZE = 20;
     }
 
+    if(this->objectName().toStdString().compare("Mago")==0){
+        STEP_SIZE = 15;
+    }
+
 
     double theta = rotation(); //degrees
 
@@ -71,6 +75,16 @@ void Evaluation::move(){
     }
     if(this->collidesWithItem(estudianteObjetivo) && this->objectName().toStdString().compare("Arty")==0){
         estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-1.5);
+        if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
+            grid->scene->removeItem(estudianteObjetivo);
+            this->setVisible(false);
+            return;
+        }
+        this->setVisible(false);
+        return;
+    }
+    if(this->collidesWithItem(estudianteObjetivo) && this->objectName().toStdString().compare("Mago")==0){
+        estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-2.0);
         if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
             grid->scene->removeItem(estudianteObjetivo);
             this->setVisible(false);

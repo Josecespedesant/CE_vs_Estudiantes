@@ -10,5 +10,6 @@
         <file>images/arpy.png</file>
         <file>images/darkelve.png</file>
         <file>images/mercenary.png</file>
+        <file>images/qu.png</file>
     </qresource>
 </RCC>
