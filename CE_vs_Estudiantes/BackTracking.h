@@ -1,49 +1,75 @@
 #ifndef BACKTRACKING_H
 #define BACKTRACKING_H
 
-/* C/C++ program to solve Rat in a Maze problem using
-   backtracking */
 #include <stdio.h>
+#include "iostream"
+#include "QGraphicsPixmapItem"
+#include <QList>
+#include <QPointF>
 
-// Maze size
-#define N 4
-
-class BackTracking {
+class BackTracking{
 public:
 
-    /* A utility function to print solution matrix sol[N][N] */
-    void printSolution(int sol[N][N])
-    {
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++)
-                printf(" %d ", sol[i][j]);
-            printf("\n");
+    QGraphicsPixmapItem* tablero[12][10] {};
+    int columnaSalida;
+    int columnaLlegada;
+    QList<QPointF> path;
+
+    BackTracking(QGraphicsPixmapItem* tablero[12][10]){
+
+        for(int i = 0; i<12; i++){
+            for(int j = 0; j<10; j++){
+                this->tablero[i][j] = tablero[i][j];
+            }
+        }
+        path = QList<QPointF>();
+    }
+
+    QList<QPointF> getPath(){
+        std::cout <<path.size()<<std::endl;
+        return path;
+    }
+
+    void setColumnaSalida(int columnaSalida){
+        this->columnaSalida = columnaSalida;
+    }
+
+    void setColumnaLlegada(int columnaLlegada){
+        this->columnaLlegada = columnaLlegada;
+    }
+
+    void printSolution(int sol[12][10]){
+        for(int i = 0; i<12; i++){
+            for (int j = 0; j < 10; j++)
+                        printf(" %d ", sol[i][j]);
+                    printf("\n");
         }
     }
 
-/* A utility function to check if x, y is valid index for N*N maze */
-    bool isSafe(int maze[N][N], int x, int y)
+    bool isSafe(int maze[12][10], int x, int y)
     {
-        // if (x, y outside maze) return false
-        if (x >= 0 && x < N && y >= 0 && y < N && maze[x][y] == 1)
+        if (x >= 0 && x < 12 && y >= 0 && y < 10 && maze[x][y] == 1)
             return true;
 
         return false;
     }
 
-/* This function solves the Maze problem using Backtracking.  It mainly
-   uses solveMazeUtil() to solve the problem. It returns false if no
-   path is possible, otherwise return true and prints the path in the
-   form of 1s. Please note that there may be more than one solutions,
-   this function prints one of the feasible solutions.*/
-    bool solveMaze(int maze[N][N])
+    bool solveMaze(int maze[12][10])
     {
-        int sol[N][N] = { { 0, 0, 0, 0 },
-                          { 0, 0, 0, 0 },
-                          { 0, 0, 0, 0 },
-                          { 0, 0, 0, 0 } };
-
-        if (solveMazeUtil(maze, 0, 0, sol) == false) {
+        int sol[12][10] = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                          { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
+                                //variar y random
+        if (solveMazeUtil(maze, 11, columnaSalida, sol) == false) {
             printf("Solution doesn't exist");
             return false;
         }
@@ -52,12 +78,12 @@ public:
         return true;
     }
 
-/* A recursive utility function to solve Maze problem */
-    bool solveMazeUtil(int maze[N][N], int x, int y, int sol[N][N])
+    bool solveMazeUtil(int maze[12][10], int x, int y, int sol[12][10])
     {
         // if (x, y is goal) return true
-        if (x == 5 && y == N - 1) {
+        if (x == 0 && y == columnaLlegada) { //variar y
             sol[x][y] = 1;
+            path.append(tablero[x][y]->pos());
             return true;
         }
 
@@ -66,14 +92,36 @@ public:
             // mark x, y as part of solution path
             sol[x][y] = 1;
 
-            /* Move forward in x direction */
-            if (solveMazeUtil(maze, x + 1, y, sol) == true)
-                return true;
+            bool flag = false;
 
-            /* If moving in x direction doesn't give solution then
-               Move down in y direction  */
-            if (solveMazeUtil(maze, x, y + 1, sol) == true)
-                return true;
+            for(int s = 0; s<path.size();s++){
+                if(path.at(s).x() == tablero[x][y]->pos().x() && path.at(s).y() == tablero[x][y]->pos().y()){
+                    flag = true;
+                }
+            }
+
+            if(flag == false){
+                path.append(tablero[x][y]->pos());
+            }
+
+
+
+            if(columnaSalida<=columnaLlegada){
+                if (solveMazeUtil(maze, x - 1, y, sol) == true)
+                    return true;
+
+                if (solveMazeUtil(maze, x, y + 1, sol) == true)
+                    return true;
+            }
+
+            if(columnaSalida>columnaLlegada){
+                if (solveMazeUtil(maze, x - 1, y, sol) == true)
+                    return true;
+
+                if (solveMazeUtil(maze, x , y - 1, sol) == true)
+                    return true;
+            }
+
 
             /* If none of the above movements work then BACKTRACK:
                 unmark x, y as part of solution path */
@@ -85,5 +133,6 @@ public:
     }
 
 };
+
 
 #endif // BACKTRACKING_H

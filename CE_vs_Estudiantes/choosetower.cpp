@@ -23,7 +23,7 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
     int w = ui->pushButton->width();
 
     if(player->getCreditosTotales() <= 0){
-        QPixmap pixmap(":/images/qu.png");
+        QPixmap pixmap(":/images/questionmark.png");
         QIcon ButtonIcon(pixmap.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton->setIcon(ButtonIcon);
         ui->pushButton->setText("");
@@ -59,7 +59,7 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
         ui->pushButton->setText("");
         ui->pushButton->setIconSize(pixmap.rect().size());
 
-        QPixmap pixmap2(":/images/qu.png");
+        QPixmap pixmap2(":/images/questionmark.png");
         QIcon ButtonIcon2(pixmap2.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_2->setIcon(ButtonIcon2);
         ui->pushButton_2->setText("");
@@ -98,7 +98,7 @@ ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabe
         ui->pushButton_3->setText("");
         ui->pushButton_3->setIconSize(pixmap3.rect().size());
 
-        QPixmap pixmap4(":/images/qu.png");
+        QPixmap pixmap4(":/images/questionmark.png");
         QIcon ButtonIcon4(pixmap4.scaled(w,h,Qt::KeepAspectRatio));
         ui->pushButton_4->setIcon(ButtonIcon4);
         ui->pushButton_4->setText("");
@@ -153,7 +153,7 @@ void ChooseTower::on_pushButton_clicked()
     this->button->setType("Archer");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
 
-    grid->tablero[i][j]->setData(0,1);
+    grid->tablero[i][j]->setData(0,0);
 
     hide();
 }

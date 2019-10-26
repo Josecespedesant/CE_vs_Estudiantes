@@ -16,7 +16,7 @@ protected:
     int mageResistance;
     int fireResistance;
 
-    QList<QPointF> points;
+
 
     QPointF dest;
 
@@ -26,7 +26,7 @@ protected:
 public slots:
     void move_forward(){
         QLineF line(pos(),dest);
-        if(line.length()<5){
+        if(line.length()<6){
             point_index++;
             if(point_index>=points.size()){
                 return;
@@ -43,6 +43,8 @@ public slots:
     }
 
 public:
+    QList<QPointF> points;
+
     void setPath(QList<QPointF> path){
         this->points = path;
     }

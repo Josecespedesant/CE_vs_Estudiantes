@@ -4,7 +4,7 @@
 
 Evaluation::Evaluation(QGraphicsItem *parent)
 {
-    QPixmap *pix = new QPixmap(":/images/qu.png");
+    QPixmap *pix = new QPixmap(":/images/questionmark.png");
 
     setMaxRange(400);
 
@@ -64,7 +64,7 @@ void Evaluation::move(){
 
 
     if(this->collidesWithItem(estudianteObjetivo) && this->objectName().toStdString().compare("Arch")==0){
-        estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-0.5);
+        estudianteObjetivo->setHealth(estudianteObjetivo->getHealth());
         if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
             grid->scene->removeItem(estudianteObjetivo);
             this->setVisible(false);

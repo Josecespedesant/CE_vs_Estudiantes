@@ -10,7 +10,7 @@
 #include "evaluation.h"
 #include <QWidget>
 #include "QGraphicsView"
-
+#include<QDebug>
 #include "ogro.h"
 #include "elfo_oscuro.h"
 #include "harpia.h"
@@ -19,6 +19,9 @@
 #include "unistd.h"
 #include <thread>
 #include <iostream>
+#include "BackTracking.h"
+
+#include <random>
 
 Grid::Grid(QWidget *parent, Player* player) :
     QDialog(parent),
@@ -38,7 +41,7 @@ Grid::Grid(QWidget *parent, Player* player) :
     for(int j=0; j<10;j++){
         Parcela *zonaDeAprobacion = new Parcela();
 
-        zonaDeAprobacion->setData(0,0);
+        zonaDeAprobacion->setData(0,1);
         zonaDeAprobacion->setData(1,0);
         zonaDeAprobacion->setData(2,j);
 
@@ -47,7 +50,7 @@ Grid::Grid(QWidget *parent, Player* player) :
         I+=54;
         zonaDeAprobacion->setCheckable(false);
 
-        zonaDeAprobacion->setPos(zonaDeAprobacion->geometry().x(),zonaDeAprobacion->geometry().y());
+        zonaDeAprobacion->setPos(zonaDeAprobacion->geometry().x(),zonaDeAprobacion->geometry().y()+54);
         QPalette pal;
         pal.setColor(QPalette::Button, QColor(Qt::blue));
         zonaDeAprobacion->setPalette(pal);
@@ -67,10 +70,9 @@ Grid::Grid(QWidget *parent, Player* player) :
             Parcela *parcela = new Parcela();
 
             //0 guarda si esta ocupado o no
-            parcela->setData(0,0);
+            parcela->setData(0,1);
             parcela->setData(1,i);
             parcela->setData(2,j);
-
 
             parcela->setZValue(-1);
             parcela->setGeometry(K,S,54,54);
@@ -100,7 +102,7 @@ Grid::Grid(QWidget *parent, Player* player) :
     int B = 0;
     for(int j=0; j<10;j++){
         Parcela *zonaDeSalida = new Parcela();
-        zonaDeSalida->setData(0,0);
+        zonaDeSalida->setData(0,1);
         zonaDeSalida->setData(1,11);
         zonaDeSalida->setData(2,j);
 
@@ -109,11 +111,11 @@ Grid::Grid(QWidget *parent, Player* player) :
         zonaDeSalida->setGeometry(B,542,54,54);
         zonaDeSalida->setCheckable(false);
 
-        zonaDeSalida->setPos(zonaDeSalida->geometry().x(),zonaDeSalida->geometry().y()+54);
+        zonaDeSalida->setPos(zonaDeSalida->geometry().x(),zonaDeSalida->geometry().y());
 
         B+=54;
         QPalette pal;
-        pal.setColor(QPalette::Button, QColor(Qt::red));
+        pal.setColor(QPalette::Button, QColor(Qt::darkGreen));
         zonaDeSalida->setPalette(pal);
 
 
@@ -127,8 +129,6 @@ Grid::Grid(QWidget *parent, Player* player) :
 
 
 }
-
-
 
 void Grid::handleButton(){
     Parcela* pButton = qobject_cast<Parcela*>(sender());
@@ -166,70 +166,49 @@ void Grid::mousePressEvent(QMouseEvent *event){
 }
 
 //Genera oleada
-void Grid::on_pushButton_clicked()
-{
-std::cout<<std::endl;
+void Grid::on_pushButton_clicked(){
 
-for(int x=0; x<12 ;x++)  // loop 3 times for three lines
-{
-    for(int y=0;y<10;y++)  // loop for the three elements on the line
-    {
+    int matrix[12][10];
 
-        std::cout<< QVariant(tablero[x][y]->data(0)).toString().toStdString();  // display the current element out of the array
+    for(int n = 0; n<12; n++){
+        for(int m = 0; m<10; m++){
+            matrix[n][m] = QVariant(tablero[n][m]->data(0)).toInt();
+        }
     }
-    std::cout<<std::endl;  // when the inner loop is done, go to a new line
-}
+
+    srand(time(NULL));
+
+    int randomSalida = std::rand()%10;
+    int randomLlegada = std::rand()%10;
+
+    std::cout<<randomSalida<<std::endl;
+    std::cout<<randomLlegada<<std::endl;
+
+    BackTracking *backtracking = new BackTracking(tablero);
+
+    backtracking->setColumnaSalida(randomSalida);
+    backtracking->setColumnaLlegada(randomLlegada);
+
+    backtracking->solveMaze(matrix);
 
     QList<QPointF> pathforogro;
-    QList<QPointF> pathforelfo;
-    QList<QPointF> pathforharpy;
 
-    pathforogro.append(tablero[11][0]->pos());
-    pathforogro.append(tablero[10][0]->pos());
-    pathforogro.append(tablero[9][0]->pos());
-    pathforogro.append(tablero[8][0]->pos());
-    pathforogro.append(tablero[7][0]->pos());
-    pathforogro.append(tablero[6][0]->pos());
-    pathforogro.append(tablero[5][0]->pos());
-    pathforogro.append(tablero[4][0]->pos());
-
-    pathforelfo.append(tablero[11][4]->pos());
-    pathforelfo.append(tablero[10][4]->pos());
-    pathforelfo.append(tablero[9][4]->pos());
-    pathforelfo.append(tablero[8][4]->pos());
-    pathforelfo.append(tablero[7][4]->pos());
-    pathforelfo.append(tablero[6][4]->pos());
-    pathforelfo.append(tablero[5][4]->pos());
-
-    pathforharpy.append(tablero[11][6]->pos());
-    pathforharpy.append(tablero[10][6]->pos());
-    pathforharpy.append(tablero[9][6]->pos());
-    pathforharpy.append(tablero[8][6]->pos());
-
-
+    pathforogro = backtracking->getPath();
+    qDebug()<<pathforogro;
 
     Ogro *ogro1 = new Ogro();
+
+
     ogro1->setPath(pathforogro);
-    connect(ogro1,SIGNAL(clicked()),this,SLOT(infoZombie()));
 
-    Elfo_oscuro *elfo = new Elfo_oscuro();
-    elfo->setPath(pathforelfo);
-
-
-    Harpia *harpia = new Harpia();
-    harpia->setPath(pathforharpy);
-
+  //  connect(ogro1,SIGNAL(clicked()),this,SLOT(infoZombie()));
 
     oleada.append(ogro1);
-    oleada.append(elfo);
-    oleada.append(harpia);
 
     enemiesSpawned = 0;
     maxNumberOfEnemies = oleada.size();
     connect(spawnTimer, SIGNAL(timeout()),this, SLOT(spawnEnemy()));
     spawnTimer->start(3000);
-
-
 }
 
 void Grid::spawnEnemy()
@@ -240,7 +219,6 @@ void Grid::spawnEnemy()
 
     if(enemiesSpawned>=maxNumberOfEnemies){
         spawnTimer->disconnect();
-
         oleada.clear();
 
     }
