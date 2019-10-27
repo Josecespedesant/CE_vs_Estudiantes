@@ -23,6 +23,9 @@ public:
     void mousePressEvent(QMouseEvent *event);
     QGraphicsScene *scene;
 
+    bool flagOfIntialization;
+    QList<Estudiante*> *enemiesInValidation;
+
     QGraphicsPixmapItem* tablero[12][10] {};
 
     ~Grid();
@@ -38,7 +41,7 @@ private:
 
 
 
-    QList<Estudiante*> oleada;
+    QList<Estudiante*> *oleada;
     QTimer *spawnTimer;
     int enemiesSpawned;
     int maxNumberOfEnemies;

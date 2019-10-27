@@ -6,6 +6,8 @@
 #include "QLabel"
 #include "parcela.h"
 #include "grid.h"
+#include "Estudiante.h"
+#include <QList>
 namespace Ui {
 class ChooseTower;
 }
@@ -15,7 +17,7 @@ class ChooseTower : public QDialog
     Q_OBJECT
 
 public:
-    explicit ChooseTower(QWidget *parent = nullptr, Parcela *button = NULL, Player* player = NULL, QLabel* creditos = NULL, Grid *grid = NULL, int i = 0, int j = 0);
+    explicit ChooseTower(QWidget *parent = nullptr, Parcela *button = NULL, Player* player = NULL, QLabel* creditos = NULL, Grid *grid = NULL, int i = 0, int j = 0, QList<Estudiante*> *oleada = nullptr);
     ~ChooseTower();
 
 private slots:
@@ -42,6 +44,8 @@ private:
     Player* player;
     QLabel* creditos;
     Grid* grid;
+    QList<Estudiante*> *oleada;
+    int matrix[12][10];
 
     int i;
     int j;

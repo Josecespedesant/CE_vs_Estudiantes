@@ -20,15 +20,19 @@ protected:
 
     QPointF dest;
 
-    int point_index;
+
     double STEP_SIZE;
 
 public slots:
     void move_forward(){
+
+        std::cout <<pos().y()<<std::endl;
+        std::cout <<dest.y()<<std::endl;
+
         QLineF line(pos(),dest);
-        if(line.length()<6){
+        if(line.length()<5){
             point_index++;
-            if(point_index>=points.size()){
+            if(point_index>=points.size()||dest.y()==0){
                 return;
             }
             dest = points[point_index];
@@ -39,15 +43,28 @@ public slots:
         double dy = STEP_SIZE*qSin(qDegreesToRadians(theta));
         double dx = STEP_SIZE*qCos(qDegreesToRadians(theta));
 
+
         setPos(x()+dx,y()+dy);
     }
 
 public:
     QList<QPointF> points;
+    QList<int> coordFilas;
+    QList<int> coordColumnas;
+
+    int point_index;
+
+    int columnaLlegada;
 
     void setPath(QList<QPointF> path){
         this->points = path;
     }
+
+    QPointF getDest(){
+        return dest;
+    }
+
+
 
     void start(){
             setPos(points[0]);
@@ -56,7 +73,7 @@ public:
 
             QTimer *timer = new QTimer(this);
             connect(timer, SIGNAL(timeout()),this,SLOT(move_forward()));
-            timer->start(150);
+            timer->start(1000);
     }
 
     void rotateToPoint(QPointF p){

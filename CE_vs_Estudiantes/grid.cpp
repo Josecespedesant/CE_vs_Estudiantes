@@ -34,6 +34,8 @@ Grid::Grid(QWidget *parent, Player* player) :
 
     spawnTimer = new QTimer(this);
 
+    flagOfIntialization = false;
+
     ui->label_2->setText(QString::number(this->player->getCreditosTotales()));
 
     //Zona de aprobación
@@ -50,7 +52,7 @@ Grid::Grid(QWidget *parent, Player* player) :
         I+=54;
         zonaDeAprobacion->setCheckable(false);
 
-        zonaDeAprobacion->setPos(zonaDeAprobacion->geometry().x(),zonaDeAprobacion->geometry().y()+54);
+        zonaDeAprobacion->setPos(zonaDeAprobacion->geometry().x(),0);
         QPalette pal;
         pal.setColor(QPalette::Button, QColor(Qt::blue));
         zonaDeAprobacion->setPalette(pal);
@@ -78,7 +80,9 @@ Grid::Grid(QWidget *parent, Player* player) :
             parcela->setGeometry(K,S,54,54);
             parcela->setCheckable(false);
 
-            parcela->setPos(parcela->geometry().x(),parcela->geometry().y());
+            parcela->setPos(parcela->geometry().x(),parcela->geometry().y()+54);
+
+
 
             connect(parcela,SIGNAL(clicked()),this,SLOT(handleButton()));
 
@@ -111,7 +115,7 @@ Grid::Grid(QWidget *parent, Player* player) :
         zonaDeSalida->setGeometry(B,542,54,54);
         zonaDeSalida->setCheckable(false);
 
-        zonaDeSalida->setPos(zonaDeSalida->geometry().x(),zonaDeSalida->geometry().y());
+        zonaDeSalida->setPos(zonaDeSalida->geometry().x(),zonaDeSalida->geometry().y()+54);
 
         B+=54;
         QPalette pal;
@@ -134,11 +138,9 @@ void Grid::handleButton(){
     Parcela* pButton = qobject_cast<Parcela*>(sender());
 
     //fila
-    std::cout<<pButton->QGraphicsPixmapItem::data(1).toInt()<<std::endl;
+   //std::cout<<pButton->QGraphicsPixmapItem::data(1).toInt()<<std::endl;
     //col
-    std::cout<<pButton->QGraphicsPixmapItem::data(2).toInt()<<std::endl;
-
-    std::cout<<"-------------------------"<<std::endl;
+   // std::cout<<pButton->QGraphicsPixmapItem::data(2).toInt()<<std::endl;
 
 
     if (pButton)
@@ -148,7 +150,7 @@ void Grid::handleButton(){
             upord->show();
         }
         if(!pButton->isCheckable()){
-            ChooseTower *ch = new ChooseTower(nullptr, pButton, player, ui->label_2, this, pButton->QGraphicsPixmapItem::data(1).toInt(), pButton->QGraphicsPixmapItem::data(2).toInt());
+            ChooseTower *ch = new ChooseTower(nullptr, pButton, player, ui->label_2, this, pButton->QGraphicsPixmapItem::data(1).toInt(), pButton->QGraphicsPixmapItem::data(2).toInt(), oleada);
             ch->show();
         }
     }
@@ -168,6 +170,10 @@ void Grid::mousePressEvent(QMouseEvent *event){
 //Genera oleada
 void Grid::on_pushButton_clicked(){
 
+    oleada = new QList<Estudiante*>();
+    enemiesInValidation = new QList<Estudiante*>();
+    flagOfIntialization = true;
+
     int matrix[12][10];
 
     for(int n = 0; n<12; n++){
@@ -186,8 +192,9 @@ void Grid::on_pushButton_clicked(){
 
     BackTracking *backtracking = new BackTracking(tablero);
 
-    backtracking->setColumnaSalida(randomSalida);
+    backtracking->setColumnaSalida(0);
     backtracking->setColumnaLlegada(randomLlegada);
+    backtracking->setFilaSalida(11);
 
     backtracking->solveMaze(matrix);
 
@@ -198,29 +205,33 @@ void Grid::on_pushButton_clicked(){
 
     Ogro *ogro1 = new Ogro();
 
+    ogro1->columnaLlegada = randomLlegada;
 
+    ogro1->coordFilas = backtracking->getCoordFilas();
+    ogro1->coordColumnas = backtracking->getCoordColumnas();
     ogro1->setPath(pathforogro);
 
   //  connect(ogro1,SIGNAL(clicked()),this,SLOT(infoZombie()));
 
-    oleada.append(ogro1);
+    oleada->append(ogro1);
 
     enemiesSpawned = 0;
-    maxNumberOfEnemies = oleada.size();
+    maxNumberOfEnemies = oleada->size();
     connect(spawnTimer, SIGNAL(timeout()),this, SLOT(spawnEnemy()));
     spawnTimer->start(3000);
 }
 
 void Grid::spawnEnemy()
 {
-    scene->addItem(oleada[enemiesSpawned]);
-    oleada[enemiesSpawned]->start();
+    enemiesInValidation->append(oleada->at(enemiesSpawned));
+
+    scene->addItem(oleada->at(enemiesSpawned));
+    oleada->at(enemiesSpawned)->start();
     enemiesSpawned+=1;
 
     if(enemiesSpawned>=maxNumberOfEnemies){
         spawnTimer->disconnect();
-        oleada.clear();
-
+        oleada->clear();
     }
 }
 

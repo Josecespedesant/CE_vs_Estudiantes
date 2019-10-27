@@ -11,9 +11,17 @@ class BackTracking{
 public:
 
     QGraphicsPixmapItem* tablero[12][10] {};
+
+    int filaSalida;
     int columnaSalida;
+
     int columnaLlegada;
+
+
     QList<QPointF> path;
+    QList<int> coordFilas;
+    QList<int> coordColumnas;
+
 
     BackTracking(QGraphicsPixmapItem* tablero[12][10]){
 
@@ -23,11 +31,26 @@ public:
             }
         }
         path = QList<QPointF>();
+        coordColumnas = QList<int>();
+        coordFilas = QList<int>();
     }
 
     QList<QPointF> getPath(){
         std::cout <<path.size()<<std::endl;
         return path;
+    }
+
+    QList<int> getCoordFilas(){
+        return coordFilas;
+    }
+
+    QList<int> getCoordColumnas(){
+        return coordColumnas;
+    }
+
+
+    void setFilaSalida(int filaSalida){
+        this->filaSalida = filaSalida;
     }
 
     void setColumnaSalida(int columnaSalida){
@@ -69,7 +92,7 @@ public:
                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }};
                                 //variar y random
-        if (solveMazeUtil(maze, 11, columnaSalida, sol) == false) {
+        if (solveMazeUtil(maze, filaSalida, columnaSalida, sol) == false) {
             printf("Solution doesn't exist");
             return false;
         }
@@ -84,6 +107,8 @@ public:
         if (x == 0 && y == columnaLlegada) { //variar y
             sol[x][y] = 1;
             path.append(tablero[x][y]->pos());
+            coordFilas.append(x);
+            coordColumnas.append(y);
             return true;
         }
 
@@ -91,19 +116,9 @@ public:
         if (isSafe(maze, x, y) == true) {
             // mark x, y as part of solution path
             sol[x][y] = 1;
-
-            bool flag = false;
-
-            for(int s = 0; s<path.size();s++){
-                if(path.at(s).x() == tablero[x][y]->pos().x() && path.at(s).y() == tablero[x][y]->pos().y()){
-                    flag = true;
-                }
-            }
-
-            if(flag == false){
-                path.append(tablero[x][y]->pos());
-            }
-
+            path.append(tablero[x][y]->pos());
+            coordFilas.append(x);
+            coordColumnas.append(y);
 
 
             if(columnaSalida<=columnaLlegada){
@@ -112,6 +127,8 @@ public:
 
                 if (solveMazeUtil(maze, x, y + 1, sol) == true)
                     return true;
+                if (solveMazeUtil(maze, x -1  , y + 1, sol) == true)
+                    return true;
             }
 
             if(columnaSalida>columnaLlegada){
@@ -119,6 +136,9 @@ public:
                     return true;
 
                 if (solveMazeUtil(maze, x , y - 1, sol) == true)
+                    return true;
+
+                if (solveMazeUtil(maze, x -1 , y - 1, sol) == true)
                     return true;
             }
 

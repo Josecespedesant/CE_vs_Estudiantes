@@ -35,7 +35,8 @@ SOURCES += \
     updateordestroy.cpp \
     updatetower.cpp \
     warningmaxlvl.cpp \
-    evaluation.cpp
+    evaluation.cpp \
+    cantaddtower.cpp
 
 HEADERS += \
     AStar.h \
@@ -64,7 +65,8 @@ HEADERS += \
     warningmaxlvl.h \
     evaluation.h \
     lista.h \
-    nodo.h
+    nodo.h \
+    cantaddtower.h
 
 FORMS += \
     choosetower.ui \
@@ -73,7 +75,8 @@ FORMS += \
     mainwindow.ui \
     updateordestroy.ui \
     updatetower.ui \
-    warningmaxlvl.ui
+    warningmaxlvl.ui \
+    cantaddtower.ui
 
 DISTFILES += \
     images/tower1.png \

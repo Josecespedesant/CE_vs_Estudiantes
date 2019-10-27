@@ -145,7 +145,7 @@ void Parcela::setType(QString tipo){
 
 void Parcela::attack_target(Estudiante * estudiante)
 {
-    std::cout<<estudiante->getHealth()<<std::endl;
+  //  std::cout<<estudiante->getHealth()<<std::endl;
 
     Evaluation *evaluation = new Evaluation();
     evaluation->setGrid(grid);
