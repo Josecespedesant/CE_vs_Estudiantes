@@ -5,7 +5,7 @@ Ogro::Ogro(QGraphicsItem * parent)
 {
     setHealth(70);
     QPixmap *ogr = new QPixmap(":/images/ogrebits.png");
-    STEP_SIZE = 3;
+    STEP_SIZE = 1.5;
     setPixmap(ogr->scaled(50,50,Qt::KeepAspectRatio));
 
     point_index = 0;

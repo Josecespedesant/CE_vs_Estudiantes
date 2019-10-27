@@ -26,9 +26,6 @@ protected:
 public slots:
     void move_forward(){
 
-        std::cout <<pos().y()<<std::endl;
-        std::cout <<dest.y()<<std::endl;
-
         QLineF line(pos(),dest);
         if(line.length()<5){
             point_index++;
@@ -73,7 +70,7 @@ public:
 
             QTimer *timer = new QTimer(this);
             connect(timer, SIGNAL(timeout()),this,SLOT(move_forward()));
-            timer->start(1000);
+            timer->start(200);
     }
 
     void rotateToPoint(QPointF p){

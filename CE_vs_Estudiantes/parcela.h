@@ -23,10 +23,11 @@ class Parcela : public QPushButton, public QGraphicsPixmapItem
     Q_OBJECT
 private:
     bool ocupada;
-    int y;
-    int x;
-    int parentX;
-    int parentY;
+
+    int i;
+    int j;
+    int parentI;
+    int parentJ;
     float gCost;
     float hCost;
     float fCost;

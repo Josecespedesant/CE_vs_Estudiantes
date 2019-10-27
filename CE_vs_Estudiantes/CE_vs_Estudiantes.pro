@@ -66,7 +66,8 @@ HEADERS += \
     evaluation.h \
     lista.h \
     nodo.h \
-    cantaddtower.h
+    cantaddtower.h \
+    astaralgorithm.h
 
 FORMS += \
     choosetower.ui \
