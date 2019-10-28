@@ -16,6 +16,7 @@ public:
     QGraphicsPixmapItem* tablero[12][10] {};
     QList<int> coordFilas;
     QList<int> coordColumnas;
+    bool done;
 
     AStarAlgorithm(QGraphicsPixmapItem* tablero[12][10]){
 
@@ -27,6 +28,7 @@ public:
         path = QList<QPointF>();
         coordColumnas = QList<int>();
         coordFilas = QList<int>();
+        done = false;
     }
 
     typedef std::pair<int, int> Pair;
@@ -101,6 +103,7 @@ public:
 
             printf("-> (%d,%d) ",p.first,p.second);
         }
+        done = true;
 
         return;
     }

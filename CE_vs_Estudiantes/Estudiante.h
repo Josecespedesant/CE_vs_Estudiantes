@@ -49,6 +49,8 @@ public:
     QList<int> coordFilas;
     QList<int> coordColumnas;
 
+    int typeofpath;
+
     int point_index;
 
     int columnaLlegada;

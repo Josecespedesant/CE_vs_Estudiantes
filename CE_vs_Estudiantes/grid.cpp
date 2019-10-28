@@ -192,7 +192,7 @@ void Grid::on_pushButton_clicked(){
     std::cout<<randomSalida<<std::endl;
     std::cout<<randomLlegada<<std::endl;
 
-  //  BackTracking *backtracking = new BackTracking(tablero);
+  // BackTracking *backtracking = new BackTracking(tablero);
     AStarAlgorithm *astar = new AStarAlgorithm(tablero);
 
 
@@ -201,27 +201,31 @@ void Grid::on_pushButton_clicked(){
 
     astar->aStarSearch(matrix, src, dest);
 
-  //  backtracking->setColumnaSalida(0);
-   // backtracking->setColumnaLlegada(randomLlegada);
-  //  backtracking->setFilaSalida(11);
+  // backtracking->setColumnaSalida(0);
+  // backtracking->setColumnaLlegada(randomLlegada);
+  // backtracking->setFilaSalida(11);
 
-   // backtracking->solveMaze(matrix);
+  // backtracking->solveMaze(matrix);
 
     QList<QPointF> pathforogro;
 
     pathforogro = astar->getPath();
-    //pathforogro = backtracking->getPath();
+  //  pathforogro = backtracking->getPath();
+
     qDebug()<<pathforogro;
 
     Ogro *ogro1 = new Ogro();
 
+    //ogro1->typeofpath = 0;
+    ogro1->typeofpath = 1;
+
     ogro1->columnaLlegada = randomLlegada;
 
-    ogro1->coordFilas = astar->coordFilas;
-    ogro1->coordColumnas = astar->coordColumnas;
+   ogro1->coordFilas = astar->coordFilas;
+   ogro1->coordColumnas = astar->coordColumnas;
 
     //ogro1->coordFilas = backtracking->getCoordFilas();
-    //ogro1->coordColumnas = backtracking->getCoordColumnas();
+  //  ogro1->coordColumnas = backtracking->getCoordColumnas();
     ogro1->setPath(pathforogro);
 
   //  connect(ogro1,SIGNAL(clicked()),this,SLOT(infoZombie()));

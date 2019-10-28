@@ -7,6 +7,7 @@
 #include "mago.h"
 #include "BackTracking.h"
 #include "cantaddtower.h"
+#include "astaralgorithm.h"
 ChooseTower::ChooseTower(QWidget *parent, Parcela* button, Player* player, QLabel* creditos, Grid *grid, int i, int j, QList<Estudiante*> *oleada) :
     QDialog(parent),
     ui(new Ui::ChooseTower)
@@ -160,44 +161,78 @@ void ChooseTower::on_pushButton_clicked()
         std::cout<<grid->enemiesInValidation->size()<<std::endl;
 
         for(int s=0; s<grid->enemiesInValidation->size(); s++){
-            BackTracking *backtrack = new BackTracking(grid->tablero);
-            backtrack->setColumnaSalida(grid->enemiesInValidation->at(s)->coordColumnas.at(grid->enemiesInValidation->at(s)->point_index));
-            backtrack->setFilaSalida(grid->enemiesInValidation->at(s)->coordFilas.at(grid->enemiesInValidation->at(s)->point_index));
-            backtrack->setColumnaLlegada(grid->enemiesInValidation->at(s)->columnaLlegada);
 
-            grid->tablero[i][j]->setData(0,0);
-            matrix[i][j] = 0;
+            if(grid->enemiesInValidation->at(s)->typeofpath == 0){
+                BackTracking *backtrack = new BackTracking(grid->tablero);
+                backtrack->setColumnaSalida(grid->enemiesInValidation->at(s)->coordColumnas.at(grid->enemiesInValidation->at(s)->point_index));
+                backtrack->setFilaSalida(grid->enemiesInValidation->at(s)->coordFilas.at(grid->enemiesInValidation->at(s)->point_index));
+                backtrack->setColumnaLlegada(grid->enemiesInValidation->at(s)->columnaLlegada);
 
-            if(backtrack->solveMaze(matrix)){
+                grid->tablero[i][j]->setData(0,0);
+                matrix[i][j] = 0;
 
-                grid->enemiesInValidation->at(s)->points.clear();
-                grid->enemiesInValidation->at(s)->setPath(backtrack->getPath());
+                if(backtrack->solveMaze(matrix)){
+
+                    grid->enemiesInValidation->at(s)->points.clear();
+                    grid->enemiesInValidation->at(s)->setPath(backtrack->getPath());
 
 
-                Arquero *arch = new Arquero();
-                player->setCreditosTotales(player->getCreditosTotales()-2);
-                this->button->setCheckable(true);
-                QPixmap pixm(ui->pushButton->icon().pixmap(button->width(),button->height()));
-                arch->addPixmap(pixm);
-                this->button->setIcon(*arch);
-                this->button->setIconSize(pixm.rect().size());
-                this->button->setObjectName("Arch");
-                this->button->setType("Archer");
-                creditos->setText(QString::number(this->player->getCreditosTotales()));
+                    Arquero *arch = new Arquero();
+                    player->setCreditosTotales(player->getCreditosTotales()-2);
+                    this->button->setCheckable(true);
+                    QPixmap pixm(ui->pushButton->icon().pixmap(button->width(),button->height()));
+                    arch->addPixmap(pixm);
+                    this->button->setIcon(*arch);
+                    this->button->setIconSize(pixm.rect().size());
+                    this->button->setObjectName("Arch");
+                    this->button->setType("Archer");
+                    creditos->setText(QString::number(this->player->getCreditosTotales()));
 
-            }else{
-                std::cout<<"Si entra3"<<std::endl;
-                CantAddTower *add = new CantAddTower;
-                add->show();
-                grid->tablero[i][j]->setData(0,1);
-                return;
+                }else{
+                    std::cout<<"Si entra3"<<std::endl;
+                    CantAddTower *add = new CantAddTower;
+                    add->show();
+                    grid->tablero[i][j]->setData(0,1);
+                    return;
+                }
             }
 
+            if(grid->enemiesInValidation->at(s)->typeofpath == 1){
 
+                AStarAlgorithm *astar = new AStarAlgorithm(grid->tablero);
+                std::pair<int, int> src = std::make_pair(grid->enemiesInValidation->at(s)->coordFilas.at(grid->enemiesInValidation->at(s)->point_index),grid->enemiesInValidation->at(s)->coordColumnas.at(grid->enemiesInValidation->at(s)->point_index));
+                std::pair<int, int> dest = std::make_pair(0,grid->enemiesInValidation->at(s)->columnaLlegada);
 
+                grid->tablero[i][j]->setData(0,0);
+                matrix[i][j] = 0;
+
+                astar->aStarSearch(matrix,src,dest);
+
+                if(astar->done){
+                    grid->enemiesInValidation->at(s)->points.clear();
+                    grid->enemiesInValidation->at(s)->setPath(astar->getPath());
+
+                    Arquero *arch = new Arquero();
+                    player->setCreditosTotales(player->getCreditosTotales()-2);
+                    this->button->setCheckable(true);
+                    QPixmap pixm(ui->pushButton->icon().pixmap(button->width(),button->height()));
+                    arch->addPixmap(pixm);
+                    this->button->setIcon(*arch);
+                    this->button->setIconSize(pixm.rect().size());
+                    this->button->setObjectName("Arch");
+                    this->button->setType("Archer");
+                    creditos->setText(QString::number(this->player->getCreditosTotales()));
+
+                }else{
+                    std::cout<<"Si entra3"<<std::endl;
+                    CantAddTower *add = new CantAddTower;
+                    add->show();
+                    grid->tablero[i][j]->setData(0,1);
+                    return;
+                }
+            }
         }
     }
-
     grid->tablero[i][j]->setData(0,0);
 
     Arquero *arch = new Arquero();
@@ -210,9 +245,6 @@ void ChooseTower::on_pushButton_clicked()
     this->button->setObjectName("Arch");
     this->button->setType("Archer");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
-
-
-
     hide();
 }
 

@@ -127,7 +127,7 @@ public:
 
                 if (solveMazeUtil(maze, x, y + 1, sol) == true)
                     return true;
-                if (solveMazeUtil(maze, x -1  , y + 1, sol) == true)
+                if (solveMazeUtil(maze, x -1  , y + 1, sol) == true && maze[x-1][y] != 0 && maze[x][y+1] != 0)
                     return true;
             }
 
@@ -138,7 +138,7 @@ public:
                 if (solveMazeUtil(maze, x , y - 1, sol) == true)
                     return true;
 
-                if (solveMazeUtil(maze, x -1 , y - 1, sol) == true)
+                if (solveMazeUtil(maze, x -1 , y - 1, sol) == true&& maze[x-1][y] != 0 && maze[x][y-1] != 0)
                     return true;
             }
 
