@@ -4,7 +4,7 @@ Mago::Mago()
 {
     setCantCreditos(4);
     setCantHorasReales(4);
-    setNivelExigencia(2);
+    setNivelExigencia(4);
     setVelocidadEvaluacion(1.5);
     setCooldown(2);
     setAlcance(2);

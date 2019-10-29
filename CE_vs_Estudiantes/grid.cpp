@@ -21,6 +21,11 @@
 #include <thread>
 #include <iostream>
 #include "BackTracking.h"
+#include <QFont>
+#include <QMediaPlaylist>
+#include <QMediaPlayer>
+#include "geneticalgorithm.h"
+
 
 #include <random>
 
@@ -32,17 +37,40 @@ Grid::Grid(QWidget *parent, Player* player) :
     setFixedSize(829,660);
     scene = new QGraphicsScene();
     this->player = player;
+    this->numeroOleada = 0;
+    this->inversiones = 0;
+    this->mutaciones = 0;
+
+    this->F = 0;
+
+    ui->failed->setText(QString::number(F));
+    ui->generations->setText(QString::number(numeroOleada));
+    ui->inversiones->setText(QString::number(inversiones));
+    ui->mutaciones->setText(QString::number(mutaciones));
 
     spawnTimer = new QTimer(this);
 
     flagOfIntialization = false;
+    QPalette paleta;
+    paleta.setColor(QPalette::WindowText, QColor(Qt::darkMagenta));
+    QFont newFont("Suruma", 13, QFont::Bold, true);
 
     ui->label_2->setText(QString::number(this->player->getCreditosTotales()));
+    ui->label_2->setGeometry(624,31,60,30);
+    ui->label_2->setFont(newFont);
+    ui->label_2->setPalette(paleta);
+
+
+   QMediaPlayer *reproductor= new QMediaPlayer();
+    // ...
+   reproductor->setMedia(QUrl::fromLocalFile("/home/josecespedes/Downloads/cancion.mp3"));
+    reproductor->setVolume(50);
+    reproductor->play();
 
     //Zona de aprobación
     int I = 0;
     for(int j=0; j<10;j++){
-        Parcela *zonaDeAprobacion = new Parcela();
+        Parcela *zonaDeAprobacion = new Parcela(nullptr, ui->failed);
 
         zonaDeAprobacion->setData(0,1);
         zonaDeAprobacion->setData(1,0);
@@ -70,7 +98,7 @@ Grid::Grid(QWidget *parent, Player* player) :
 
         for(int j=0; j<10;j++){
 
-            Parcela *parcela = new Parcela();
+            Parcela *parcela = new Parcela(nullptr, ui->failed);
 
             //0 guarda si esta ocupado o no
             parcela->setData(0,1);
@@ -89,11 +117,11 @@ Grid::Grid(QWidget *parent, Player* player) :
 
             if((i+j)%2==0){
                 QPalette pal;
-                pal.setColor(QPalette::Button, QColor(Qt::magenta));
+                pal.setColor(QPalette::Button, QColor(Qt::darkCyan));
                 parcela->setPalette(pal);
             }else{
                 QPalette pal;
-                pal.setColor(QPalette::Button, QColor(Qt::darkMagenta));
+                pal.setColor(QPalette::Button, QColor(Qt::white));
                 parcela->setPalette(pal);
             }
 
@@ -106,11 +134,10 @@ Grid::Grid(QWidget *parent, Player* player) :
     //Zona de salida
     int B = 0;
     for(int j=0; j<10;j++){
-        Parcela *zonaDeSalida = new Parcela();
+        Parcela *zonaDeSalida = new Parcela(nullptr, ui->failed);
         zonaDeSalida->setData(0,1);
         zonaDeSalida->setData(1,11);
         zonaDeSalida->setData(2,j);
-
 
         zonaDeSalida->setZValue(-1);
         zonaDeSalida->setGeometry(B,542,54,54);
@@ -120,7 +147,7 @@ Grid::Grid(QWidget *parent, Player* player) :
 
         B+=54;
         QPalette pal;
-        pal.setColor(QPalette::Button, QColor(Qt::darkGreen));
+        pal.setColor(QPalette::Button, QColor(Qt::red));
         zonaDeSalida->setPalette(pal);
 
 
@@ -170,6 +197,7 @@ void Grid::mousePressEvent(QMouseEvent *event){
 
 //Genera oleada
 void Grid::on_pushButton_clicked(){
+    srand(time(NULL));
 
     oleada = new QList<Estudiante*>();
     enemiesInValidation = new QList<Estudiante*>();
@@ -184,13 +212,65 @@ void Grid::on_pushButton_clicked(){
         }
     }
 
-    srand(time(NULL));
+    if(numeroOleada == 0){
 
-    int randomSalida = std::rand()%10;
-    int randomLlegada = std::rand()%10;
+        GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm;
 
-    std::cout<<randomSalida<<std::endl;
-    std::cout<<randomLlegada<<std::endl;
+        geneticAlgorithm->initializePopulation();
+        geneticAlgorithm->fitnessFunction();
+        geneticAlgorithm->selection();
+        geneticAlgorithm->reproduction();
+
+
+        int probabilidadMutacion = 1 + (std::rand() % (100-1+1));
+        int probabilidadInversion = 1 + (std::rand() % (100-1+1));
+
+
+        if(probabilidadMutacion<=5){
+            geneticAlgorithm->mutation();
+            ui->mutaciones->setText(QString::number(++mutaciones));
+        }
+        if(probabilidadInversion == 6){
+            geneticAlgorithm->inversion();
+            ui->inversiones->setText(QString::number(++inversiones));
+
+        }
+
+        oleada = geneticAlgorithm->getOleada();
+
+        ui->generations->setText(QString::number(++numeroOleada));
+
+        for(int h = 0; h<3;h++){
+            AStarAlgorithm *astar = new AStarAlgorithm(tablero);
+
+            int randomSalida = std::rand()%10;
+            int randomLlegada = std::rand()%10;
+
+            std::pair<int, int> src = std::make_pair(11,randomSalida);
+            std::pair<int, int> dest = std::make_pair(0,randomLlegada);
+
+            astar->aStarSearch(matrix,src,dest);
+
+            QList<QPointF> path;
+
+            path = astar->getPath();
+
+            oleada->at(h)->setPath(path);
+
+            oleada->at(h)->typeofpath(1);
+
+
+        }
+
+
+        for(int h = 3; h<30; h++){
+
+            int randomSalida = std::rand()%10;
+            int randomLlegada = std::rand()%10;
+
+        }
+    }
+
 
   // BackTracking *backtracking = new BackTracking(tablero);
     AStarAlgorithm *astar = new AStarAlgorithm(tablero);
@@ -214,7 +294,8 @@ void Grid::on_pushButton_clicked(){
 
     qDebug()<<pathforogro;
 
-    Ogro *ogro1 = new Ogro();
+  //  Ogro *ogro1 = new Ogro();
+    Mercenario *ogro1 = new Mercenario();
 
     //ogro1->typeofpath = 0;
     ogro1->typeofpath = 1;

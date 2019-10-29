@@ -15,7 +15,7 @@
 #include "mago.h"
 #include <QGraphicsPixmapItem>
 #include "Estudiante.h"
-
+#include <QLabel>
 #include <QPointF>
 
 class Parcela : public QPushButton, public QGraphicsPixmapItem
@@ -32,6 +32,10 @@ private:
     float hCost;
     float fCost;
 
+    int timesShot;
+
+
+
     Arquero *arch;
     Artillero *gunner;
     Mago *mago;
@@ -47,10 +51,12 @@ public slots:
 
 public:
     void attack_target(Estudiante* estudiante);
-    Parcela(QGraphicsItem * parent = 0);
+    Parcela(QGraphicsItem * parent = 0, QLabel* contMuertes = 0);
 
     double distanceTo(QGraphicsItem *item);
     void setType(QString);
+
+    QLabel *contMuertes;
 
     Arquero* getArquero();
     Artillero* getArtillero();

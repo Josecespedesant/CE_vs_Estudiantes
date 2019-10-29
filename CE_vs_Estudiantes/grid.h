@@ -25,7 +25,7 @@ public:
 
     bool flagOfIntialization;
     QList<Estudiante*> *enemiesInValidation;
-
+    int F;
     QGraphicsPixmapItem* tablero[12][10] {};
 
     ~Grid();
@@ -38,13 +38,17 @@ private slots:
     void infoZombie();
 
 private:
-
-
-
     QList<Estudiante*> *oleada;
     QTimer *spawnTimer;
     int enemiesSpawned;
     int maxNumberOfEnemies;
+
+
+
+    int mutaciones;
+    int inversiones;
+
+    int numeroOleada;
 
     Ui::Grid *ui;
     Player* player;

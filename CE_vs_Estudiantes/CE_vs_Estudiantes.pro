@@ -1,4 +1,5 @@
 QT       += core gui
+QT       +=   multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -36,7 +37,9 @@ SOURCES += \
     updatetower.cpp \
     warningmaxlvl.cpp \
     evaluation.cpp \
-    cantaddtower.cpp
+    cantaddtower.cpp \
+    geneticalgorithm.cpp \
+    concreteestudiantefactory.cpp
 
 HEADERS += \
     AStar.h \
@@ -67,7 +70,10 @@ HEADERS += \
     lista.h \
     nodo.h \
     cantaddtower.h \
-    astaralgorithm.h
+    astaralgorithm.h \
+    geneticalgorithm.h \
+    estudiantefactory.h \
+    concreteestudiantefactory.h
 
 FORMS += \
     choosetower.ui \

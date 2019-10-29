@@ -11,5 +11,6 @@
         <file>images/darkelve.png</file>
         <file>images/mercenary.png</file>
         <file>images/qu.png</file>
+        <file>images/normalshot2.png</file>
     </qresource>
 </RCC>

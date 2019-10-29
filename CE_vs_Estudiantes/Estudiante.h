@@ -9,13 +9,22 @@
 class Estudiante : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 protected:
+
     int health;
     double speed;
+
     int archerResistance;
     int artilleryResistance;
     int mageResistance;
     int fireResistance;
 
+
+
+    int healthVector[8];
+    int archerResistanceVector[8];
+    int artilleryResistanceVector[8];
+    int mageResistanceVector[8];
+    int fireResistanceVector[8];
 
 
     QPointF dest;
@@ -25,7 +34,6 @@ protected:
 
 public slots:
     void move_forward(){
-
         QLineF line(pos(),dest);
         if(line.length()<5){
             point_index++;
@@ -48,6 +56,17 @@ public:
     QList<QPointF> points;
     QList<int> coordFilas;
     QList<int> coordColumnas;
+
+    int fitness;
+
+    void decToBinary(int n, int binaryNum[10]){
+        int i =0;
+        while(n>0){
+            binaryNum[i]=n%2;
+            n = n/2;
+            i++;
+        }
+    }
 
     int typeofpath;
 
@@ -111,6 +130,15 @@ public:
         this->mageResistance = mageResistance;
     }
 
+    int getArtilleryResistance()
+    {
+        return artilleryResistance;
+    }
+
+    void setArtilleryResistance(int value)
+    {
+        artilleryResistance = value;
+    }
 };
 
 

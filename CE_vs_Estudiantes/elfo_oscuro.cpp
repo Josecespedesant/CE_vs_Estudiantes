@@ -7,5 +7,11 @@ Elfo_oscuro::Elfo_oscuro(QGraphicsItem * parent)
     STEP_SIZE = 1;
     setPixmap(elfo->scaled(50,50,Qt::KeepAspectRatio));
 
+    setArcherResistance(1);
+    setMageResistance(1);
+    setFireResistance(0);
+    setArtilleryResistance(0);
     point_index = 0;
+
+
 }

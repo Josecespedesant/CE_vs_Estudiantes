@@ -8,13 +8,18 @@
 #include "QLine"
 extern Grid *grid;
 
-Parcela::Parcela(QGraphicsItem *parent):QPushButton(), QGraphicsPixmapItem(parent)
+Parcela::Parcela(QGraphicsItem *parent, QLabel* contMuertes):QPushButton(), QGraphicsPixmapItem(parent)
 {
     fire = nullptr;
     gunner = nullptr;
     arch = nullptr;
     mago = nullptr;
+
+    this->contMuertes = contMuertes;
+
+
     setPixmap(QPixmap());
+    timesShot = 0;
 }
 
 double Parcela::distanceTo(QGraphicsItem *item)
@@ -145,20 +150,37 @@ void Parcela::setType(QString tipo){
 
 void Parcela::attack_target(Estudiante * estudiante)
 {
-  //  std::cout<<estudiante->getHealth()<<std::endl;
+    std::cout<<estudiante->getHealth()<<std::endl;
+    timesShot++;
 
-    Evaluation *evaluation = new Evaluation();
+    if(timesShot > 10){
+        timesShot = 0;
+    }
+
+
+    Evaluation *evaluation = new Evaluation(nullptr, this->contMuertes);
+
+    evaluation->contadorDisparoEspecial = timesShot;
     evaluation->setGrid(grid);
 
     if(this->objectName().toStdString().compare("Arch")==0){
         evaluation->setObjectName("Arch");
+        evaluation->setCurso(getArquero());
     }
     if(this->objectName().toStdString().compare("Arty") == 0){
         evaluation->setObjectName("Arty");
+        evaluation->setCurso(getArtillero());
     }
     if(this->objectName().toStdString().compare("Mago")==0){
         evaluation->setObjectName("Mago");
+        evaluation->setCurso(getMago());
     }
+
+    if(this->objectName().toStdString().compare("Fire")==0){
+        evaluation->setObjectName("Fire");
+        evaluation->setCurso(getLanzaFuego());
+    }
+
 
     evaluation->setPos(this->geometry().x()+34,this->geometry().y()+27);
 

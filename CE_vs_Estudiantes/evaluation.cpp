@@ -2,13 +2,13 @@
 #include <QTimer>
 #include <qmath.h>
 
-Evaluation::Evaluation(QGraphicsItem *parent)
+Evaluation::Evaluation(QGraphicsItem *parent, QLabel * contMuertes)
 {
-    QPixmap *pix = new QPixmap(":/images/questionmark.png");
+
 
     setMaxRange(400);
 
-    setPixmap(pix->scaled(21,21,Qt::KeepAspectRatio));
+    setPixmap(QPixmap());
 
     QTimer *move_timer = new QTimer(this);
     connect(move_timer, SIGNAL(timeout()), this, SLOT(move()));
@@ -16,7 +16,8 @@ Evaluation::Evaluation(QGraphicsItem *parent)
 
     maxRange = 100;
     distaneTravelled = 0;
-
+    contadorDisparoEspecial = 0;
+    this->contMuertes = contMuertes;
 }
 
 double Evaluation::getMaxRange()
@@ -39,7 +40,46 @@ void Evaluation::setDistanceTravelled(double dist)
     this->distaneTravelled = dist;
 }
 
+void Evaluation::setCurso(Curso *curso)
+{
+    this->curso = curso;
+}
+
 void Evaluation::move(){
+
+
+
+
+    double damageDealt = (curso->getCantCreditos()+curso->getCantHorasReales()+curso->getNivelExigencia())/2;
+    double totalDamage;
+
+    if(this->objectName().toStdString().compare("Arch")==0){
+        totalDamage = damageDealt - estudianteObjetivo->getArcherResistance();
+    }
+    if(this->objectName().toStdString().compare("Arty")==0){
+        totalDamage = damageDealt - estudianteObjetivo->getArtilleryResistance();
+    }
+    if(this->objectName().toStdString().compare("Mago")==0){
+        totalDamage = damageDealt - estudianteObjetivo->getMageResistance();
+    }
+    if(this->objectName().toStdString().compare("Fire")==0){
+        totalDamage = damageDealt - estudianteObjetivo->getFireResistance();
+    }
+
+
+    if(contadorDisparoEspecial < 10){
+        totalDamage = totalDamage-1;
+        QPixmap *pix = new QPixmap(":/images/normalshot2.png");
+        setPixmap(pix->scaled(21,21,Qt::KeepAspectRatio));
+    }
+
+    if(contadorDisparoEspecial >= 10){
+        totalDamage = totalDamage+1;
+        QPixmap *pix = new QPixmap(":/images/questionmark.png");
+        setPixmap(pix->scaled(21,21,Qt::KeepAspectRatio));
+    }
+
+
     int STEP_SIZE;
 
     if(this->objectName().toStdString().compare("Arch")==0){
@@ -53,6 +93,10 @@ void Evaluation::move(){
     if(this->objectName().toStdString().compare("Mago")==0){
         STEP_SIZE = 15;
     }
+    if(this->objectName().toStdString().compare("Fire")==0){
+        STEP_SIZE = 10;
+    }
+
 
 
     double theta = rotation(); //degrees
@@ -63,31 +107,14 @@ void Evaluation::move(){
     setPos(x()+dx,y()+dy);
 
 
-    if(this->collidesWithItem(estudianteObjetivo) && this->objectName().toStdString().compare("Arch")==0){
-        estudianteObjetivo->setHealth(estudianteObjetivo->getHealth());
+    if(this->collidesWithItem(estudianteObjetivo)){
+        estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-totalDamage);
+
         if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
             grid->scene->removeItem(estudianteObjetivo);
             this->setVisible(false);
-            return;
-        }
-        this->setVisible(false);
-        return;
-    }
-    if(this->collidesWithItem(estudianteObjetivo) && this->objectName().toStdString().compare("Arty")==0){
-        estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-1.5);
-        if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
-            grid->scene->removeItem(estudianteObjetivo);
-            this->setVisible(false);
-            return;
-        }
-        this->setVisible(false);
-        return;
-    }
-    if(this->collidesWithItem(estudianteObjetivo) && this->objectName().toStdString().compare("Mago")==0){
-        estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-2.0);
-        if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
-            grid->scene->removeItem(estudianteObjetivo);
-            this->setVisible(false);
+
+            contMuertes->setText(QString::number(++grid->F));
             return;
         }
         this->setVisible(false);
