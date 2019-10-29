@@ -42,7 +42,7 @@ Grid::Grid(QWidget *parent, Player* player) :
     this->inversiones = 0;
     this->mutaciones = 0;
     enemiesInValidation = new QList<Estudiante*>();
-
+    this->colective = false;
     ui->pushButton->setEnabled(false);
 
     this->F = 0;
@@ -202,7 +202,7 @@ void Grid::mousePressEvent(QMouseEvent *event){
 //Genera oleada
 void Grid::on_pushButton_clicked(){
 
-    if(numeroOleada == maxNumOfWaves){
+    if(numeroOleada == maxNumOfWaves && colective){
         End*end = new End;
         end->show();
         hide();
@@ -382,35 +382,43 @@ void Grid::on_pushButton_clicked(){
     enemiesSpawned = 0;
     maxNumberOfEnemies = oleada->size();
     connect(spawnTimer, SIGNAL(timeout()),this, SLOT(spawnEnemy()));
-    spawnTimer->start(3500);
+    spawnTimer->start(1000);
 
 }
 
 void Grid::spawnEnemy()
 {
+    scene->addItem(oleada->at(enemiesSpawned));
+
     enemiesInValidation->append(oleada->at(enemiesSpawned));
 
-    scene->addItem(oleada->at(enemiesSpawned));
     oleada->at(enemiesSpawned)->start();
+
+
     enemiesSpawned+=1;
+
+
 
     if(enemiesSpawned>=maxNumberOfEnemies){
         spawnTimer->disconnect();
-         ui->pushButton->setEnabled(true);
+        ui->pushButton->setEnabled(true);
         oleada->clear();
     }
+
+
 }
 
 void Grid::verifyEnemyPos()
 {
+    std::cout<<enemiesSpawned<<std::endl;
     for(int i=0; i<enemiesInValidation->size();i++){
-        if(enemiesInValidation->at(i)->llego){
-            End* end = new End;
-            end->show();
-            verifTimer->disconnect();
-            return;
-        }
-    }
+            if(enemiesInValidation->at(i)->llego || enemiesInValidation->at(i)->y()<0){
+                End* end = new End;
+                end->show();
+                verifTimer->disconnect();
+                return;
+
+        }}
 }
 
 
@@ -427,9 +435,9 @@ void Grid::infoZombie()
 
 void Grid::on_aprob_colectiva_clicked()
 {
-
-
     maxNumOfWaves = NULL;
+
+    colective = true;
 
     col_mode *colectivo = new col_mode(nullptr, &maxNumOfWaves);
     colectivo->show();
@@ -448,7 +456,7 @@ void Grid::on_aprob_individual_clicked()
 
     verifTimer = new QTimer(this);
     connect(verifTimer, SIGNAL(timeout()),this, SLOT(verifyEnemyPos()));
-    verifTimer->start(1000);
+    verifTimer->start(500);
 
     ui->pushButton->setEnabled(true);
     ui->aprob_individual->setVisible(false);

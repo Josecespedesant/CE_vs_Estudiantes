@@ -127,7 +127,7 @@ void Evaluation::move(){
         if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
             grid->scene->removeItem(estudianteObjetivo);
 
-            grid->player->setCreditosTotales(grid->player->getCreditosTotales()+2);
+            grid->player->setCreditosTotales(grid->player->getCreditosTotales()+1);
 
             creditos->setText(QString::number(grid->player->getCreditosTotales()));
 

@@ -33,7 +33,7 @@ public:
     QGraphicsPixmapItem* tablero[12][10] {};
     int F;
 
-
+    bool colective;
     int maxNumOfWaves;
 
     Player* player;

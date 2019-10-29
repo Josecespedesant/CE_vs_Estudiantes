@@ -33,7 +33,9 @@ public slots:
         if(line.length()<5){
             point_index++;
             if(point_index>=points.size() && dest.y()==0){
+
                 llego = true;
+
                 return;
             }
             dest = points[point_index];

@@ -55,7 +55,7 @@ void GeneticAlgorithm::initializePopulation()
             std::vector<int> vidaVector(10);
             vidaVector = decimalToBinary(vidaRandom);
 
-            Mercenario *harpia = factory->createMercenarioInstance(vidaVector);
+            Harpia *harpia = factory->createHarpiaInstance(vidaVector);
 
             harpia->fitness = 0;
             poblacionInicial->append(harpia);
@@ -190,7 +190,7 @@ void GeneticAlgorithm::reproduction()
             }
 
 
-            Mercenario *harpia = factory->createMercenarioInstance(vidaCruce);
+            Harpia *harpia = factory->createHarpiaInstance(vidaCruce);
 
             harpia->fitness = 0;
             oleada->append(harpia);
@@ -223,35 +223,35 @@ void GeneticAlgorithm::reproduction()
 void GeneticAlgorithm::mutation()
 {
     if(oleada->size() == 30){
-    int pos = 0;
-    std::cout<<oleada->size()<<std::endl;
-    if(oleada->size()>0){
-        pos = std::rand()%oleada->size();
-    }
+        int pos = 0;
+        std::cout<<oleada->size()<<std::endl;
+        if(oleada->size()>0){
+            pos = std::rand()%oleada->size();
+        }
 
-    int byteToChange = std::rand()%10;
+        int byteToChange = std::rand()%10;
 
-    std::vector<int> vida = decimalToBinary(oleada->at(pos)->getHealth());
+        std::vector<int> vida = decimalToBinary(oleada->at(pos)->getHealth());
 
-    oleada->at(pos)->setPixmap(oleada->at(pos)->pixmap().scaled(70,70,Qt::KeepAspectRatio));
+        oleada->at(pos)->setPixmap(oleada->at(pos)->pixmap().scaled(70,70,Qt::KeepAspectRatio));
 
-    if(vida.at(byteToChange) == 0){
-        vida.at(byteToChange) = 1;
-    }
-    else if(vida.at(byteToChange) == 1){
-        vida.at(byteToChange) = 0;
-    }
+        if(vida.at(byteToChange) == 0){
+            vida.at(byteToChange) = 1;
+        }
+        else if(vida.at(byteToChange) == 1){
+            vida.at(byteToChange) = 0;
+        }
 
-    int i;
-    int output = 0;
-    int power = 1;
+        int i;
+        int output = 0;
+        int power = 1;
 
-    for(i=0; i<10; i++){
-        output += vida.at(9-i)*power;
-        power *=2;
-    }
+        for(i=0; i<10; i++){
+            output += vida.at(9-i)*power;
+            power *=2;
+        }
 
-    oleada->at(pos)->setHealth(output);
+        oleada->at(pos)->setHealth(output);
 
     }
 
@@ -260,58 +260,58 @@ void GeneticAlgorithm::mutation()
 void GeneticAlgorithm::inversion()
 {
     if(oleada->size() == 30){
-    int pos = 0;
-    if(oleada->size()>0){
-        pos = std::rand()%oleada->size();
-    }
+        int pos = 0;
+        if(oleada->size()>0){
+            pos = std::rand()%oleada->size();
+        }
 
-    int byteToChange1 = std::rand()%10;
-    int byteToChange2 = std::rand()%10;
-    int byteToChange3 = std::rand()%10;
-    int byteToChange4 = std::rand()%10;
+        int byteToChange1 = std::rand()%10;
+        int byteToChange2 = std::rand()%10;
+        int byteToChange3 = std::rand()%10;
+        int byteToChange4 = std::rand()%10;
 
-    std::vector<int> vida = decimalToBinary(oleada->at(pos)->getHealth());
+        std::vector<int> vida = decimalToBinary(oleada->at(pos)->getHealth());
 
-    oleada->at(pos)->setPixmap(oleada->at(pos)->pixmap().scaled(70,70,Qt::KeepAspectRatio));
+        oleada->at(pos)->setPixmap(oleada->at(pos)->pixmap().scaled(70,70,Qt::KeepAspectRatio));
 
-    if(vida.at(byteToChange1) == 0){
-        vida.at(byteToChange1) = 1;
-    }
-    else if(vida.at(byteToChange1) == 1){
-        vida.at(byteToChange1) = 0;
-    }
+        if(vida.at(byteToChange1) == 0){
+            vida.at(byteToChange1) = 1;
+        }
+        else if(vida.at(byteToChange1) == 1){
+            vida.at(byteToChange1) = 0;
+        }
 
-    if(vida.at(byteToChange2) == 0){
-        vida.at(byteToChange2) = 1;
-    }
-    else if(vida.at(byteToChange2) == 1){
-        vida.at(byteToChange2) = 0;
-    }
+        if(vida.at(byteToChange2) == 0){
+            vida.at(byteToChange2) = 1;
+        }
+        else if(vida.at(byteToChange2) == 1){
+            vida.at(byteToChange2) = 0;
+        }
 
-    if(vida.at(byteToChange3) == 0){
-        vida.at(byteToChange3) = 1;
-    }
-    else if(vida.at(byteToChange3) == 1){
-        vida.at(byteToChange3) = 0;
-    }
+        if(vida.at(byteToChange3) == 0){
+            vida.at(byteToChange3) = 1;
+        }
+        else if(vida.at(byteToChange3) == 1){
+            vida.at(byteToChange3) = 0;
+        }
 
-    if(vida.at(byteToChange4) == 0){
-        vida.at(byteToChange4) = 1;
-    }
-    else if(vida.at(byteToChange4) == 1){
-        vida.at(byteToChange4) = 0;
-    }
+        if(vida.at(byteToChange4) == 0){
+            vida.at(byteToChange4) = 1;
+        }
+        else if(vida.at(byteToChange4) == 1){
+            vida.at(byteToChange4) = 0;
+        }
 
-    int i;
-    int output = 0;
-    int power = 1;
+        int i;
+        int output = 0;
+        int power = 1;
 
-    for(i=0; i<10; i++){
-        output += vida.at(9-i)*power;
-        power *=2;
-    }
+        for(i=0; i<10; i++){
+            output += vida.at(9-i)*power;
+            power *=2;
+        }
 
-    oleada->at(pos)->setHealth(output);
+        oleada->at(pos)->setHealth(output);
     }
 }
 
