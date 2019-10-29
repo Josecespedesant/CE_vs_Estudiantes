@@ -1,0 +1,25 @@
+var class_curso =
+[
+    [ "getAlcance", "class_curso.html#a518e3a3c011e6569db5373b266afa979", null ],
+    [ "getCantCreditos", "class_curso.html#a885b45087ad5cf35855194e98994615c", null ],
+    [ "getCantHorasReales", "class_curso.html#a90f24d1eec4065621c6b923ccd5da3b0", null ],
+    [ "getCooldown", "class_curso.html#ab7ac3f69780e7ede24591fcc76055de1", null ],
+    [ "getNivelActual", "class_curso.html#a4b93f961dd13dcd031d8b9c26ffdb9fc", null ],
+    [ "getNivelExigencia", "class_curso.html#aede99eee199f45ce593aa4c9b0fade18", null ],
+    [ "getVelocidadEvaluacion", "class_curso.html#a1bbc22728e83a5d60d4eff921cfd3f5e", null ],
+    [ "setAlcance", "class_curso.html#a98a3085dec86597c3771bdad6f52c9de", null ],
+    [ "setCantCreditos", "class_curso.html#a12c7cd725584a14c9030cf0059a34a0d", null ],
+    [ "setCantHorasReales", "class_curso.html#a627298a0c820c29fb0aa3d7f371068eb", null ],
+    [ "setCooldown", "class_curso.html#adf35fcfa5e8d9ffe7adb4a44a0ce6d52", null ],
+    [ "setNivelActual", "class_curso.html#a1e9e1ccad1b14f120e7a757ed2be918d", null ],
+    [ "setNivelExigencia", "class_curso.html#a2edf4764f2324c88b2e657093fc5d8b0", null ],
+    [ "setVelocidadEvaluacion", "class_curso.html#a7b91ffd3c19bb85c7328a115bce57bd0", null ],
+    [ "upgrade", "class_curso.html#a187dd5262159dacafc61b4e5319ff77b", null ],
+    [ "alcance", "class_curso.html#aa9db4b7703c2bffdd9ea5c72175b6a91", null ],
+    [ "cantCreditos", "class_curso.html#ab1afda9fbba13869fb94563ef64766a1", null ],
+    [ "cantHorasReales", "class_curso.html#acc0653b467124ef14e972a84bf14d192", null ],
+    [ "cooldown", "class_curso.html#a90e386ba89660e814bcf7a6ccc0b2026", null ],
+    [ "nivelActual", "class_curso.html#ac889288ad8a7f32658a411d387637dbe", null ],
+    [ "nivelExigencia", "class_curso.html#a81e28606391f5275b3ed296d45d46c05", null ],
+    [ "velocidadEvaluacion", "class_curso.html#a529aac00b77cef289d7baf930ad95f74", null ]
+];
