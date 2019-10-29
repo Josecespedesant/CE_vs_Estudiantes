@@ -6,7 +6,7 @@ Mercenario::Mercenario(QGraphicsItem * parent)
     QPixmap *merc = new QPixmap(":/images/mercenary.png");
     STEP_SIZE = 2.5;
     setPixmap(merc->scaled(50,50,Qt::KeepAspectRatio));
-
+    llego = false;
     setArcherResistance(1);
     setMageResistance(1);
     setFireResistance(0);

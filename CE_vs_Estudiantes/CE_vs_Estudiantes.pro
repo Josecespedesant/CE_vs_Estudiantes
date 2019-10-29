@@ -39,15 +39,15 @@ SOURCES += \
     evaluation.cpp \
     cantaddtower.cpp \
     geneticalgorithm.cpp \
-    concreteestudiantefactory.cpp
+    concreteestudiantefactory.cpp \
+    end.cpp \
+    ind_mode.cpp \
+    col_mode.cpp
 
 HEADERS += \
-    AStar.h \
     BackTracking.h \
     Curso.h \
     Estudiante.h \
-    Lista.h \
-    Nodo.h \
     arquero.h \
     artillero.h \
     choosetower.h \
@@ -67,13 +67,14 @@ HEADERS += \
     updatetower.h \
     warningmaxlvl.h \
     evaluation.h \
-    lista.h \
-    nodo.h \
     cantaddtower.h \
     astaralgorithm.h \
     geneticalgorithm.h \
     estudiantefactory.h \
-    concreteestudiantefactory.h
+    concreteestudiantefactory.h \
+    end.h \
+    ind_mode.h \
+    col_mode.h
 
 FORMS += \
     choosetower.ui \
@@ -83,7 +84,10 @@ FORMS += \
     updateordestroy.ui \
     updatetower.ui \
     warningmaxlvl.ui \
-    cantaddtower.ui
+    cantaddtower.ui \
+    end.ui \
+    ind_mode.ui \
+    col_mode.ui
 
 DISTFILES += \
     images/tower1.png \

@@ -18,6 +18,10 @@
 #include <QLabel>
 #include <QPointF>
 
+/**
+ * @brief The Parcela class
+ */
+
 class Parcela : public QPushButton, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -46,25 +50,54 @@ private:
     QGraphicsPolygonItem *truesquare;
 
 public slots:
+    /**
+     * @brief Apunta al enemigo
+     */
     void adquire_target();
 
 
 public:
+    /**
+     * @brief Ataca al enemigo
+     * @param estudiante
+     */
     void attack_target(Estudiante* estudiante);
-    Parcela(QGraphicsItem * parent = 0, QLabel* contMuertes = 0);
+    /**
+     * @brief Parcela
+     * @param parent
+     * @param contMuertes
+     * @param creditos
+     */
+    Parcela(QGraphicsItem * parent = 0, QLabel* contMuertes = 0, QLabel* creditos = 0);
 
+    /**
+     * @brief Distancia al enemigo
+     * @param item
+     * @return distancia
+     */
     double distanceTo(QGraphicsItem *item);
+    /**
+     * @brief Tipo de torre
+     */
     void setType(QString);
 
     QLabel *contMuertes;
-
+    QLabel *creditos;
+//Getters
     Arquero* getArquero();
     Artillero* getArtillero();
     Mago* getMago();
     LanzaFuego* getLanzaFuego();
 
-
+    /**
+     * @brief Si esta ocupada
+     * @return true or false
+     */
     bool isOcupada();
+    /**
+     * @brief Settear si esta ocupada
+     * @param isocupada
+     */
     void setOcupada(bool isocupada);
 };
 

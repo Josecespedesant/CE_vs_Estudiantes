@@ -55,7 +55,7 @@ void GeneticAlgorithm::initializePopulation()
             std::vector<int> vidaVector(10);
             vidaVector = decimalToBinary(vidaRandom);
 
-            Harpia *harpia = factory->createHarpiaInstance(vidaVector);
+            Mercenario *harpia = factory->createMercenarioInstance(vidaVector);
 
             harpia->fitness = 0;
             poblacionInicial->append(harpia);
@@ -71,6 +71,7 @@ void GeneticAlgorithm::initializePopulation()
             poblacionInicial->append(mercenario);
         }
     }
+
 }
 
 
@@ -189,7 +190,7 @@ void GeneticAlgorithm::reproduction()
             }
 
 
-            Harpia *harpia = factory->createHarpiaInstance(vidaCruce);
+            Mercenario *harpia = factory->createMercenarioInstance(vidaCruce);
 
             harpia->fitness = 0;
             oleada->append(harpia);
@@ -221,8 +222,12 @@ void GeneticAlgorithm::reproduction()
 
 void GeneticAlgorithm::mutation()
 {
-
-    int pos = std::rand()%oleada->size();
+    if(oleada->size() == 30){
+    int pos = 0;
+    std::cout<<oleada->size()<<std::endl;
+    if(oleada->size()>0){
+        pos = std::rand()%oleada->size();
+    }
 
     int byteToChange = std::rand()%10;
 
@@ -248,12 +253,17 @@ void GeneticAlgorithm::mutation()
 
     oleada->at(pos)->setHealth(output);
 
+    }
 
 }
 
 void GeneticAlgorithm::inversion()
 {
-    int pos = std::rand()%oleada->size();
+    if(oleada->size() == 30){
+    int pos = 0;
+    if(oleada->size()>0){
+        pos = std::rand()%oleada->size();
+    }
 
     int byteToChange1 = std::rand()%10;
     int byteToChange2 = std::rand()%10;
@@ -302,6 +312,12 @@ void GeneticAlgorithm::inversion()
     }
 
     oleada->at(pos)->setHealth(output);
+    }
+}
+
+void GeneticAlgorithm::setNextPopulation(QList<Estudiante *> *newPop)
+{
+    poblacionInicial = newPop;
 }
 
 QList<Estudiante *>* GeneticAlgorithm::getOleada()

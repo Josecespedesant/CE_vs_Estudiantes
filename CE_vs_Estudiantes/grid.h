@@ -19,29 +19,64 @@ class Grid : public QDialog
     Q_OBJECT
 
 public:
+    /**
+     * @brief Constructor clase Grid
+     * @param parent
+     * @param player
+     */
     explicit Grid(QWidget *parent = nullptr, Player* player = NULL);
     void mousePressEvent(QMouseEvent *event);
     QGraphicsScene *scene;
 
     bool flagOfIntialization;
     QList<Estudiante*> *enemiesInValidation;
-    int F;
     QGraphicsPixmapItem* tablero[12][10] {};
+    int F;
 
+
+    int maxNumOfWaves;
+
+    Player* player;
     ~Grid();
 
 
 private slots:
+    /**
+     * @brief Se mejora o destruye la torre
+     */
     void handleButton();
+    /**
+     * @brief Genera oleadas
+     */
     void on_pushButton_clicked();
+    /**
+     * @brief Agrega a un enemigo a la pantalla
+     */
     void spawnEnemy();
+    /**
+     * @brief Verifica pos del enemigo
+     */
+    void verifyEnemyPos();
+    /**
+     * @brief info del Estudiante
+     */
     void infoZombie();
+    /**
+     * @brief Selecciona aprobación colectiva
+     */
+    void on_aprob_colectiva_clicked();
+
+    /**
+     * @brief Selecciona aprobación individual
+     */
+    void on_aprob_individual_clicked();
 
 private:
     QList<Estudiante*> *oleada;
     QTimer *spawnTimer;
     int enemiesSpawned;
     int maxNumberOfEnemies;
+    QTimer* verifTimer;
 
 
 
@@ -51,7 +86,6 @@ private:
     int numeroOleada;
 
     Ui::Grid *ui;
-    Player* player;
 };
 
 #endif // GRID_H

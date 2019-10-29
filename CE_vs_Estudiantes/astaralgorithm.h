@@ -8,6 +8,11 @@
 #define ROW 12
 #define COL 10
 
+/**
+ * @brief The AStarAlgorithm class
+ * Basada en https://www.geeksforgeeks.org/a-search-algorithm/
+ */
+
 class AStarAlgorithm{
 
 public:

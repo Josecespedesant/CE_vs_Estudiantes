@@ -4,6 +4,9 @@
 #include "estudiantefactory.h"
 #include "vector"
 
+/**
+ * @brief Clase concreta parte del patrón de diseño Abstract Factory
+ */
 class ConcreteEstudianteFactory
 {
 

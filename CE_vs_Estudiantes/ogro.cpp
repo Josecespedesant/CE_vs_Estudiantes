@@ -7,7 +7,7 @@ Ogro::Ogro(QGraphicsItem * parent)
     QPixmap *ogr = new QPixmap(":/images/ogrebits.png");
     STEP_SIZE = 0.5;
     setPixmap(ogr->scaled(50,50,Qt::KeepAspectRatio));
-
+    llego = false;
     setArcherResistance(1);
     setMageResistance(0);
     setFireResistance(0);

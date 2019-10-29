@@ -8,7 +8,7 @@ Grid * grid;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Player *player = new Player(1000);
+    Player *player = new Player(30);
 
     //MainWindow w;
     //w.show();

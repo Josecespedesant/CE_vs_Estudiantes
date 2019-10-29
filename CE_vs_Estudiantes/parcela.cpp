@@ -8,12 +8,14 @@
 #include "QLine"
 extern Grid *grid;
 
-Parcela::Parcela(QGraphicsItem *parent, QLabel* contMuertes):QPushButton(), QGraphicsPixmapItem(parent)
+Parcela::Parcela(QGraphicsItem *parent, QLabel* contMuertes, QLabel* creditos):QPushButton(), QGraphicsPixmapItem(parent)
 {
     fire = nullptr;
     gunner = nullptr;
     arch = nullptr;
     mago = nullptr;
+
+    this->creditos = creditos;
 
     this->contMuertes = contMuertes;
 
@@ -150,7 +152,7 @@ void Parcela::setType(QString tipo){
 
 void Parcela::attack_target(Estudiante * estudiante)
 {
-    std::cout<<estudiante->getHealth()<<std::endl;
+    //std::cout<<estudiante->getHealth()<<std::endl;
     timesShot++;
 
     if(timesShot > 10){
@@ -158,7 +160,7 @@ void Parcela::attack_target(Estudiante * estudiante)
     }
 
 
-    Evaluation *evaluation = new Evaluation(nullptr, this->contMuertes);
+    Evaluation *evaluation = new Evaluation(nullptr, this->contMuertes, this->creditos);
 
     evaluation->contadorDisparoEspecial = timesShot;
     evaluation->setGrid(grid);
@@ -235,12 +237,7 @@ void Parcela::adquire_target()
 
             if(this_dist<closest_dist){
                 closest_dist = this_dist;
-                //closest_pt = estudiante->pos();
                 has_target = true;
-                //Testear esto con Victoria
-
-
-
             }
             if(has_target){
                 QPointF posic(estudiante->pos().rx(),estudiante->pos().ry());

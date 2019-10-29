@@ -25,8 +25,9 @@
 #include <QMediaPlaylist>
 #include <QMediaPlayer>
 #include "geneticalgorithm.h"
-
-
+#include "end.h"
+#include "ind_mode.h"
+#include "col_mode.h"
 #include <random>
 
 Grid::Grid(QWidget *parent, Player* player) :
@@ -40,6 +41,9 @@ Grid::Grid(QWidget *parent, Player* player) :
     this->numeroOleada = 0;
     this->inversiones = 0;
     this->mutaciones = 0;
+    enemiesInValidation = new QList<Estudiante*>();
+
+    ui->pushButton->setEnabled(false);
 
     this->F = 0;
 
@@ -70,7 +74,7 @@ Grid::Grid(QWidget *parent, Player* player) :
     //Zona de aprobación
     int I = 0;
     for(int j=0; j<10;j++){
-        Parcela *zonaDeAprobacion = new Parcela(nullptr, ui->failed);
+        Parcela *zonaDeAprobacion = new Parcela(nullptr, ui->failed, ui->label_2);
 
         zonaDeAprobacion->setData(0,1);
         zonaDeAprobacion->setData(1,0);
@@ -98,7 +102,7 @@ Grid::Grid(QWidget *parent, Player* player) :
 
         for(int j=0; j<10;j++){
 
-            Parcela *parcela = new Parcela(nullptr, ui->failed);
+            Parcela *parcela = new Parcela(nullptr, ui->failed, ui->label_2);
 
             //0 guarda si esta ocupado o no
             parcela->setData(0,1);
@@ -134,7 +138,7 @@ Grid::Grid(QWidget *parent, Player* player) :
     //Zona de salida
     int B = 0;
     for(int j=0; j<10;j++){
-        Parcela *zonaDeSalida = new Parcela(nullptr, ui->failed);
+        Parcela *zonaDeSalida = new Parcela(nullptr, ui->failed, ui->label_2);
         zonaDeSalida->setData(0,1);
         zonaDeSalida->setData(1,11);
         zonaDeSalida->setData(2,j);
@@ -174,7 +178,7 @@ void Grid::handleButton(){
     if (pButton)
     {
         if(pButton->isCheckable()){
-            UpdateOrDestroy *upord = new UpdateOrDestroy(NULL, pButton, player, ui->label_2);
+            UpdateOrDestroy *upord = new UpdateOrDestroy(NULL, pButton, player, ui->label_2, this, pButton->QGraphicsPixmapItem::data(1).toInt(), pButton->QGraphicsPixmapItem::data(2).toInt(), oleada);
             upord->show();
         }
         if(!pButton->isCheckable()){
@@ -197,10 +201,19 @@ void Grid::mousePressEvent(QMouseEvent *event){
 
 //Genera oleada
 void Grid::on_pushButton_clicked(){
+
+    if(numeroOleada == maxNumOfWaves){
+        End*end = new End;
+        end->show();
+        hide();
+    }
+
     srand(time(NULL));
 
     oleada = new QList<Estudiante*>();
-    enemiesInValidation = new QList<Estudiante*>();
+
+    ui->pushButton->setEnabled(false);
+
 
     flagOfIntialization = true;
 
@@ -212,8 +225,85 @@ void Grid::on_pushButton_clicked(){
         }
     }
 
-    if(numeroOleada == 0){
+    if(numeroOleada>0){
 
+        GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm;
+
+
+        geneticAlgorithm->setNextPopulation(enemiesInValidation);
+        std::cout<<enemiesInValidation->size()<< std::endl;
+        geneticAlgorithm->fitnessFunction();
+        geneticAlgorithm->selection();
+        geneticAlgorithm->reproduction();
+
+
+        int probabilidadMutacion = 1 + (std::rand() % (100-1+1));
+        int probabilidadInversion = 1 + (std::rand() % (100-1+1));
+
+
+        if(probabilidadMutacion<=5){
+            geneticAlgorithm->mutation();
+            ui->mutaciones->setText(QString::number(++mutaciones));
+        }
+        if(probabilidadInversion == 6){
+            geneticAlgorithm->inversion();
+            ui->inversiones->setText(QString::number(++inversiones));
+        }
+
+        oleada = geneticAlgorithm->getOleada();
+        ui->generations->setText(QString::number(++numeroOleada));
+
+        for(int h = 0; h<3;h++){
+            AStarAlgorithm *astar = new AStarAlgorithm(tablero);
+
+            int randomSalida = std::rand()%10;
+            int randomLlegada = std::rand()%10;
+
+            std::pair<int, int> src = std::make_pair(11,randomSalida);
+            std::pair<int, int> dest = std::make_pair(0,randomLlegada);
+
+            astar->aStarSearch(matrix,src,dest);
+
+            QList<QPointF> path;
+
+            path = astar->getPath();
+
+            oleada->at(h)->setPath(path);
+            oleada->at(h)->typeofpath = 1;
+            oleada->at(h)->columnaLlegada = randomLlegada;
+            oleada->at(h)->coordFilas = astar->coordFilas;
+            oleada->at(h)->coordColumnas = astar->coordColumnas;
+
+        }
+
+
+        for(int h = 3; h<30; h++){
+            BackTracking *backtracking = new BackTracking(tablero);
+
+            int randomSalida = std::rand()%10;
+            int randomLlegada = std::rand()%10;
+
+            backtracking->setColumnaSalida(randomSalida);
+            backtracking->setColumnaLlegada(randomLlegada);
+            backtracking->setFilaSalida(11);
+
+            backtracking->solveMaze(matrix);
+
+            QList<QPointF> path;
+
+            path = backtracking->getPath();
+
+            oleada->at(h)->setPath(path);
+            oleada->at(h)->typeofpath = 0;
+            oleada->at(h)->coordFilas = backtracking->getCoordFilas();
+            oleada->at(h)->coordColumnas = backtracking->getCoordColumnas();
+            oleada->at(h)->setPath(path);
+        }
+
+
+    }
+
+    if(numeroOleada == 0){
         GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm;
 
         geneticAlgorithm->initializePopulation();
@@ -256,67 +346,44 @@ void Grid::on_pushButton_clicked(){
             path = astar->getPath();
 
             oleada->at(h)->setPath(path);
-
-            oleada->at(h)->typeofpath(1);
-
+            oleada->at(h)->typeofpath = 1;
+            oleada->at(h)->columnaLlegada = randomLlegada;
+            oleada->at(h)->coordFilas = astar->coordFilas;
+            oleada->at(h)->coordColumnas = astar->coordColumnas;
 
         }
 
 
         for(int h = 3; h<30; h++){
+            BackTracking *backtracking = new BackTracking(tablero);
 
             int randomSalida = std::rand()%10;
             int randomLlegada = std::rand()%10;
 
+            backtracking->setColumnaSalida(randomSalida);
+            backtracking->setColumnaLlegada(randomLlegada);
+            backtracking->setFilaSalida(11);
+
+            backtracking->solveMaze(matrix);
+
+            QList<QPointF> path;
+
+            path = backtracking->getPath();
+
+            oleada->at(h)->setPath(path);
+            oleada->at(h)->typeofpath = 0;
+            oleada->at(h)->coordFilas = backtracking->getCoordFilas();
+            oleada->at(h)->coordColumnas = backtracking->getCoordColumnas();
+            oleada->at(h)->setPath(path);
         }
     }
-
-
-  // BackTracking *backtracking = new BackTracking(tablero);
-    AStarAlgorithm *astar = new AStarAlgorithm(tablero);
-
-
-    std::pair<int, int> src = std::make_pair(11,randomSalida);
-    std::pair<int, int> dest = std::make_pair(0,randomLlegada);
-
-    astar->aStarSearch(matrix, src, dest);
-
-  // backtracking->setColumnaSalida(0);
-  // backtracking->setColumnaLlegada(randomLlegada);
-  // backtracking->setFilaSalida(11);
-
-  // backtracking->solveMaze(matrix);
-
-    QList<QPointF> pathforogro;
-
-    pathforogro = astar->getPath();
-  //  pathforogro = backtracking->getPath();
-
-    qDebug()<<pathforogro;
-
-  //  Ogro *ogro1 = new Ogro();
-    Mercenario *ogro1 = new Mercenario();
-
-    //ogro1->typeofpath = 0;
-    ogro1->typeofpath = 1;
-
-    ogro1->columnaLlegada = randomLlegada;
-
-   ogro1->coordFilas = astar->coordFilas;
-   ogro1->coordColumnas = astar->coordColumnas;
-
-    //ogro1->coordFilas = backtracking->getCoordFilas();
-  //  ogro1->coordColumnas = backtracking->getCoordColumnas();
-    ogro1->setPath(pathforogro);
-
-  //  connect(ogro1,SIGNAL(clicked()),this,SLOT(infoZombie()));
-
-    oleada->append(ogro1);
+    std::cout<<numeroOleada<<std::endl;
 
     enemiesSpawned = 0;
     maxNumberOfEnemies = oleada->size();
     connect(spawnTimer, SIGNAL(timeout()),this, SLOT(spawnEnemy()));
-    spawnTimer->start(3000);
+    spawnTimer->start(3500);
+
 }
 
 void Grid::spawnEnemy()
@@ -329,9 +396,23 @@ void Grid::spawnEnemy()
 
     if(enemiesSpawned>=maxNumberOfEnemies){
         spawnTimer->disconnect();
+         ui->pushButton->setEnabled(true);
         oleada->clear();
     }
 }
+
+void Grid::verifyEnemyPos()
+{
+    for(int i=0; i<enemiesInValidation->size();i++){
+        if(enemiesInValidation->at(i)->llego){
+            End* end = new End;
+            end->show();
+            verifTimer->disconnect();
+            return;
+        }
+    }
+}
+
 
 void Grid::infoZombie()
 {
@@ -342,3 +423,39 @@ void Grid::infoZombie()
     std::cout<<estudiante->getMageResistance()<<std::endl;
     std::cout<<estudiante->getArcherResistance()<<std::endl;
 }
+
+
+void Grid::on_aprob_colectiva_clicked()
+{
+
+
+    maxNumOfWaves = NULL;
+
+    col_mode *colectivo = new col_mode(nullptr, &maxNumOfWaves);
+    colectivo->show();
+
+    ui->pushButton->setEnabled(true);
+    ui->aprob_individual->setVisible(false);
+    ui->aprob_colectiva->setVisible(false);
+
+}
+
+void Grid::on_aprob_individual_clicked()
+{
+    ind_mode *individual = new ind_mode();
+    individual->show();
+
+
+    verifTimer = new QTimer(this);
+    connect(verifTimer, SIGNAL(timeout()),this, SLOT(verifyEnemyPos()));
+    verifTimer->start(1000);
+
+    ui->pushButton->setEnabled(true);
+    ui->aprob_individual->setVisible(false);
+    ui->aprob_colectiva->setVisible(false);
+
+}
+
+
+
+

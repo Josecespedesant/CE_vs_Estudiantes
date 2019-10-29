@@ -4,15 +4,21 @@
 #include "updatetower.h"
 #include "warningmaxlvl.h"
 
-UpdateOrDestroy::UpdateOrDestroy(QWidget *parent, Parcela *button, Player* player, QLabel* creditos) :
+UpdateOrDestroy::UpdateOrDestroy(QWidget *parent, Parcela* button, Player* player, QLabel* creditos, Grid *grid, int i, int j, QList<Estudiante*> *oleada) :
     QDialog(parent),
     ui(new Ui::UpdateOrDestroy)
 {
     ui->setupUi(this);
-
+    this->oleada = oleada;
     this->button = button;
     this->player = player;
     this->creditos = creditos;
+
+    this->grid = grid;
+
+    this->i = i;
+    this->j = j;
+
 }
 
 UpdateOrDestroy::~UpdateOrDestroy()
@@ -82,7 +88,7 @@ void UpdateOrDestroy::on_pushButton_clicked()
 
 void UpdateOrDestroy::on_pushButton_2_clicked()
 {
-    DestroyTower *dr = new DestroyTower(nullptr, button, player, creditos);
+    DestroyTower *dr = new DestroyTower(nullptr, button, player, creditos, grid, i, j, oleada);
     dr->show();
     hide();
 }

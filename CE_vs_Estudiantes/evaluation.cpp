@@ -2,7 +2,7 @@
 #include <QTimer>
 #include <qmath.h>
 
-Evaluation::Evaluation(QGraphicsItem *parent, QLabel * contMuertes)
+Evaluation::Evaluation(QGraphicsItem *parent, QLabel * contMuertes, QLabel *creditos)
 {
 
 
@@ -18,6 +18,7 @@ Evaluation::Evaluation(QGraphicsItem *parent, QLabel * contMuertes)
     distaneTravelled = 0;
     contadorDisparoEspecial = 0;
     this->contMuertes = contMuertes;
+    this->creditos = creditos;
 }
 
 double Evaluation::getMaxRange()
@@ -54,13 +55,21 @@ void Evaluation::move(){
     double totalDamage;
 
     if(this->objectName().toStdString().compare("Arch")==0){
-        totalDamage = damageDealt - estudianteObjetivo->getArcherResistance();
+        if(estudianteObjetivo->getArcherResistance() == 1000000){
+            totalDamage = 0;
+        }else{
+            totalDamage = damageDealt - estudianteObjetivo->getArcherResistance();
+        }
     }
     if(this->objectName().toStdString().compare("Arty")==0){
         totalDamage = damageDealt - estudianteObjetivo->getArtilleryResistance();
     }
     if(this->objectName().toStdString().compare("Mago")==0){
-        totalDamage = damageDealt - estudianteObjetivo->getMageResistance();
+        if(estudianteObjetivo->getMageResistance() == 1000000){
+            totalDamage = 0;
+        }else{
+            totalDamage = damageDealt - estudianteObjetivo->getMageResistance();
+        }
     }
     if(this->objectName().toStdString().compare("Fire")==0){
         totalDamage = damageDealt - estudianteObjetivo->getFireResistance();
@@ -68,15 +77,20 @@ void Evaluation::move(){
 
 
     if(contadorDisparoEspecial < 10){
-        totalDamage = totalDamage-1;
         QPixmap *pix = new QPixmap(":/images/normalshot2.png");
         setPixmap(pix->scaled(21,21,Qt::KeepAspectRatio));
     }
 
     if(contadorDisparoEspecial >= 10){
-        totalDamage = totalDamage+1;
-        QPixmap *pix = new QPixmap(":/images/questionmark.png");
-        setPixmap(pix->scaled(21,21,Qt::KeepAspectRatio));
+
+        if(estudianteObjetivo->getMageResistance() == 1000000 || estudianteObjetivo->getArcherResistance() == 1000000){
+            totalDamage = 0;
+        }
+        else{
+            totalDamage = totalDamage+1;
+            QPixmap *pix = new QPixmap(":/images/questionmark.png");
+            setPixmap(pix->scaled(21,21,Qt::KeepAspectRatio));
+        }
     }
 
 
@@ -112,6 +126,12 @@ void Evaluation::move(){
 
         if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
             grid->scene->removeItem(estudianteObjetivo);
+
+            grid->player->setCreditosTotales(grid->player->getCreditosTotales()+2);
+
+            creditos->setText(QString::number(grid->player->getCreditosTotales()));
+
+
             this->setVisible(false);
 
             contMuertes->setText(QString::number(++grid->F));

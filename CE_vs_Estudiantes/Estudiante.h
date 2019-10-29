@@ -6,6 +6,10 @@
 #include <qmath.h>
 #include "iostream"
 #include <QTimer>
+
+/**
+ * @brief Clase padre Estudiante
+ */
 class Estudiante : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 protected:
@@ -18,26 +22,18 @@ protected:
     int mageResistance;
     int fireResistance;
 
-
-
-    int healthVector[8];
-    int archerResistanceVector[8];
-    int artilleryResistanceVector[8];
-    int mageResistanceVector[8];
-    int fireResistanceVector[8];
-
-
-    QPointF dest;
-
-
     double STEP_SIZE;
 
 public slots:
+    /**
+     * @brief Mantener moviendose hacia adelante
+     */
     void move_forward(){
         QLineF line(pos(),dest);
         if(line.length()<5){
             point_index++;
-            if(point_index>=points.size()||dest.y()==0){
+            if(point_index>=points.size() && dest.y()==0){
+                llego = true;
                 return;
             }
             dest = points[point_index];
@@ -57,8 +53,17 @@ public:
     QList<int> coordFilas;
     QList<int> coordColumnas;
 
+    QPointF dest;
+
+    bool llego;
+
     int fitness;
 
+    /**
+     * @brief Convierte decimal a binario
+     * @param n
+     * @param binaryNum
+     */
     void decToBinary(int n, int binaryNum[10]){
         int i =0;
         while(n>0){
@@ -78,12 +83,19 @@ public:
         this->points = path;
     }
 
+    /**
+     * @brief Se obtiene el destino
+     * @return  dest
+     */
     QPointF getDest(){
         return dest;
     }
 
 
 
+    /**
+     * @brief Empieza a caminar
+     */
     void start(){
             setPos(points[0]);
             dest = points[1];
@@ -94,11 +106,15 @@ public:
             timer->start(200);
     }
 
+    /**
+     * @brief Gira en la dirección del punto
+     * @param p
+     */
     void rotateToPoint(QPointF p){
         QLineF line(pos(),p);
         setRotation(-1*line.angle());
     }
-
+// getters y setters
     int getHealth(){
         return health;
     }

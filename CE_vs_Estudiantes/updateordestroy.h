@@ -9,18 +9,37 @@
 namespace Ui {
 class UpdateOrDestroy;
 }
-
+/**
+ * @brief The UpdateOrDestroy class
+ */
 class UpdateOrDestroy : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit UpdateOrDestroy(QWidget *parent = 0,Parcela* button = 0, Player* player = 0, QLabel* creditos = 0);
+    /**
+     * @brief UpdateOrDestroy
+     * @param parent
+     * @param button
+     * @param player
+     * @param creditos
+     * @param grid
+     * @param i
+     * @param j
+     * @param oleada
+     */
+    explicit UpdateOrDestroy(QWidget *parent = nullptr, Parcela *button = NULL, Player* player = NULL, QLabel* creditos = NULL, Grid *grid = NULL, int i = 0, int j = 0, QList<Estudiante*> *oleada = nullptr);
     ~UpdateOrDestroy();
 
 private slots:
+    /**
+     * @brief Update
+     */
     void on_pushButton_clicked();
 
+    /**
+     * @brief Destroy
+     */
     void on_pushButton_2_clicked();
 
 private:
@@ -29,6 +48,12 @@ private:
     Parcela *button;
     Player *player;
     QLabel *creditos;
+    Grid* grid;
+    QList<Estudiante*> *oleada;
+    int matrix[12][10];
+
+    int i;
+    int j;
 
 };
 

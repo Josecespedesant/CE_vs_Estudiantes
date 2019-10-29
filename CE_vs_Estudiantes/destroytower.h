@@ -9,12 +9,15 @@ namespace Ui {
 class DestroyTower;
 }
 
+/**
+ * @brief Manejo de la destrucción de torres
+ */
 class DestroyTower : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit DestroyTower(QWidget *parent = nullptr, Parcela *button = NULL, Player *player = 0, QLabel* creditos = NULL);
+    explicit DestroyTower(QWidget *parent = nullptr, Parcela *button = NULL, Player* player = NULL, QLabel* creditos = NULL, Grid *grid = NULL, int i = 0, int j = 0, QList<Estudiante*> *oleada = nullptr);
     ~DestroyTower();
 
 private slots:
@@ -32,6 +35,13 @@ private:
     Parcela *button;
     Player *player;
     QLabel* creditos;
+
+    Grid* grid;
+    QList<Estudiante*> *oleada;
+    int matrix[12][10];
+
+    int i;
+    int j;
 };
 
 #endif // DESTROYTOWER_H
