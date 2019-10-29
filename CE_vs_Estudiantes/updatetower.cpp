@@ -21,16 +21,31 @@ UpdateTower::UpdateTower(QWidget *parent, Parcela *button, Player* player, QLabe
         ui->label_4->setText(QString::number(button->getArquero()->getNivelActual()));
     }
     else if(button->objectName().toStdString().compare("Arty") == 0){
+        if(button->getArtillero()->getNivelActual() == 1){
+            ui->label_5->setText("credit?");
+        }else{
+            ui->label_5->setText("credits?");
+        }
         ui->label_5->setText("credits?");
         ui->label_2->setText("Gunner");
         ui->label_4->setText(QString::number(button->getArtillero()->getNivelActual()+1));
     }
     else if(button->objectName().toStdString().compare("Mago") == 0){
+        if(button->getMago()->getNivelActual() == 1){
+            ui->label_5->setText("credit?");
+        }else{
+            ui->label_5->setText("credits?");
+        }
         ui->label_5->setText("credits?");
         ui->label_2->setText("Magician");
         ui->label_4->setText(QString::number(button->getMago()->getNivelActual()+1));
     }
     else if(button->objectName().toStdString().compare("Fire") == 0){
+        if(button->getLanzaFuego()->getNivelActual() == 1){
+            ui->label_5->setText("credit?");
+        }else{
+            ui->label_5->setText("credits?");
+        }
         ui->label_5->setText("credits?");
         ui->label_2->setText("Fire Launcher");
         ui->label_4->setText(QString::number(button->getLanzaFuego()->getNivelActual()+2));

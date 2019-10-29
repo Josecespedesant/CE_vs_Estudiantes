@@ -14,6 +14,20 @@ UpdateOrDestroy::UpdateOrDestroy(QWidget *parent, Parcela* button, Player* playe
     this->player = player;
     this->creditos = creditos;
 
+
+    if(button->objectName().toStdString().compare("Arch")==0){
+        ui->towerlvl->setText(QString::number(button->getArquero()->getNivelActual()));
+    }
+    if(button->objectName().toStdString().compare("Arty")==0){
+        ui->towerlvl->setText(QString::number(button->getArtillero()->getNivelActual()));
+    }
+    if(button->objectName().toStdString().compare("Mago")==0){
+        ui->towerlvl->setText(QString::number(button->getMago()->getNivelActual()));
+    }
+    if(button->objectName().toStdString().compare("Fire")==0){
+        ui->towerlvl->setText(QString::number(button->getLanzaFuego()->getNivelActual()));
+    }
+
     this->grid = grid;
 
     this->i = i;
@@ -32,7 +46,6 @@ void UpdateOrDestroy::on_pushButton_clicked()
     int max_lvl = 4;
     if(button->objectName().toStdString().compare("Arch") == 0){
         if(button->getArquero()->getNivelActual() < max_lvl){
-
             UpdateTower *updateTower = new UpdateTower(nullptr, button, player, creditos);
             updateTower->show();
             hide();
@@ -44,6 +57,7 @@ void UpdateOrDestroy::on_pushButton_clicked()
         }
     }
     else if(button->objectName().toStdString().compare("Arty") == 0){
+        ui->towerlvl->setText(QString::number(button->getArtillero()->getNivelActual()));
         if(button->getArtillero()->getNivelActual() < max_lvl){
 
             UpdateTower *updateTower = new UpdateTower(nullptr, button, player, creditos);
@@ -57,6 +71,7 @@ void UpdateOrDestroy::on_pushButton_clicked()
         }
     }
     else if(button->objectName().toStdString().compare("Mago") == 0){
+        ui->towerlvl->setText(QString::number(button->getMago()->getNivelActual()));
         if(button->getMago()->getNivelActual() < max_lvl){
 
             UpdateTower *updateTower = new UpdateTower(nullptr, button, player, creditos);
@@ -71,6 +86,7 @@ void UpdateOrDestroy::on_pushButton_clicked()
         }
     }
     else if(button->objectName().toStdString().compare("Fire") == 0){
+        ui->towerlvl->setText(QString::number(button->getLanzaFuego()->getNivelActual()));
         if(button->getLanzaFuego()->getNivelActual() < max_lvl){
 
             UpdateTower *updateTower = new UpdateTower(nullptr, button, player, creditos);
@@ -83,6 +99,7 @@ void UpdateOrDestroy::on_pushButton_clicked()
             hide();
         }
     }
+
 
 }
 

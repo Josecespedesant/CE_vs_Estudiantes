@@ -19,32 +19,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     arquero.cpp \
     artillero.cpp \
-    choosetower.cpp \
-    destroytower.cpp \
-    elfo_oscuro.cpp \
-    grid.cpp \
-    harpia.cpp \
-    lanzafuego.cpp \
-    mago.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    mercenario.cpp \
-    ogro.cpp \
-    player.cpp \
-    parcela.cpp \
-    sprite.cpp \
-    updateordestroy.cpp \
-    updatetower.cpp \
-    warningmaxlvl.cpp \
-    evaluation.cpp \
-    cantaddtower.cpp \
-    geneticalgorithm.cpp \
-    concreteestudiantefactory.cpp \
-    end.cpp \
-    ind_mode.cpp \
-    col_mode.cpp \
-    arquero.cpp \
-    artillero.cpp \
     cantaddtower.cpp \
     choosetower.cpp \
     col_mode.cpp \
@@ -59,7 +33,6 @@ SOURCES += \
     ind_mode.cpp \
     lanzafuego.cpp \
     mago.cpp \
-    main.cpp \
     mainwindow.cpp \
     mercenario.cpp \
     ogro.cpp \
@@ -69,94 +42,9 @@ SOURCES += \
     updateordestroy.cpp \
     updatetower.cpp \
     warningmaxlvl.cpp \
-    arquero.cpp \
-    artillero.cpp \
-    cantaddtower.cpp \
-    choosetower.cpp \
-    col_mode.cpp \
-    concreteestudiantefactory.cpp \
-    destroytower.cpp \
-    elfo_oscuro.cpp \
-    end.cpp \
-    evaluation.cpp \
-    geneticalgorithm.cpp \
-    grid.cpp \
-    harpia.cpp \
-    ind_mode.cpp \
-    lanzafuego.cpp \
-    mago.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    mercenario.cpp \
-    ogro.cpp \
-    parcela.cpp \
-    player.cpp \
-    sprite.cpp \
-    updateordestroy.cpp \
-    updatetower.cpp \
-    warningmaxlvl.cpp
+    main.cpp
 
 HEADERS += \
-    BackTracking.h \
-    Curso.h \
-    Estudiante.h \
-    arquero.h \
-    artillero.h \
-    choosetower.h \
-    destroytower.h \
-    elfo_oscuro.h \
-    grid.h \
-    harpia.h \
-    lanzafuego.h \
-    mago.h \
-    mainwindow.h \
-    mercenario.h \
-    ogro.h \
-    player.h \
-    parcela.h \
-    sprite.h \
-    updateordestroy.h \
-    updatetower.h \
-    warningmaxlvl.h \
-    evaluation.h \
-    cantaddtower.h \
-    astaralgorithm.h \
-    geneticalgorithm.h \
-    estudiantefactory.h \
-    concreteestudiantefactory.h \
-    end.h \
-    ind_mode.h \
-    col_mode.h \
-    arquero.h \
-    artillero.h \
-    astaralgorithm.h \
-    BackTracking.h \
-    cantaddtower.h \
-    choosetower.h \
-    col_mode.h \
-    concreteestudiantefactory.h \
-    Curso.h \
-    destroytower.h \
-    elfo_oscuro.h \
-    end.h \
-    Estudiante.h \
-    estudiantefactory.h \
-    evaluation.h \
-    geneticalgorithm.h \
-    grid.h \
-    harpia.h \
-    ind_mode.h \
-    lanzafuego.h \
-    mago.h \
-    mainwindow.h \
-    mercenario.h \
-    ogro.h \
-    parcela.h \
-    player.h \
-    sprite.h \
-    updateordestroy.h \
-    updatetower.h \
-    warningmaxlvl.h \
     arquero.h \
     artillero.h \
     astaralgorithm.h \

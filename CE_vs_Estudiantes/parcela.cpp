@@ -6,6 +6,7 @@
 #include "Estudiante.h"
 #include <QLineF>
 #include "QLine"
+
 extern Grid *grid;
 
 Parcela::Parcela(QGraphicsItem *parent, QLabel* contMuertes, QLabel* creditos):QPushButton(), QGraphicsPixmapItem(parent)
