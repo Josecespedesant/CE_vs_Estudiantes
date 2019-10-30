@@ -119,6 +119,7 @@ void Evaluation::move(){
 
 
     if(this->collidesWithItem(estudianteObjetivo)){
+        estudianteObjetivo->veces_hit++;
         estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-totalDamage);
 
         if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
