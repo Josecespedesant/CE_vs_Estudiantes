@@ -10,5 +10,7 @@ int Player::getCreditosTotales(){
 }
 
 void Player::setCreditosTotales(int creditos){
-    this->creditosTotales = creditos;
+
+ this->creditosTotales = creditos;
+
 }

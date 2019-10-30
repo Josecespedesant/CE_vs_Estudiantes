@@ -10,6 +10,7 @@
 #include <QTimer>
 #include "parcela.h"
 #include <QGraphicsPixmapItem>
+#include "geneticalgorithm.h"
 namespace Ui {
 class Grid;
 }
@@ -30,11 +31,14 @@ public:
 
     bool flagOfIntialization;
     QList<Estudiante*> *enemiesInValidation;
+    QList<int> *vidaInicialEnemigos;
+
     QGraphicsPixmapItem* tablero[12][10] {};
     int F;
 
     bool colective;
     int maxNumOfWaves;
+    int conta_torres;
 
     Player* player;
     ~Grid();
@@ -78,10 +82,9 @@ private:
     int maxNumberOfEnemies;
     QTimer* verifTimer;
 
-
-
     int mutaciones;
     int inversiones;
+
 
     int numeroOleada;
 

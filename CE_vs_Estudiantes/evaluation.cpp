@@ -48,9 +48,6 @@ void Evaluation::setCurso(Curso *curso)
 
 void Evaluation::move(){
 
-
-
-
     double damageDealt = (curso->getCantCreditos()+curso->getCantHorasReales()+curso->getNivelExigencia())/2;
     double totalDamage;
 
@@ -125,6 +122,9 @@ void Evaluation::move(){
         estudianteObjetivo->setHealth(estudianteObjetivo->getHealth()-totalDamage);
 
         if(estudianteObjetivo->getHealth()<=0 && estudianteObjetivo->scene()!=NULL){
+            if(estudianteObjetivo->veces_hit >grid->conta_torres){
+
+
             grid->scene->removeItem(estudianteObjetivo);
 
             grid->player->setCreditosTotales(grid->player->getCreditosTotales()+1);
@@ -136,6 +136,13 @@ void Evaluation::move(){
 
             contMuertes->setText(QString::number(++grid->F));
             return;
+            }
+
+            else{
+
+                std::cout<<"El estudiante no fue evaluado las suficientes veces"<<std::endl;
+                return;
+            }
         }
         this->setVisible(false);
         return;

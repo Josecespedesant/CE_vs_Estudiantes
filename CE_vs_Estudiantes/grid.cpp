@@ -24,7 +24,6 @@
 #include <QFont>
 #include <QMediaPlaylist>
 #include <QMediaPlayer>
-#include "geneticalgorithm.h"
 #include "end.h"
 #include "ind_mode.h"
 #include "col_mode.h"
@@ -44,8 +43,12 @@ Grid::Grid(QWidget *parent, Player* player) :
     enemiesInValidation = new QList<Estudiante*>();
     this->colective = false;
     ui->pushButton->setEnabled(false);
+    this->conta_torres = 0;
 
     this->F = 0;
+
+    oleada = new QList<Estudiante*>();
+    vidaInicialEnemigos = new QList<int>();
 
     ui->failed->setText(QString::number(F));
     ui->generations->setText(QString::number(numeroOleada));
@@ -53,6 +56,7 @@ Grid::Grid(QWidget *parent, Player* player) :
     ui->mutaciones->setText(QString::number(mutaciones));
 
     spawnTimer = new QTimer(this);
+    std::cout<<this->player->getCreditosTotales()<<std::endl;
 
     flagOfIntialization = false;
     QPalette paleta;
@@ -195,25 +199,26 @@ Grid::~Grid()
 }
 
 void Grid::mousePressEvent(QMouseEvent *event){
-    std::cout<<event->x()<<std::endl;
-    std::cout<<event->y()<<std::endl;
+    //std::cout<<event->x()<<std::endl;
+    //std::cout<<event->y()<<std::endl;
 }
 
 //Genera oleada
 void Grid::on_pushButton_clicked(){
+    std::cout<<"Click1"<<std::endl;
+    std::cout<<enemiesInValidation->size()<<std::endl;
 
-    if(numeroOleada == maxNumOfWaves && colective){
+    if(numeroOleada == maxNumOfWaves && colective == true){
         End*end = new End;
         end->show();
+
         hide();
     }
 
     srand(time(NULL));
 
-    oleada = new QList<Estudiante*>();
 
     ui->pushButton->setEnabled(false);
-
 
     flagOfIntialization = true;
 
@@ -225,17 +230,14 @@ void Grid::on_pushButton_clicked(){
         }
     }
 
-    if(numeroOleada>0){
+    if(numeroOleada>=1){
+        std::cout<<"Click12"<<std::endl;
+        std::cout<<enemiesInValidation->size()<<std::endl;
 
-        GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm;
-
-
-        geneticAlgorithm->setNextPopulation(enemiesInValidation);
-        std::cout<<enemiesInValidation->size()<< std::endl;
+        GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm(enemiesInValidation, vidaInicialEnemigos);
         geneticAlgorithm->fitnessFunction();
         geneticAlgorithm->selection();
         geneticAlgorithm->reproduction();
-
 
         int probabilidadMutacion = 1 + (std::rand() % (100-1+1));
         int probabilidadInversion = 1 + (std::rand() % (100-1+1));
@@ -251,6 +253,16 @@ void Grid::on_pushButton_clicked(){
         }
 
         oleada = geneticAlgorithm->getOleada();
+
+
+        enemiesInValidation->clear();
+        vidaInicialEnemigos->clear();
+
+        for(int m = 0; m<geneticAlgorithm->getOleada()->size(); m++){
+            vidaInicialEnemigos->append(geneticAlgorithm->getOleada()->at(m)->getHealth());
+        }
+
+
         ui->generations->setText(QString::number(++numeroOleada));
 
         for(int h = 0; h<3;h++){
@@ -304,8 +316,8 @@ void Grid::on_pushButton_clicked(){
     }
 
     if(numeroOleada == 0){
-        GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm;
 
+        GeneticAlgorithm *geneticAlgorithm = new GeneticAlgorithm();
         geneticAlgorithm->initializePopulation();
         geneticAlgorithm->fitnessFunction();
         geneticAlgorithm->selection();
@@ -327,6 +339,10 @@ void Grid::on_pushButton_clicked(){
         }
 
         oleada = geneticAlgorithm->getOleada();
+
+        for(int m = 0; m<oleada->size(); m++){
+            vidaInicialEnemigos->append(oleada->at(m)->getHealth());
+        }
 
         ui->generations->setText(QString::number(++numeroOleada));
 
@@ -377,12 +393,11 @@ void Grid::on_pushButton_clicked(){
             oleada->at(h)->setPath(path);
         }
     }
-    std::cout<<numeroOleada<<std::endl;
 
     enemiesSpawned = 0;
     maxNumberOfEnemies = oleada->size();
     connect(spawnTimer, SIGNAL(timeout()),this, SLOT(spawnEnemy()));
-    spawnTimer->start(1000);
+    spawnTimer->start(2000);
 
 }
 
@@ -391,36 +406,32 @@ void Grid::spawnEnemy()
     scene->addItem(oleada->at(enemiesSpawned));
 
     enemiesInValidation->append(oleada->at(enemiesSpawned));
-
     oleada->at(enemiesSpawned)->start();
 
-
     enemiesSpawned+=1;
-
-
-
     if(enemiesSpawned>=maxNumberOfEnemies){
+        std::cout<<"Click13"<<std::endl;
+        std::cout<<enemiesInValidation->size()<<std::endl;
         spawnTimer->disconnect();
         ui->pushButton->setEnabled(true);
         oleada->clear();
     }
-
-
 }
 
 void Grid::verifyEnemyPos()
 {
-    std::cout<<enemiesSpawned<<std::endl;
-    for(int i=0; i<enemiesInValidation->size();i++){
-            if(enemiesInValidation->at(i)->llego || enemiesInValidation->at(i)->y()<0){
-                End* end = new End;
+
+    if(!enemiesInValidation->isEmpty()){
+        for(int i=0; i<enemiesInValidation->size();i++){
+            if(enemiesInValidation->at(i)->llego == true){
+                End *end = new End;
                 end->show();
-                verifTimer->disconnect();
-                return;
-
-        }}
+                spawnTimer->disconnect();
+                hide();
+            }
+        }
+    }
 }
-
 
 void Grid::infoZombie()
 {
@@ -453,10 +464,9 @@ void Grid::on_aprob_individual_clicked()
     ind_mode *individual = new ind_mode();
     individual->show();
 
-
     verifTimer = new QTimer(this);
     connect(verifTimer, SIGNAL(timeout()),this, SLOT(verifyEnemyPos()));
-    verifTimer->start(500);
+    verifTimer->start(3000);
 
     ui->pushButton->setEnabled(true);
     ui->aprob_individual->setVisible(false);

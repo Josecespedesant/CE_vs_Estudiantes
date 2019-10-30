@@ -7,13 +7,22 @@ GeneticAlgorithm::GeneticAlgorithm()
     poblacionInicial = new QList<Estudiante*>();
     oleada = new QList<Estudiante*>();
     seleccionados = new QList<Estudiante*>();
-
-    generationCount = 0;
+    primer = true;
 }
 
-int GeneticAlgorithm::getGeneration()
+GeneticAlgorithm::GeneticAlgorithm(QList<Estudiante*> *nuevaOleada, QList<int> *vidaInicial)
 {
-    return generationCount;
+    poblacionInicial = nuevaOleada;
+
+    for(int i=0; i<poblacionInicial->size(); i++){
+        poblacionInicial->at(i)->setHealth(vidaInicial->at(i));
+    }
+
+    oleada = new QList<Estudiante*>();
+    seleccionados = new QList<Estudiante*>();
+    primer = false;
+
+    std::cout <<"------------------new gen--------------"<<std::endl;
 }
 
 void GeneticAlgorithm::initializePopulation()
@@ -24,10 +33,9 @@ void GeneticAlgorithm::initializePopulation()
 
     for(int i = 0; i<30; i++){
 
-
         int seleccionadorRandom = std::rand()%100;
 
-        if(seleccionadorRandom >= 0 && seleccionadorRandom < 50){
+        if(seleccionadorRandom >= 0 && seleccionadorRandom <= 49){
 
             int vidaRandom = 500 + (std::rand() % (1023-500+1));
             std::vector<int> vidaVector(10);
@@ -39,19 +47,20 @@ void GeneticAlgorithm::initializePopulation()
             poblacionInicial->append(ogro);
         }
 
-        if(seleccionadorRandom >= 50 && seleccionadorRandom < 70){
+        if(seleccionadorRandom >= 50 && seleccionadorRandom <= 69){
 
             int vidaRandom = 100 + (std::rand() % (1023-100+1));
+
             std::vector<int> vidaVector(10);
             vidaVector = decimalToBinary(vidaRandom);
-
             Elfo_oscuro *elfo = factory->createElfoInstance(vidaVector);
 
             elfo->fitness = 0;
             poblacionInicial->append(elfo);
         }
-        if(seleccionadorRandom >= 70 && seleccionadorRandom < 90){
+        if(seleccionadorRandom >= 70 && seleccionadorRandom <= 89){
             int vidaRandom = 100 + (std::rand() % (1023-100+1));
+
             std::vector<int> vidaVector(10);
             vidaVector = decimalToBinary(vidaRandom);
 
@@ -60,8 +69,9 @@ void GeneticAlgorithm::initializePopulation()
             harpia->fitness = 0;
             poblacionInicial->append(harpia);
         }
-        if(seleccionadorRandom >= 90 && seleccionadorRandom < 99){
+        if(seleccionadorRandom >= 90 && seleccionadorRandom <= 99){
             int vidaRandom = 200 + (std::rand() % (1023-200+1));
+
             std::vector<int> vidaVector(10);
             vidaVector = decimalToBinary(vidaRandom);
 
@@ -71,6 +81,12 @@ void GeneticAlgorithm::initializePopulation()
             poblacionInicial->append(mercenario);
         }
     }
+
+    if(primer == true && poblacionInicial->size()<30){
+        poblacionInicial->clear();
+        initializePopulation();
+    }
+
 
 }
 
@@ -91,6 +107,14 @@ std::vector<int> GeneticAlgorithm::decimalToBinary(int n)
 
 void GeneticAlgorithm::fitnessFunction()
 {
+    std::cout <<"PI"<<std::endl;
+    std::cout <<poblacionInicial->size()<<std::endl;
+
+    std::cout <<"Vida"<<std::endl;
+    for(int z =0;z<poblacionInicial->size(); z++){
+        std::cout << poblacionInicial->at(z)->getHealth() << std::endl;
+    }
+
     for(int i=0; i<poblacionInicial->size();i++){
         if(poblacionInicial->at(i)->getHealth()>=0 && poblacionInicial->at(i)->getHealth()<300){
             poblacionInicial->at(i)->fitness = 1;
@@ -125,6 +149,9 @@ void GeneticAlgorithm::reproduction()
 {
     ConcreteEstudianteFactory *factory = new ConcreteEstudianteFactory;
 
+    std::cout<<"Seleccionados size"<<std::endl;
+    std::cout<<seleccionados->size()<<std::endl;
+
     for(int i=0; i<30; i++){
 
         int seleccionadorRandom = std::rand()%100;
@@ -132,7 +159,6 @@ void GeneticAlgorithm::reproduction()
 
         int pos1 = std::rand()%seleccionados->size();
         int pos2 = std::rand()%seleccionados->size();
-
 
         if(seleccionadorRandom >= 0 && seleccionadorRandom < 50){
 
@@ -145,7 +171,7 @@ void GeneticAlgorithm::reproduction()
                 vidaCruce.at(z) = vidaPrimero.at(z);
             }
 
-            for(int z=0;z<9;z++){
+            for(int z=5;z<9;z++){
                 vidaCruce.at(z) = vidaSegundo.at(z);
             }
 
@@ -166,7 +192,7 @@ void GeneticAlgorithm::reproduction()
                 vidaCruce.at(z) = vidaPrimero.at(z);
             }
 
-            for(int z=0;z<9;z++){
+            for(int z=5;z<9;z++){
                 vidaCruce.at(z) = vidaSegundo.at(z);
             }
 
@@ -185,7 +211,7 @@ void GeneticAlgorithm::reproduction()
                 vidaCruce.at(z) = vidaPrimero.at(z);
             }
 
-            for(int z=0;z<9;z++){
+            for(int z=5;z<9;z++){
                 vidaCruce.at(z) = vidaSegundo.at(z);
             }
 
@@ -205,7 +231,7 @@ void GeneticAlgorithm::reproduction()
                 vidaCruce.at(z) = vidaPrimero.at(z);
             }
 
-            for(int z=0;z<9;z++){
+            for(int z=5;z<9;z++){
                 vidaCruce.at(z) = vidaSegundo.at(z);
             }
 
@@ -216,6 +242,26 @@ void GeneticAlgorithm::reproduction()
         }
 
 
+    }
+    std::cout<<"oleada size"<<std::endl;
+    std::cout<<oleada->size()<<std::endl;
+
+    if(primer == true&&oleada->size()<30){
+        oleada->clear();
+        poblacionInicial->clear();
+        seleccionados->clear();
+        initializePopulation();
+        fitnessFunction();
+        selection();
+        reproduction();
+    }
+
+    if(primer == false && oleada->size()<30){
+        oleada->clear();
+        seleccionados->clear();
+        fitnessFunction();
+        selection();
+        reproduction();
     }
 
 }
@@ -254,6 +300,7 @@ void GeneticAlgorithm::mutation()
         oleada->at(pos)->setHealth(output);
 
     }
+    std::cout <<"Entra5"<<std::endl;
 
 }
 
@@ -315,13 +362,9 @@ void GeneticAlgorithm::inversion()
     }
 }
 
-void GeneticAlgorithm::setNextPopulation(QList<Estudiante *> *newPop)
-{
-    poblacionInicial = newPop;
-}
-
 QList<Estudiante *>* GeneticAlgorithm::getOleada()
 {
+    std::cout <<"Entra8"<<std::endl;
     return oleada;
 }
 

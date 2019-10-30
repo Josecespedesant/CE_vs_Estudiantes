@@ -177,7 +177,7 @@ void ChooseTower::on_pushButton_clicked()
 
 
                     Arquero *arch = new Arquero();
-                    player->setCreditosTotales(player->getCreditosTotales()-2);
+                  //player->setCreditosTotales(player->getCreditosTotales()-2);
                     this->button->setCheckable(true);
                     QPixmap pixm(ui->pushButton->icon().pixmap(button->width(),button->height()));
                     arch->addPixmap(pixm);
@@ -186,6 +186,7 @@ void ChooseTower::on_pushButton_clicked()
                     this->button->setObjectName("Arch");
                     this->button->setType("Archer");
                     creditos->setText(QString::number(this->player->getCreditosTotales()));
+                    grid->conta_torres++;
 
                 }else{
                     std::cout<<"Si entra3"<<std::endl;
@@ -212,7 +213,7 @@ void ChooseTower::on_pushButton_clicked()
                     grid->enemiesInValidation->at(s)->setPath(astar->getPath());
 
                     Arquero *arch = new Arquero();
-                    player->setCreditosTotales(player->getCreditosTotales()-2);
+                   //player->setCreditosTotales(player->getCreditosTotales()-2);
                     this->button->setCheckable(true);
                     QPixmap pixm(ui->pushButton->icon().pixmap(button->width(),button->height()));
                     arch->addPixmap(pixm);
@@ -221,6 +222,8 @@ void ChooseTower::on_pushButton_clicked()
                     this->button->setObjectName("Arch");
                     this->button->setType("Archer");
                     creditos->setText(QString::number(this->player->getCreditosTotales()));
+                    grid->conta_torres++;
+
 
                 }else{
                     std::cout<<"Si entra3"<<std::endl;
@@ -244,8 +247,12 @@ void ChooseTower::on_pushButton_clicked()
     this->button->setObjectName("Arch");
     this->button->setType("Archer");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
+    grid->conta_torres++;
+
     hide();
+
 }
+
 
 void ChooseTower::on_pushButton_2_clicked()
 {
@@ -273,7 +280,7 @@ void ChooseTower::on_pushButton_2_clicked()
 
 
                     Artillero *arty = new Artillero();
-                    player->setCreditosTotales(player->getCreditosTotales()-4);
+                    //player->setCreditosTotales(player->getCreditosTotales()-4);
                     this->button->setCheckable(true);
                     QPixmap pixm(ui->pushButton_2->icon().pixmap(button->width(),button->height()));
                     arty->addPixmap(pixm);
@@ -282,6 +289,8 @@ void ChooseTower::on_pushButton_2_clicked()
                     this->button->setObjectName("Arty");
                     this->button->setType("Gunner");
                     creditos->setText(QString::number(this->player->getCreditosTotales()));
+                    grid->conta_torres++;
+
 
 
                 }else{
@@ -309,7 +318,7 @@ void ChooseTower::on_pushButton_2_clicked()
                     grid->enemiesInValidation->at(s)->setPath(astar->getPath());
 
                     Artillero *arty = new Artillero();
-                    player->setCreditosTotales(player->getCreditosTotales()-4);
+                    //player->setCreditosTotales(player->getCreditosTotales()-4);
                     this->button->setCheckable(true);
                     QPixmap pixm(ui->pushButton_2->icon().pixmap(button->width(),button->height()));
                     arty->addPixmap(pixm);
@@ -318,6 +327,8 @@ void ChooseTower::on_pushButton_2_clicked()
                     this->button->setObjectName("Arty");
                     this->button->setType("Gunner");
                     creditos->setText(QString::number(this->player->getCreditosTotales()));
+                    grid->conta_torres++;
+
 
 
                 }else{
@@ -328,7 +339,8 @@ void ChooseTower::on_pushButton_2_clicked()
                     return;
                 }
             }
-        }
+        }   grid->conta_torres++;
+
     }
     grid->tablero[i][j]->setData(0,0);
 
@@ -343,6 +355,7 @@ void ChooseTower::on_pushButton_2_clicked()
     this->button->setObjectName("Arty");
     this->button->setType("Gunner");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
+    grid->conta_torres++;
 
 
     hide();
@@ -372,17 +385,18 @@ void ChooseTower::on_pushButton_3_clicked()
                     grid->enemiesInValidation->at(s)->points.clear();
                     grid->enemiesInValidation->at(s)->setPath(backtrack->getPath());
 
-
                     Mago *mag = new Mago();
                     this->button->setCheckable(true);
-                    player->setCreditosTotales(player->getCreditosTotales()-4);
+                    //player->setCreditosTotales(player->getCreditosTotales()-4);
                     QPixmap pixm(ui->pushButton_3->icon().pixmap(button->width(),button->height()));
                     mag->addPixmap(pixm);
                     this->button->setIcon(*mag);
                     this->button->setIconSize(pixm.rect().size());
                     this->button->setObjectName("Mago");
                     this->button->setType("Mage");
-                    creditos->setText(QString::number(this->player->getCreditosTotales()));
+                    //creditos->setText(QString::number(this->player->getCreditosTotales()));
+                    grid->conta_torres++;
+
 
 
                 }else{
@@ -411,21 +425,23 @@ void ChooseTower::on_pushButton_3_clicked()
 
                     Mago *mag = new Mago();
                     this->button->setCheckable(true);
-                    player->setCreditosTotales(player->getCreditosTotales()-4);
+                    //player->setCreditosTotales(player->getCreditosTotales()-4);
                     QPixmap pixm(ui->pushButton_3->icon().pixmap(button->width(),button->height()));
                     mag->addPixmap(pixm);
                     this->button->setIcon(*mag);
                     this->button->setIconSize(pixm.rect().size());
                     this->button->setObjectName("Mago");
                     this->button->setType("Mage");
-                    creditos->setText(QString::number(this->player->getCreditosTotales()));
+                  //  creditos->setText(QString::number(this->player->getCreditosTotales()));
+                    grid->conta_torres++;
+
 
 
 
                 }else{
                     std::cout<<"Si entra3"<<std::endl;
                     CantAddTower *add = new CantAddTower;
-                    add->show();
+                    //add->show();
                     grid->tablero[i][j]->setData(0,1);
                     return;
                 }
@@ -445,6 +461,7 @@ void ChooseTower::on_pushButton_3_clicked()
     this->button->setObjectName("Mago");
     this->button->setType("Mage");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
+    grid->conta_torres++;
 
 
     hide();
@@ -477,20 +494,22 @@ void ChooseTower::on_pushButton_4_clicked()
 
                     LanzaFuego *fire = new LanzaFuego();
                     this->button->setCheckable(true);
-                    player->setCreditosTotales(player->getCreditosTotales()-6);
+                  //  player->setCreditosTotales(player->getCreditosTotales()-6);
                     QPixmap pixm(ui->pushButton_4->icon().pixmap(button->width(),button->height()));
                     fire->addPixmap(pixm);
                     this->button->setIcon(*fire);
                     this->button->setIconSize(pixm.rect().size());
                     this->button->setObjectName("Fire");
                     this->button->setType("Fire");
-                    creditos->setText(QString::number(this->player->getCreditosTotales()));
+                   // creditos->setText(QString::number(this->player->getCreditosTotales()));
+
+                    grid->conta_torres++;
 
 
                 }else{
                     std::cout<<"Si entra3"<<std::endl;
                     CantAddTower *add = new CantAddTower;
-                    add->show();
+                    //add->show();
                     grid->tablero[i][j]->setData(0,1);
                     return;
                 }
@@ -513,14 +532,16 @@ void ChooseTower::on_pushButton_4_clicked()
 
                     LanzaFuego *fire = new LanzaFuego();
                     this->button->setCheckable(true);
-                    player->setCreditosTotales(player->getCreditosTotales()-6);
+                  //  player->setCreditosTotales(player->getCreditosTotales()-6);
                     QPixmap pixm(ui->pushButton_4->icon().pixmap(button->width(),button->height()));
                     fire->addPixmap(pixm);
                     this->button->setIcon(*fire);
                     this->button->setIconSize(pixm.rect().size());
                     this->button->setObjectName("Fire");
                     this->button->setType("Fire");
-                    creditos->setText(QString::number(this->player->getCreditosTotales()));
+                   // creditos->setText(QString::number(this->player->getCreditosTotales()));
+
+                    grid->conta_torres++;
 
                 }else{
                     std::cout<<"Si entra3"<<std::endl;
@@ -544,6 +565,7 @@ void ChooseTower::on_pushButton_4_clicked()
     this->button->setObjectName("Fire");
     this->button->setType("Fire");
     creditos->setText(QString::number(this->player->getCreditosTotales()));
+    grid->conta_torres++;
 
 
     hide();

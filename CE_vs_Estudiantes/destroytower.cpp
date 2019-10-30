@@ -48,24 +48,29 @@ void DestroyTower::on_pushButton_clicked()
         creditos->setText(QString::number(this->player->getCreditosTotales()));
         grid->tablero[i][j]->setData(0,1);
         matrix[i][j] = 1;
+        grid->conta_torres--;
     }
     else if(button->objectName().toStdString().compare("Arty") == 0){
         player->setCreditosTotales(player->getCreditosTotales()+2);
         creditos->setText(QString::number(this->player->getCreditosTotales()));
         grid->tablero[i][j]->setData(0,1);
         matrix[i][j] = 1;
+        grid->conta_torres--;
     }
     else if(button->objectName().toStdString().compare("Mago") == 0){
         player->setCreditosTotales(player->getCreditosTotales()+2);
         creditos->setText(QString::number(this->player->getCreditosTotales()));
         grid->tablero[i][j]->setData(0,1);
         matrix[i][j] = 1;
+        grid->conta_torres--;
     }
     else if(button->objectName().toStdString().compare("Fire") == 0){
         player->setCreditosTotales(player->getCreditosTotales()+3);
         creditos->setText(QString::number(this->player->getCreditosTotales()));
         grid->tablero[i][j]->setData(0,1);
         matrix[i][j] = 1;
+        grid->conta_torres--;
+
     }
 
     hide();

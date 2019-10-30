@@ -48,7 +48,7 @@ public:
      * @return path
      */
     QList<QPointF> getPath(){
-        std::cout <<path.size()<<std::endl;
+     //   std::cout <<path.size()<<std::endl;
         return path;
     }
 

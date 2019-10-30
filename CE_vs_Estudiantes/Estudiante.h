@@ -58,7 +58,7 @@ public:
     QPointF dest;
 
     bool llego;
-
+    int veces_hit;
     int fitness;
 
     /**

@@ -15,11 +15,12 @@ private:
     QList<Estudiante*> *poblacionInicial;
     QList<Estudiante*> *seleccionados;
     QList<Estudiante*> *oleada;
-    int generationCount;
+    bool primer;
 
 
 public:
     GeneticAlgorithm();
+    GeneticAlgorithm(QList<Estudiante*> *nuevaOleada, QList<int> *vidaInicial);
 
     /**
      * @brief Convierte decimal a binario
@@ -27,12 +28,6 @@ public:
      * @return
      */
     std::vector<int> decimalToBinary(int n);
-    /**
-     * @brief Obtiene la generación actual
-     * @return
-     */
-    int getGeneration();
-
     /**
      * @brief Población inicial
      */
@@ -57,11 +52,6 @@ public:
      * @brief Inversion si ocurre
      */
     void inversion();
-    /**
-     * @brief Siguientes poblaciones
-     * @param newPop
-     */
-    void setNextPopulation(QList<Estudiante*>* newPop);
 
     /**
      * @brief Obtiene oleada actual

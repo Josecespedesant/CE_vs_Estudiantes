@@ -80,7 +80,7 @@ public:
 
     void tracePath(cell cellDetails[][COL], Pair dest)
     {
-        printf ("\nThe Path is ");
+      //  printf ("\nThe Path is ");
         int row = dest.first;
         int col = dest.second;
 
@@ -106,7 +106,7 @@ public:
             coordFilas.append(p.first);
             coordColumnas.append(p.second);
 
-            printf("-> (%d,%d) ",p.first,p.second);
+          //  printf("-> (%d,%d) ",p.first,p.second);
         }
         done = true;
 
